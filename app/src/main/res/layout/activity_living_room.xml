@@ -1,0 +1,191 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context="in.junctiontech.homeonline.LivingRoom"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_living"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+
+
+    <LinearLayout
+        android:id="@+id/lv_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="50"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="Select a room "
+            android:textColor="#006699"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#c6f4f1"></View>
+
+        <Spinner
+            android:id="@+id/property_spinner_total_living"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            />
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_below="@id/lv_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="80">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/living"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Living Room"
+                    android:textColor="#006699"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*"
+                    android:padding="10dp">
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/livingroom_ck_sofa"
+                            android:layout_span="1"
+
+                            android:text="Sofa" />
+
+                        <CheckBox
+                            android:id="@+id/livingroom_ck_diningtable"
+
+                            android:text="Dining Table" />
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/livingroom_ck_ac"
+
+                            android:text="AC" />
+
+                        <CheckBox
+                            android:id="@+id/livingroom_ck_shoerack"
+
+                            android:text="Shoe Rack" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/livingroom_ck_tv"
+
+                            android:text="TV" />
+
+                        <CheckBox
+                            android:id="@+id/livingroom_ck_falseceiling"
+
+                            android:text="False Ceiling" />
+
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:weightSum="100" >
+                <TextView
+                    android:id="@+id/livingroom_ck_flooringtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/livingroom_ck_falseceiling"
+                    android:padding="10dp"
+                    android:text="Flooring Type"
+                    android:textColor="#006699"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_weight="50"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#000000"></View>
+                <Spinner
+                    android:id="@+id/livingroom_spiner_flooringtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/flooring"
+                    android:layout_weight="50"/>
+            </LinearLayout>
+
+
+            <!--<Spinner
+
+                android:layout_below="@id/rg2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/bhk"
+                android:contentDescription="Select a field"></Spinner>
+
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rgliving"
+                android:layout_gravity="center"
+                android:onClick="send"
+                android:text="Send" />-->
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="myClick"
+        android:text="NEXT" />
+</LinearLayout>

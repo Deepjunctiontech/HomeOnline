@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="in.junctiontech.homeonline.STEP2"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Property Detail"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_property"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Basic Details"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_basic"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Advertiser Detail"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_advertiser"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Living Room"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_living"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bed Room"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_bed"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bath Room"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_bath"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kitchen"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_kitchen"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wash Dry"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_wash"/>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pricing"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_pricing"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Residential"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_residential"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Society"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_society"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Image Selection"
+                android:onClick="myClick"
+                android:id="@+id/detail_btn_image"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

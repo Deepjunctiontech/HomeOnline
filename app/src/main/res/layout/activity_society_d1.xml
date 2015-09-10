@@ -1,0 +1,312 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context="in.junctiontech.homeonline.SocietyData1"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:id="@+id/tv_societydata"
+        android:padding="10dp"
+
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="80">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/society_society_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/society_society_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="Society Name"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/society_building_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/society_society_text">
+
+                <EditText
+                    android:id="@+id/society_buildingy_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:hint="No of Building" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_boundarywall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/building_text"
+                    android:padding="10dp"
+                    android:text="Boundary Wall"
+                    android:textColor="#006699"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000" />
+                <RadioGroup
+                    android:id="@+id/society_rg_boundarywall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_boundarywall"
+                    android:orientation="vertical"
+
+                    android:padding="10dp"
+                    android:weightSum="3">
+
+                    <RadioButton
+                        android:id="@+id/society_rb_Barbed_wire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Barbed wire" />
+
+                    <RadioButton
+                        android:id="@+id/society_rb_grill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Grill" />
+
+                    <RadioButton
+                        android:id="@+id/society_rb_glass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Glass" />
+
+                    <RadioButton
+                        android:id="@+id/society_rb_electric_wiring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Electric Wiring" />
+                    <RadioButton
+                        android:id="@+id/society_rb_boundarywall_na"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="NA" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/society_rg_boundarywall"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/society_ck_gc"
+
+                            android:text="Gated Community" />
+
+                        <CheckBox
+                            android:id="@+id/society_ck_rs"
+
+                            android:text="Reg Society" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/society_ck_sot"
+
+                            android:text="Society OverHead tank" />
+
+                        <CheckBox
+                            android:id="@+id/society_ck_security"
+
+                            android:text="Security" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/society_ck_cctv"
+
+                            android:text="CCTV Surveillance" />
+
+                        <CheckBox
+                            android:id="@+id/society_ck_smoke"
+
+                            android:text="Smoke Detector" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/society_ck_fire"
+
+                            android:text="Fire Hydrant System" />
+
+                        <CheckBox
+                            android:id="@+id/society_ck_clubhouse"
+
+                            android:text="Club House" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/society_ck_swimmingpool"
+
+                            android:text="Swimming Pool" />
+
+                        <CheckBox
+                            android:id="@+id/society_ck_zym"
+
+                            android:text="GYM" />
+                    </TableRow>
+                    <CheckBox
+                        android:id="@+id/society_garden_lawn"
+
+                        android:text="Garden Lawn" />
+                    <CheckBox
+                        android:id="@+id/society_ck_multipurpose"
+
+                        android:text="Multi Purpose" />
+                </TableLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Play Area "
+                    android:textColor="#006699"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:stretchColumns="*">
+
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/society_batminton"
+                            android:text="Badminton Court " />
+
+                        <CheckBox
+                            android:id="@+id/society_volleyball"
+
+                            android:text="Volleyball Court" />
+                    </TableRow>
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/society_tennis"
+                            android:text="Tennis Court " />
+
+                        <CheckBox
+                            android:id="@+id/society_billiards"
+
+                            android:text="Billiards Table" />
+                    </TableRow>
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/society_Squash"
+                            android:text="Squash Court " />
+
+                        <CheckBox
+                            android:id="@+id/society_yogaroom"
+
+                            android:text="Yoga Room" />
+                    </TableRow>
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/society_table_tennis"
+                            android:text="Table Tennis " />
+
+                        <CheckBox
+                            android:id="@+id/society_saunna_steam"
+
+                            android:text="Sauna Steam" />
+                    </TableRow>
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/society_kids_play_area"
+                            android:text="Kids Play Area " />
+
+
+                    </TableRow>
+
+
+                </TableLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    <Button
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="myClick"
+        android:text="NEXT" />
+</LinearLayout>
+

@@ -1,0 +1,171 @@
+<resources>
+    <string name="app_name">DB</string>
+    <string name="btname"><u>Bath Room</u></string>
+    <string name="bdname"><u>Bed Room</u></string>
+    <string name="lvname"><u>Living Room</u></string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login_screen">LoginScreen</string>
+    <string name="title_activity_main_screen">MainScreen</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="title_activity_task">Appointment</string>
+
+    <array name="list">
+        <item>"VISHAL"</item>
+        <item>"ANKIT"</item>
+        <item>"ROHIT"</item>
+        <item>"SANDEEP"</item>
+        <item>"CHATRAPAL"</item>
+      </array>
+
+    <array name="no_of_lift">
+
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+
+    </array>
+
+    <array name="owner_type">
+
+        <item>"Freehold"</item>
+        <item>"Leasehold</item>
+        <item>"Power of Attorney"</item>
+        <item>"Co-Operative Society"</item>
+
+    </array>
+
+    <array name="preferred_visit_time">
+        <item>"By Appointment"</item>
+        <item>"Morning"</item>
+        <item>"Afternoon"</item>
+        <item>"Evening"</item>
+        <item>"Weekends"</item>
+        <item>"Any Time"</item>
+    </array>
+
+    <array name="lease_type">
+        <item>"Family"</item>
+        <item>"Bachelors"</item>
+        <item>"Company"</item>
+        <item>"No Restriction"</item>preferred_visit_time
+    </array>
+    <array name="bhk_type">
+        <item>"1 BHK"</item>
+        <item>"1 R"</item>
+        <item>"2 R"</item>
+        <item>"1 RK"</item>
+        <item>"2 RK"</item>
+        <item>"3 RK"</item>
+        <item>"4 RK"</item>
+
+        <item>"1.5 BHK"</item>
+        <item>"2 BHK"</item>
+        <item>"2.5 BHK"</item>
+        <item>"3 BHK"</item>
+        <item>"3.5 BHK"</item>
+        <item>"4 BHK"</item>
+        <item>"4.5 BHK"</item>
+        <item>"5 BHK"</item>
+        <item>"5+ BHK"</item>
+    </array>
+    <array name="plateform">
+        <item>"Simple"</item>
+        <item>"Granite"</item>
+        <item>"Marble"</item>
+        <item>"Wooden"</item>
+        <item>"Ceramic"</item>
+        <item>"Kota Sin"</item>
+
+    </array>
+    <array name="enterance">
+        <item>"North"</item>
+        <item>"East"</item>
+        <item>"South"</item>
+        <item>"West"</item>
+        <item>"North-East"</item>
+        <item>"North-West"</item>
+        <item>"South-East"</item>
+        <item>"South-West"</item>
+
+    </array>
+    <string-array name="property">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+        <item>"10"</item>
+    </string-array>
+
+    <array name="garden">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+    </array>
+    <array name="bhk">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+    </array>
+    <array name="flooring">
+        <item>"Marble"</item>
+        <item>"Wood"</item>
+        <item>"Ceramic"</item>
+        <item>"Stone"</item>
+        <item>"Laminate"</item>
+    </array>
+    <string name="title_activity_step1">Basic Details</string>
+    <string name="title_activity_step2">Details</string>
+    <string name="title_activity_living_room">Living Room</string>
+    <string name="title_activity_bed_room">Bed Room</string>
+    <string name="title_activity_bath_room">Bath Room</string>
+    <string name="title_activity_kitchen">Kitchen</string>
+    <string name="title_activity_wash_area">Wash Dry</string>
+    <string name="title_activity_pricing1">Pricing</string>
+    <string name="title_activity_residential_d1">Residential</string>
+    <string name="title_activity_society_d1">Society Data</string>
+    <string name="title_activity_image_selection">Image Selection</string>
+
+    <array name="property_type">
+        <item>"Flate"</item>
+        <item>"Apartment"</item>
+        <item>"Individual House"</item>
+        <item>"Villa"</item>
+        <item>"Farm House"</item>
+        <item>"Row House"</item>
+        <item>"Duplex"</item>
+        <item>"Service and Studio"</item>
+        <item>"Pent House"</item>
+    </array>
+    <array name="imageselection">
+
+    <item>"Living Room"</item>
+    <item>"Bed Room"</item>
+    <item>"Bath Room"</item>
+    <item>"Kitchen"</item>
+    <item>"Wash Dry"</item>
+</array>
+    <string name="title_activity_property_details">Property Details</string>
+    <string name="title_activity_upload_iamge">UploadIamge</string>
+    <string name="title_activity_gallery">Gallery</string>
+    <string name="title_activity_view_image">ViewImage</string>
+    <string name="title_activity_setting">Setting</string>
+    <string name="title_activity_about_us">About Us</string>
+    <string name="title_activity_help">Help</string>
+    <string name="title_activity_open_gallery">OpenGallery</string>
+    <string name="title_activity_advertiser_detail">Advertiser Detail</string>
+    <string name="title_activity_new_gallery">Gallery</string>
+
+</resources>

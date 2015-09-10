@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <CheckBoxPreference
+        android:background="#987654"
+        android:defaultValue="true"
+        android:key="checkbox"
+        android:paddingTop="16dp"
+        android:summary="ON / OFF "
+        android:title="Splash Screen" />
+</PreferenceScreen>

@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="in.junctiontech.homeonline.PropertyDetails">
+    <item android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/next"
+        android:title="dd" />
+    <item android:id="@+id/action_"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/save"
+        android:title="s" />
+</menu>

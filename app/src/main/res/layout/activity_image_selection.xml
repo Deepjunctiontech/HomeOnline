@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="5dp"
+    tools:context="in.junctiontech.homeonline.ImageSelection"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/image_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/image_select"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:padding="10dp"
+            android:text="Types Of Room"
+            android:textColor="#006699"
+            android:textSize="18dp"
+            android:textStyle="bold"
+
+            />
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#000000"></View>
+
+
+        <Spinner
+
+            android:id="@+id/image_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:entries="@array/imageselection"></Spinner>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/image_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/image_select_particular"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:padding="10dp"
+            android:text="Select Particular ID"
+            android:textColor="#006699"
+            android:textSize="18dp"
+            android:textStyle="bold"
+
+            />
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#000000"></View>
+
+
+        <Spinner
+
+            android:id="@+id/image_spinner_particular"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            ></Spinner>
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/openCamera"
+        android:layout_below="@id/image_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openCamera"
+        android:text="Open Camera"/>
+
+
+
+  <!--  <ImageView
+        android:padding="20dp"
+        android:layout_below="@id/openCamera"
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/a" /> -->
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OPEN GALLERY"
+        android:layout_below="@+id/openCamera"
+        android:layout_centerHorizontal="true"
+        android:onClick="send_To_Server"/>
+
+
+</LinearLayout>
