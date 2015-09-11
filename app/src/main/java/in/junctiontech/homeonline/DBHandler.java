@@ -695,10 +695,14 @@ public class DBHandler extends SQLiteOpenHelper {
             SharedPreferences sp = c.getSharedPreferences("Login", c.MODE_PRIVATE);
 
             final Map<String, Object> params = new HashMap<String, Object>();
-            params.put("userid", sp.getString("userID", "Not Found"));
             params.put("ap_id", cq.getString(cq.getColumnIndex("id")));
-            params.put("ap_mobile", cq.getString(cq.getColumnIndex("mobile")));
+            params.put("userid", sp.getString("userID", "Not Found"));
             params.put("ap_name", cq.getString(cq.getColumnIndex("name")));
+            params.put("ap_phone", cq.getString(cq.getColumnIndex("phone")));
+       //     params.put("ap_address",cq.getString(cq.getColumnIndex("address")));
+            params.put("ap_status", cq.getString(cq.getColumnIndex("status")));
+            params.put("ap_total_livingroom", cq.getString(cq.getColumnIndex("no_of_livingroom")));
+/*
             params.put("ap_builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
             params.put("ap_builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
             params.put("ap_carpet_area", cq.getString(cq.getColumnIndex("carpet_area")));
@@ -754,7 +758,7 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_total_kitchen", cq.getString(cq.getColumnIndex("no_of_kitchen")));
             params.put("ap_no_of_toilet", cq.getString(cq.getColumnIndex("no_of_bathroom")));
             params.put("ap_total_washdry", cq.getString(cq.getColumnIndex("no_of_washdry")));
-            params.put("ap_status", cq.getString(cq.getColumnIndex("status")));
+
             params.put("ap_building_no", cq.getString(cq.getColumnIndex("building_no")));
             params.put("ap_building_name", cq.getString(cq.getColumnIndex("building_name")));
             params.put("ap_flate_number", cq.getString(cq.getColumnIndex("flate_number")));
@@ -787,7 +791,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
             //   params.put("img", new FileBody[]{new FileBody(new File("")),new File(""),new File("")});
-
+*/
             Map<String, JSONObject> param_new = new HashMap<>();
             if (cq.getString(cq.getColumnIndex("no_of_livingroom")) != null) {
                 int livingroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_livingroom")));
@@ -825,7 +829,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 }
                 params.put("ap_living_room", param_new);
             }
-
+/*
         //    Log.d("Vishal", new JSONObject(params).toString());
             param_new = null;
             param_new = new HashMap<String, JSONObject>();
@@ -988,10 +992,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 params.put("ap_toilets", param_new);
             }
 
+*/
 
            Log.d("JSONDATA", new JSONObject(params).toString());
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/mobile/vishal.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://junctionerp.com/ankit/vishal.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -1031,6 +1036,25 @@ public class DBHandler extends SQLiteOpenHelper {
 
         }
         getImageURL();
+
+    }
+
+    public void deleteForParticularID() {
+
+        SQLiteDatabase db = super.getWritableDatabase();
+        String table[]={
+                "LivingRoom",
+                "WashDry",
+                "BedRoom",
+                "Kitchen",
+                "BathRoom",
+                "ImageSelection",
+                "Appointments"};
+        for(int i=0;i<table.length;i++) {
+           long j= db.delete(table[i], "id=?", new String[]{Appointment.clicked});
+            Toast.makeText(c,table[i]+ "="+j,Toast.LENGTH_LONG).show();
+        }
+
 
     }
 

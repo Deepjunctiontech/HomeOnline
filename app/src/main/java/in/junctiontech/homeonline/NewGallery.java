@@ -100,8 +100,12 @@ public class NewGallery extends AppCompatActivity {
 
             if (f[i].isDirectory()) {
             } else if (f[i].getName().endsWith(".jpg") && f[i].getName().contains(Appointment.clicked)&&f[i].getName().contains(room_name[click])) {
-                check = 1;
-                arr.add(f[i]);
+
+                String s[]=f[i].getName().split("_");
+                if(s[0].equalsIgnoreCase("ID="+Appointment.clicked)) {
+                    arr.add(f[i]);
+                    check = 1;
+                }
             }
         }
         if (check == 0)

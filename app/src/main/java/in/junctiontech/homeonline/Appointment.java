@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -21,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,9 +41,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Appointment extends AppCompatActivity {
 
@@ -57,6 +64,7 @@ public class Appointment extends AppCompatActivity {
     private RadioButton rb_cancelled;
     private RadioButton rb_reschedulled;
     private String ststus;
+    private RelativeLayout rl;
 
 
     @Override
@@ -65,17 +73,109 @@ public class Appointment extends AppCompatActivity {
         setContentView(R.layout.activity_appointment);
         db=new DBHandler(this,"DB",null,1);
         lv = (ListView) findViewById(R.id.listView);
-        RequestQueue rq = Volley.newRequestQueue(this);
+      final  RequestQueue rq = Volley.newRequestQueue(this);
+    rl= (RelativeLayout) findViewById(R.id.appointmentid);
+        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
 
-        String[][] abc=db.getAllData();
-        id=abc[3];
-        no=abc[2];
+        getDataFromDataBase();
+        //  mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
-       ma = new MyAdapter(Appointment.this, abc[0],
-                abc[1],
-                abc[2],abc[4],abc[5]);
 
-        lv.setAdapter(ma);
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/mobile/appointment.php",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                // for (int i = 0; i < 5; i++)
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+//                            Toast.makeText(Appointment.this,jsonObject.getString("status"),Toast.LENGTH_LONG).show();
+//                            Toast.makeText(Appointment.this,jsonObject.getString("code"),Toast.LENGTH_LONG).show();
+                                    // Toast.makeText(Appointment.this,jsonObject.getString("data"),Toast.LENGTH_LONG).show();
+                                    JSONObject js = new JSONObject(jsonObject.getString("data"));
+                                    //         Toast.makeText(Appointment.this,js.getString("userID"),Toast.LENGTH_LONG).show();
+
+                                    //   Toast.makeText(Appointment.this,response,Toast.LENGTH_LONG).show();
+
+                                    JSONArray obj = js.getJSONArray("appointment_list");
+
+
+//                            Toast.makeText(Appointment.this,obj.length()+"",Toast.LENGTH_LONG).show();
+                                    for (int i = 0; i < obj.length(); i++) {
+                                        JSONObject n = obj.getJSONObject(i);
+//                                Toast.makeText(Appointment.this,n.getString("name"),Toast.LENGTH_LONG).show();
+//                                Toast.makeText(Appointment.this,n.getString("phone"),Toast.LENGTH_LONG).show();
+//                                Toast.makeText(Appointment.this,n.getString("address"),Toast.LENGTH_LONG).show();
+
+                                        db.saveData(n.getString("appointmentID"),
+                                                n.getString("name"),
+                                                n.getString("address"),
+                                                n.getString("phone"),
+                                                n.getString("appointmentStatus"),
+                                                n.getString("appointmentTime"));
+                                    }
+                                } catch (JSONException e) {
+                                    Toast.makeText(Appointment.this, "error", Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                                getDataFromDataBase();
+                               // update();
+                                mSwipeRefreshLayout.setRefreshing(false);
+
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //for (int i = 0; i < 2; i++)
+                         //   Toast.makeText(Appointment.this, error.toString(), Toast.LENGTH_LONG).show();
+                      //  getDataFromDataBase();
+//                        getDataFromDataBase();
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+                        Snackbar.make(rl, "No Connection", Snackbar.LENGTH_LONG).setAction("Retry", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mSwipeRefreshLayout.setRefreshing(true);
+                                onRefresh();
+                                // Toast.makeText(LoginScreen.this, get_user + "\n" + get_pass, Toast.LENGTH_LONG).show();
+                            }
+                        }).show();
+
+                    }
+
+
+                }) {
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        SharedPreferences sp = Appointment.this.getSharedPreferences("Login", Appointment.this.MODE_PRIVATE);
+                        params.put("userid", sp.getString("userID", "Not Found"));
+                        //params.put("userid", "1");
+                        return params;
+                    }
+
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/x-www-form-urlencoded");
+                        headers.put("abc", "value");
+                        return headers;
+                    }
+                };
+// Add the request to the RequestQueue.
+                rq.add(stringRequest);
+
+
+            }
+        });
+
+
        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
            @Override
            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
@@ -100,95 +200,38 @@ public class Appointment extends AppCompatActivity {
         });
 
 
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/mobile/appointment.php",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                       // for (int i = 0; i < 5; i++)
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-//                            Toast.makeText(Appointment.this,jsonObject.getString("status"),Toast.LENGTH_LONG).show();
-//                            Toast.makeText(Appointment.this,jsonObject.getString("code"),Toast.LENGTH_LONG).show();
-                           // Toast.makeText(Appointment.this,jsonObject.getString("data"),Toast.LENGTH_LONG).show();
-                            JSONObject js = new JSONObject(jsonObject.getString("data"));
-                   //         Toast.makeText(Appointment.this,js.getString("userID"),Toast.LENGTH_LONG).show();
-
-                         //   Toast.makeText(Appointment.this,response,Toast.LENGTH_LONG).show();
-
-                       JSONArray obj=js.getJSONArray("appointment_list");
-
-
-//                            Toast.makeText(Appointment.this,obj.length()+"",Toast.LENGTH_LONG).show();
-                            for (int i = 0; i < obj.length(); i++)
-                            {
-                                JSONObject n=obj.getJSONObject(i);
-//                                Toast.makeText(Appointment.this,n.getString("name"),Toast.LENGTH_LONG).show();
-//                                Toast.makeText(Appointment.this,n.getString("phone"),Toast.LENGTH_LONG).show();
-//                                Toast.makeText(Appointment.this,n.getString("address"),Toast.LENGTH_LONG).show();
-
-                                db.saveData(n.getString("appointmentID"),
-                                        n.getString("name"),
-                                        n.getString("address"),
-                                        n.getString("phone"),
-                                        n.getString("appointmentStatus"),
-                                        n.getString("appointmentTime"));
-                            }
-                            String[][] abc=db.getAllData();
-                            id=abc[3];
-                            no=abc[2];
-                            ma = new MyAdapter(Appointment.this, abc[0],
-                                    abc[1],
-                                    abc[2],abc[4],abc[5]);
-
-                            lv.setAdapter(ma);
-                            ma.notifyDataSetChanged();
-
-
-                        } catch (JSONException e) {
-                            Toast.makeText(Appointment.this,"error",Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
-
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                for (int i = 0; i <2; i++)
-                Toast.makeText(Appointment.this,error.toString(),Toast.LENGTH_LONG).show();
-            }
-
-
-
-        }){
-
-            @Override
-            protected Map<String, String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                  SharedPreferences sp =Appointment.this.getSharedPreferences("Login", Appointment.this.MODE_PRIVATE);
-                   params.put("userid", sp.getString("userID", "Not Found"));
-                //params.put("userid", "1");
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> headers = new HashMap<String, String>();
-                headers.put("Content-Type","application/x-www-form-urlencoded");
-                headers.put("abc", "value");
-                return headers;
-            }
-        };
-// Add the request to the RequestQueue.
-        rq.add(stringRequest);
-
-
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void update()
+    {
+        String[][] abc=db.getAllData();
+        ma.updateTitle(abc[0]);
+        ma.updateAddress(abc[1]);
+        ma.updatePhone(abc[2]);
+        ma.updateStatus(abc[4]);
+        ma.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        update();
+
+    }
+
+    public void getDataFromDataBase()
+    {
+        String[][] abc=db.getAllData();
+        id=abc[3];
+        no=abc[2];
+      //  ma=null;
+        ma = new MyAdapter(Appointment.this, abc[0],
+                abc[1],
+                abc[2],abc[4],abc[5]);
+
+        lv.setAdapter(ma);
     }
 
 
@@ -228,12 +271,46 @@ public class Appointment extends AppCompatActivity {
                 break;
 
             case R.id.delete:
+                db.deleteForParticularID();
+                deleteImage("thumbnail");
+                deleteImage("DB");
+                getDataFromDataBase();
                 s="Delete";
                 break;
 
         }
         Toast.makeText(this,s,Toast.LENGTH_LONG).show();
         return super.onContextItemSelected(item);
+    }
+
+    private void deleteImage(String folder) {
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                folder);
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return ;
+            }
+        }
+        File[] f = mediaStorageDir.listFiles();
+        int check = 0;
+        for (int i = 0; i < f.length; i++) {
+
+            if (f[i].isDirectory()) {
+            } else if (f[i].getName().endsWith(".jpg") && f[i].getName().contains(Appointment.clicked)) {
+                String s[] = f[i].getName().split("_");
+                if (s[0].equalsIgnoreCase("ID=" + Appointment.clicked)) {
+                    f[i].delete();
+                    check = 1;
+
+                }
+            }
+        }
+        if (check == 0)
+            Toast.makeText(this, "NO IMAGE FOUND", Toast.LENGTH_LONG).show();
+
+
     }
 
     private void completeStatus() {
@@ -338,6 +415,19 @@ public class Appointment extends AppCompatActivity {
         {
             this.status=status;
         }
+        public void updateTitle(String []title)
+        {
+            this.title=title;
+        }
+        public void updateAddress(String []address)
+        {
+            this.address=address;
+        }
+        public void updatePhone(String []phone)
+        {
+            this.phone=phone;
+        }
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -418,11 +508,11 @@ public class Appointment extends AppCompatActivity {
                 db.setStatus(ststus);
 
             }
+            update();
+      //      String[][] abc=db.getAllData();
 
-            String[][] abc=db.getAllData();
-
-            ma.updateStatus(abc[4]);
-            ma.notifyDataSetChanged();
+    //        ma.updateStatus(abc[4]);
+    //        ma.notifyDataSetChanged();
 
 
         }

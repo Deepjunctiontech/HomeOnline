@@ -1,13 +1,16 @@
 package in.junctiontech.homeonline;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ public class STEP1 extends AppCompatActivity {
 
     private DBHandler db;
 
+    private Button blablabla;
 
     private String property_array[];
     private TextView name;
@@ -32,7 +36,22 @@ public class STEP1 extends AppCompatActivity {
         setContentView(R.layout.activity_step1);
         db = new DBHandler(this, "DB", null, 1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       /* blablabla= (Button) findViewById(R.id.blablabla);
 
+
+        blablabla.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    blablabla.setBackgroundColor(Color.RED);
+                } else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    blablabla.setBackgroundColor(Color.BLUE);
+                }
+                return false;
+            }
+
+        });*/
 
         name = (TextView) findViewById(R.id.tv_basicDetail);
         name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
