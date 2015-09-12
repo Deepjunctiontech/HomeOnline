@@ -701,7 +701,7 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_phone", cq.getString(cq.getColumnIndex("phone")));
        //     params.put("ap_address",cq.getString(cq.getColumnIndex("address")));
             params.put("ap_status", cq.getString(cq.getColumnIndex("status")));
-            params.put("ap_total_livingroom", cq.getString(cq.getColumnIndex("no_of_livingroom")));
+           // params.put("ap_total_livingroom", cq.getString(cq.getColumnIndex("no_of_livingroom")));
 /*
             params.put("ap_builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
             params.put("ap_builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
@@ -805,6 +805,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     if (l.moveToNext()) {
 
                         Map<String, Object> param1 = new HashMap<String, Object>();
+                        param1.put("id","LivingRoom" + (1 + i));
                         param1.put("sofa", l.getString(l.getColumnIndex("sofa")));
                         param1.put("dining_table", l.getString(l.getColumnIndex("dining_table")));
                         param1.put("ac", l.getString(l.getColumnIndex("ac")));
@@ -816,7 +817,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
                         JSONObject obj1 = new JSONObject(param1);
 
-                        param_new.put("livingRoom" + (1 + i), obj1);
+                        param_new.put("LivingRoom" + (1 + i), obj1);
 
                         //      JSONObject obj2 = new JSONObject(param_new);
 
@@ -829,8 +830,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 }
                 params.put("ap_living_room", param_new);
             }
-/*
-        //    Log.d("Vishal", new JSONObject(params).toString());
+
+            Log.d("Vishal", new JSONObject(params).toString());
             param_new = null;
             param_new = new HashMap<String, JSONObject>();
             if (cq.getString(cq.getColumnIndex("no_of_washdry")) != null) {
@@ -846,6 +847,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     if (l.moveToNext()) {
 
                         Map<String, Object> param1 = new HashMap<String, Object>();
+                        param1.put("id","WashDry" + (1 + i));
                         param1.put("washing_machine", l.getString(l.getColumnIndex("washdry_washing_machinet")));
                         param1.put("flooring_type", l.getString(l.getColumnIndex("washdry_flooring_type")));
 
@@ -883,6 +885,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     if (l.moveToNext()) {
 
                         Map<String, Object> param1 = new HashMap<String, Object>();
+                        param1.put("id","Kitchen" + (1 + i));
                         param1.put("cabinet", l.getString(l.getColumnIndex("kitchen_cabinetes")));
                         param1.put("gas_pipeline", l.getString(l.getColumnIndex("kitchen_gas_pipeline")));
                         param1.put("refrigerator", l.getString(l.getColumnIndex("kitchen_refridgerator")));
@@ -924,6 +927,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     if (l.moveToNext()) {
 
                         Map<String, Object> param1 = new HashMap<String, Object>();
+                        param1.put("id","BedRoom" + (1 + i));
                         param1.put("bed", l.getString(l.getColumnIndex("bed")));
                         param1.put("ac", l.getString(l.getColumnIndex("ac")));
                         param1.put("tv", l.getString(l.getColumnIndex("tv")));
@@ -966,6 +970,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     if (l.moveToNext()) {
 
                         Map<String, Object> param_living = new HashMap<String, Object>();
+                        param_living.put("id","Toilet" + (1 + i));
                         param_living.put("type", l.getString(l.getColumnIndex("bathroom_bath_type")));
                         param_living.put("style", l.getString(l.getColumnIndex("bathroom_toilet")));
                         param_living.put("hot_water_supply", l.getString(l.getColumnIndex("bathroom_hot_water_supply")));
@@ -979,7 +984,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
                         JSONObject obj1 = new JSONObject(param_living);
 
-                        param_new.put("BathRoom" + (i + 1), obj1);
+                        param_new.put("Toilet" + (i + 1), obj1);
 
                         //  JSONObject obj2 = new JSONObject(param_new);
 
@@ -992,7 +997,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 params.put("ap_toilets", param_new);
             }
 
-*/
+
 
            Log.d("JSONDATA", new JSONObject(params).toString());
 

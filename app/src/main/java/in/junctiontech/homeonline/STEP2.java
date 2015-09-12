@@ -37,57 +37,58 @@ public class STEP2 extends AppCompatActivity {
         String status_basic_detail=db.getButtonStatus("Appointments","status_basic_detail");
         if(status_basic_detail==null);
         else if(status_basic_detail.equalsIgnoreCase("true"))
-            detail_btn_basic.setBackgroundColor(Color.GREEN);
+            detail_btn_basic.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_basic_property=db.getButtonStatus("Appointments","status_property_detail");
         if(status_basic_property==null);
         else if(status_basic_property.equalsIgnoreCase("true"))
-            detail_btn_property.setBackgroundColor(Color.GREEN);
+            detail_btn_property.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
+           // detail_btn_property.setBackgroundColor(Color.GREEN);
 
         String status_basic_advertiser=db.getButtonStatus("Appointments","status_advertiser_detail");//
         if(status_basic_advertiser==null);
         else if(status_basic_advertiser.equalsIgnoreCase("true"))
-            detail_btn_advertiser.setBackgroundColor(Color.GREEN);
+            detail_btn_advertiser.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_living=db.getButtonStatus("LivingRoom","status_living");
         if(status_living==null);
         else if(status_living.equalsIgnoreCase("true"))
-            detail_btn_living.setBackgroundColor(Color.GREEN);
+            detail_btn_living.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_bed=db.getButtonStatus("BedRoom","status_bed");
         if(status_bed==null);
         else if(status_bed.equalsIgnoreCase("true"))
-            detail_btn_bed.setBackgroundColor(Color.GREEN);
+            detail_btn_bed.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_bath=db.getButtonStatus("BathRoom","status_bath");
         if(status_bath==null);
         else if(status_bath.equalsIgnoreCase("true"))
-            detail_btn_bath.setBackgroundColor(Color.GREEN);
+            detail_btn_bath.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_kitchen=db.getButtonStatus("Kitchen","status_kitchen");
         if(status_kitchen==null);
         else if(status_kitchen.equalsIgnoreCase("true"))
-            detail_btn_kitchen.setBackgroundColor(Color.GREEN);
+            detail_btn_kitchen.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_wash=db.getButtonStatus("WashDry","status_wash");
         if(status_wash==null);
         else if(status_wash.equalsIgnoreCase("true"))
-            detail_btn_wash.setBackgroundColor(Color.GREEN);
+            detail_btn_wash.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_pricing=db.getButtonStatus("Appointments","status_pricing");
         if(status_pricing==null);
         else if(status_pricing.equalsIgnoreCase("true"))
-            detail_btn_pricing.setBackgroundColor(Color.GREEN);
+            detail_btn_pricing.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_residential=db.getButtonStatus("Appointments","status_residential");
         if(status_residential==null);
         else if(status_residential.equalsIgnoreCase("true"))
-            detail_btn_residential.setBackgroundColor(Color.GREEN);
+            detail_btn_residential.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_society=db.getButtonStatus("Appointments","status_society");
         if(status_society==null);
         else if(status_society.equalsIgnoreCase("true"))
-            detail_btn_society.setBackgroundColor(Color.GREEN);
+            detail_btn_society.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
     }
     @Override
     public boolean onSupportNavigateUp() {

@@ -1,5 +1,7 @@
 package in.junctiontech.homeonline;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,9 +13,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class STEP1 extends AppCompatActivity {
 
@@ -27,14 +32,29 @@ public class STEP1 extends AppCompatActivity {
     private String property_array[];
     private TextView name;
     private EditText step1_et_locality_edit;
-    private EditText step1_et_sublocality_edit, step1_et_pincode_edit, step1_et_landmark_edit, step1_et_building_no_edit,
-            step1_et_flate_no_edit, step1_et_building_name_edit, step1_et_wing_edit, step1_et_street_edit, step1_et_possesion_date_edit;
+    private EditText step1_et_sublocality_edit;
+    private EditText step1_et_pincode_edit;
+    private EditText step1_et_landmark_edit;
+    private EditText step1_et_building_no_edit;
+    private EditText step1_et_flate_no_edit;
+    private EditText step1_et_building_name_edit;
+    private EditText step1_et_wing_edit;
+    private EditText step1_et_street_edit;
+    private TextView step1_et_possesion_date_edit;
+    private Calendar calendar;
+    private int year,month,day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step1);
         db = new DBHandler(this, "DB", null, 1);
+
+        calendar=Calendar.getInstance();
+        year=calendar.get(Calendar.YEAR);
+        month=calendar.get(Calendar.MONTH);
+        day=calendar.get(Calendar.DAY_OF_MONTH);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        /* blablabla= (Button) findViewById(R.id.blablabla);
 
@@ -71,7 +91,7 @@ public class STEP1 extends AppCompatActivity {
         step1_et_flate_no_edit = (EditText) findViewById(R.id.step1_et_flate_no_edit);
         step1_et_wing_edit = (EditText) findViewById(R.id.step1_et_wing_edit);
         step1_et_street_edit = (EditText) findViewById(R.id.step1_et_street_edit);
-        step1_et_possesion_date_edit = (EditText) findViewById(R.id.step1_et_possesion_date_edit);
+        step1_et_possesion_date_edit = (TextView) findViewById(R.id.step1_et_possesion_date_edit);
 
 
     }
@@ -173,5 +193,28 @@ public class STEP1 extends AppCompatActivity {
 
     }
 
+    public void selectPossessionDate(View v)
+    {
+        showDialog(999);
+        Toast.makeText(this,"Date",Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener= new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            step1_et_possesion_date_edit.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
+
+        }
+    };
 
 }

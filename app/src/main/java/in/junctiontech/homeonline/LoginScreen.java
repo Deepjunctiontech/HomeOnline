@@ -1,5 +1,7 @@
 package in.junctiontech.homeonline;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +12,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -29,10 +33,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class LoginScreen extends AppCompatActivity {
+public class LoginScreen extends Activity {
 
     TextInputLayout user_text, pass_text;
-    RelativeLayout rl;
+  LinearLayout rl;
     EditText username, password;
     private SharedPreferences sp;
 
@@ -49,7 +53,7 @@ public class LoginScreen extends AppCompatActivity {
 
         username = (EditText) this.findViewById(R.id.user_edit);
         password = (EditText) this.findViewById(R.id.pass_edit);
-        rl= (RelativeLayout) this.findViewById(R.id.rl);
+        rl= (LinearLayout) this.findViewById(R.id.rl);
     }
 
     public void onPause()
@@ -90,6 +94,7 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     public void submit(View v) {
+        hideKeyboard(this);
         boolean b1 = isEmptyEmail();
         boolean b2 = isEmptyPassword();
 
@@ -208,4 +213,17 @@ public class LoginScreen extends AppCompatActivity {
                 || password.getText().toString().equals("") || password.getText().toString().isEmpty();
     }
 
+    public static void hideKeyboard( Context context ) {
+
+        try {
+            InputMethodManager inputManager = ( InputMethodManager ) context.getSystemService( Context.INPUT_METHOD_SERVICE );
+
+            View view = ( (Activity) context ).getCurrentFocus();
+            if ( view != null ) {
+                inputManager.hideSoftInputFromWindow( view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS );
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
 }

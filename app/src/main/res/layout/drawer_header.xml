@@ -10,14 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/splashscreen"
+        android:background="@drawable/abc"
         android:text="HOME ONLINE"
     />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HOME ONLINE"
         android:id="@+id/textView"
         android:layout_gravity="bottom"
         android:gravity="center|bottom"
