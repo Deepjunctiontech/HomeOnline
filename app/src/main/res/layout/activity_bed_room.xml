@@ -144,7 +144,7 @@
                         <CheckBox
                             android:id="@+id/bedroom_ck_window"
 
-                            android:text="Windows" />
+                            android:text="Ventilation" />
 
 
                     </TableRow>

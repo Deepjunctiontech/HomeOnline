@@ -22,6 +22,7 @@ public class BedRoom extends AppCompatActivity {
     private DBHandler db;
     private String bedroom_id="1";
     private Spinner bed_spinner_total;
+    private boolean status;
 
 
     @Override
@@ -74,8 +75,10 @@ public class BedRoom extends AppCompatActivity {
         bed_spinner_total.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position!=0)
+                if(status==true)
                 setBedRoom();
+                status=true;
+
                 bedroom_id = ((TextView) view).getText().toString();
     //            Toast.makeText(BedRoom.this, bedroom_id, Toast.LENGTH_SHORT).show();
                 getBedRoom(bedroom_id);

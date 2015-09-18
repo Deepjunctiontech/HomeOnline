@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="in.junctiontech.homeonline.MainScreen">
 
+
     <LinearLayout
         android:id="@+id/main_contain"
         android:layout_width="match_parent"
@@ -16,21 +17,174 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#A55A64"
+            android:background="#ffaa3f"
             android:minHeight="?attr/actionBarSize"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="Home"></android.support.v7.widget.Toolbar>
+            app:title="DashBoard"></android.support.v7.widget.Toolbar>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tb"
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            app:tabGravity="fill"
-            app:tabMode="fixed">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        </android.support.design.widget.TabLayout>
-    <android.support.v4.view.ViewPager
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:padding="10dp"
+                            android:text="Status Completed "
+                            android:textColor="@color/highlight"
+                            android:gravity="center"
+                            android:textSize="15dp"/>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:background="@color/divide"></View>
+
+                        <TextView
+                            android:id="@+id/tv_status_completed"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#65a7a875"></View>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:padding="10dp"
+                            android:text="Status In Process "
+                            android:textColor="@color/highlight"
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:background="@color/divide"></View>
+
+                        <TextView
+                            android:id="@+id/tv_status_inProcess"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="5">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="ID"
+                            android:textColor="@color/highlight"
+                            android:textSize="15dp"/>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="15dp"
+                            android:background="@color/divide"
+                            android:gravity="center"></View>
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:gravity="center"
+                            android:text="Status"
+                            android:textColor="@color/highlight"
+                            android:textSize="15dp"/>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="15dp"
+                            android:background="@color/divide"></View>
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Image"
+                            android:textColor="@color/highlight"
+                            android:textSize="15dp"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divide"></View>
+
+                    <ListView
+                        android:id="@+id/lv_for_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        ></ListView>
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"></android.support.v4.view.ViewPager>

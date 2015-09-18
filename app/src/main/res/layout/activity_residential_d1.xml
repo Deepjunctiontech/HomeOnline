@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     android:orientation="vertical"
     tools:context="in.junctiontech.homeonline.ResidentialD1">
 
@@ -14,13 +13,15 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
+        android:background="#ffaa3f"
         android:textSize="25dp"
-        android:textStyle="bold" />
+        />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="80">
+        android:layout_weight="80"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,28 +54,28 @@
                 android:weightSum="100">
 
                 <TextView
-                    android:id="@+id/tv_storeys"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:padding="10dp"
                     android:text="No. of Storey's"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15dp"
                     android:layout_weight="50"/>
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#000000"
-                    ></View>
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center"></View>
 
 
                 <Spinner
                     android:id="@+id/residentiel_spiner_storey"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/bhk"
-                    android:layout_weight="50"/>
+                    android:layout_weight="50"
+                    android:padding="13dp"/>
 
 
             </LinearLayout>
@@ -85,13 +86,14 @@
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:orientation="vertical"
-                android:padding="20dp"
+
 
                 >
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="20dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -129,6 +131,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Private Access" />
+                        <CheckBox
+                            android:id="@+id/residential_ck_emergency_exit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Emergency Exit" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -146,23 +153,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
                     android:padding="10dp"
-                    android:text="Food "
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:text="Food"
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide"/>
+
 
                 <RadioGroup
-
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:weightSum="2">
 
                     <RadioButton
@@ -181,7 +186,8 @@
 
                         android:layout_weight="1"
 
-                        android:text="All Type" />
+                        android:text="All Type"
+                        android:checked="true" />
 
                     />
 
@@ -199,15 +205,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Ready to Move "
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:text="Ready to Move"
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <RadioGroup
 
@@ -215,7 +220,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:weightSum="2">
 
                     <RadioButton
@@ -224,7 +229,7 @@
                         android:layout_height="wrap_content"
 
                         android:layout_weight="1"
-
+                        android:checked="true"
                         android:text="Yes" />
 
                     <RadioButton
@@ -254,21 +259,20 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Pets Allowed"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <RadioGroup
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:weightSum="2">
 
                     <RadioButton
@@ -300,21 +304,24 @@
                 <TextView
                     android:id="@+id/tv_main_entrance_facing"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
                     android:padding="10dp"
                     android:text="Main Entrance Facing"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15dp" />
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#000000"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"
                     ></View>
 
                 <Spinner
                     android:id="@+id/residentiel_spiner_enterance"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:gravity="center"
+                    android:padding="13dp"
                     android:layout_height="wrap_content"
                     android:entries="@array/enterance"/>
 
@@ -332,19 +339,18 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Visitor Parking"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -374,19 +380,18 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Parking"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -425,20 +430,19 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Parking Type"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -489,26 +493,24 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_powsersupply"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Power Backup"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <RadioGroup
                     android:id="@+id/residential_rg_powerbackup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:weightSum="3">
 
                     <RadioButton
@@ -548,22 +550,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Water Backup"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:text="Water Supply"
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <RadioGroup
                     android:id="@+id/residential_rg_waterbackup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:weightSum="3">
 
                     <RadioButton
@@ -592,12 +593,51 @@
                 </RadioGroup>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Water Backup"
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divide" />
+                <TableLayout
+                    android:padding="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+                <TableRow android:layout_span="1">
+                <CheckBox
+                    android:text="Grounded Tanks"
+                    android:id="@+id/tv_waterbackup_grounded_tanks"/>
+
+                <CheckBox
+                    android:text="Terrace Tanks"
+                    android:id="@+id/tv_waterbackup_terrace_tanks"/>
+                </TableRow>
+                </TableLayout>
+
+
+            </LinearLayout>
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:orientation="vertical"
-
                 android:padding="20dp">
 
                 <TableLayout

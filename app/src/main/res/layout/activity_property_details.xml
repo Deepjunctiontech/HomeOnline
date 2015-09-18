@@ -340,6 +340,59 @@
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Possession Date"
+                        android:textColor="#006699"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#000000" />
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        >
+
+                        <TableRow>
+
+                            <TextView
+                                android:id="@+id/property_et_possesion_date_edit"
+                                android:layout_width="wrap_content"
+                                android:gravity="center"
+                                android:layout_weight="50"
+                                android:text="01/01/2000"
+
+                                />
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="#987654"
+                                ></View>
+                            <Button
+                                android:layout_weight="50"
+                                android:onClick="selectPossessionDate"
+                                android:text="Select"
+
+                                />
+                        </TableRow>
+                    </TableLayout>
+
+                </LinearLayout>
+
+
             </LinearLayout>
         </ScrollView>
 

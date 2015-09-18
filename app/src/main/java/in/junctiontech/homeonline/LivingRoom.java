@@ -29,6 +29,7 @@ private CheckBox sofa,diningtable,ac,tv,shoerack,falseceiling;
     private String livingroom_id="1";
     private Button detail_btn_living;
     static int i=0;
+    private boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +82,13 @@ private CheckBox sofa,diningtable,ac,tv,shoerack,falseceiling;
         property_spinner_total_living.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position!=0)
+                if(status==true)
                 setLiving();
+                status=true;
+               // Toast.makeText(LivingRoom.this,view.getId()+"",Toast.LENGTH_LONG).show();
                livingroom_id=((TextView)view).getText().toString();
                 getLiving(livingroom_id);
+
 
             }
 
@@ -147,7 +151,8 @@ private CheckBox sofa,diningtable,ac,tv,shoerack,falseceiling;
 
 }
 
-    public void getLiving(String livingroom_id) {
+    public void getLiving(String livingroom_id)
+    {
         Bundle b=db.getLivingRoom(livingroom_id);
         Resources r= this.getResources();
         String flooringtype[]=r.getStringArray(R.array.flooring);

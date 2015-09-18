@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="in.junctiontech.hrms"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    android:padding="10dp">
+
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:text=""
+        android:gravity="center"
+        android:id="@+id/tv_id"/>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="15dp"
+        android:gravity="center"
+        android:background="@color/divide"></View>
+    <TextView
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="60"
+        android:text=""
+        android:gravity="center"
+        android:id="@+id/tv_status_name"/>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="15dp"
+        android:background="@color/divide"></View>
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:text=""
+        android:gravity="center"
+        android:id="@+id/tv_status_rank"/>
+
+</LinearLayout>

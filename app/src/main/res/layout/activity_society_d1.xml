@@ -2,16 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     tools:context="in.junctiontech.homeonline.SocietyData1"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:background="#ffaa3f"
         android:textSize="25dp"
-        android:textStyle="bold"
-        android:textColor="#000000"
         android:gravity="center"
         android:id="@+id/tv_societydata"
         android:padding="10dp"
@@ -21,7 +20,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="80">
+        android:layout_weight="80"
+        android:padding="10dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,28 +68,24 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_boundarywall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/building_text"
                     android:padding="10dp"
                     android:text="Boundary Wall"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp"
+                    />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
                 <RadioGroup
-                    android:id="@+id/society_rg_boundarywall"
+                    android:padding="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_boundarywall"
                     android:orientation="vertical"
-
-                    android:padding="10dp"
                     android:weightSum="3">
 
                     <RadioButton
@@ -118,6 +115,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Electric Wiring" />
+
+                    <RadioButton
+                        android:id="@+id/society_rb_brickwall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Brick Wall" />
+
+                    <RadioButton
+                        android:id="@+id/society_rb_cementedwall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Cemented Wall" />
+
                     <RadioButton
                         android:id="@+id/society_rb_boundarywall_na"
                         android:layout_width="wrap_content"
@@ -128,10 +140,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/society_rg_boundarywall"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:orientation="vertical"
                 android:padding="20dp">
@@ -205,6 +215,7 @@
 
                             android:text="GYM" />
                     </TableRow>
+                    <TableRow>
                     <CheckBox
                         android:id="@+id/society_garden_lawn"
 
@@ -213,6 +224,8 @@
                         android:id="@+id/society_ck_multipurpose"
 
                         android:text="Multi Purpose" />
+                   </TableRow>
+
                 </TableLayout>
             </LinearLayout>
 
@@ -220,27 +233,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TextView
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Play Area "
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:text="Play Area"
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp"
+                    />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">

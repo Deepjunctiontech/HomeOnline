@@ -1,6 +1,7 @@
 package in.junctiontech.homeonline;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,12 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -39,6 +43,8 @@ public class LoginScreen extends Activity {
   LinearLayout rl;
     EditText username, password;
     private SharedPreferences sp;
+    private boolean checkButtonClick;
+    private Button btn_text;
 
 
     @Override
@@ -54,6 +60,7 @@ public class LoginScreen extends Activity {
         username = (EditText) this.findViewById(R.id.user_edit);
         password = (EditText) this.findViewById(R.id.pass_edit);
         rl= (LinearLayout) this.findViewById(R.id.rl);
+        btn_text= (Button) findViewById(R.id.btn_text);
     }
 
     public void onPause()
@@ -119,15 +126,24 @@ public class LoginScreen extends Activity {
             user_text.setError(null);
         } else {
 
+
+            btn_text.setEnabled(false);
+
+            final ProgressDialog pDialog = new ProgressDialog(this);
+            pDialog.setMessage("Connecting...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
          //   startActivity(new Intent(LoginScreen.this, MainScreen.class));
           //  finish();
 
             RequestQueue queue = Volley.newRequestQueue(this);
             StringRequest strReq = new StringRequest(Request.Method.POST,
-                    "http://dbproperties.ooo/mobile/login.php", new Response.Listener<String>() {
+                    "http://junctionerp.com/ankit/login.php", new Response.Listener<String>() {
 
                 @Override
                 public void onResponse(String response) {
+                    btn_text.setEnabled(true);
                     Log.d("TAG", "Register Response: " + response.toString());
 
 
@@ -163,17 +179,34 @@ public class LoginScreen extends Activity {
 //                            Toast.makeText(Appointment.this,obj.length()+"",Toast.LENGTH_LONG).show();
 
             } catch (JSONException e) {
-                        e.printStackTrace();}}
+                        e.printStackTrace();}
+
+                finally {
+                        pDialog.dismiss();
+                    }
+                }
                     }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    btn_text.setEnabled(true);
                     Log.e("TAG", "Registration Error: " + error.getMessage());
-                    Toast.makeText(getApplicationContext(),
-                            "Error"+error.getMessage(), Toast.LENGTH_LONG).show();
+                    String err=error.getMessage();
+                    if(error instanceof NoConnectionError) {
+                       err="No Internet Access\nCheck Your Internet Connection.";
+                    }
+
+                    Snackbar.make(rl, err, Snackbar.LENGTH_LONG).setAction("Dismiss", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).show();
+
                     SharedPreferences.Editor editor = sp.edit();
                     editor.clear();
                     editor.commit();
+                    pDialog.dismiss();
 
                 }
 
@@ -195,8 +228,9 @@ public class LoginScreen extends Activity {
                     return headers;
                 }
             };
-
+            strReq.setRetryPolicy(new DefaultRetryPolicy(3000,2,2));
             queue.add(strReq);
+
         }
 
     }

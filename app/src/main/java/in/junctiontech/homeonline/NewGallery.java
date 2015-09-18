@@ -50,7 +50,7 @@ public class NewGallery extends AppCompatActivity {
 
                 list = imageReader(getOutputMediaFile());
                 gv.setAdapter(new myGridAdapter());
-                Toast.makeText(NewGallery.this, room_name[position], Toast.LENGTH_SHORT).show();
+               // Toast.makeText(NewGallery.this, room_name[position], Toast.LENGTH_SHORT).show();
             }
         });
 

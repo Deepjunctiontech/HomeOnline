@@ -1,7 +1,10 @@
 package in.junctiontech.homeonline;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +21,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -75,15 +80,12 @@ public class DBHandler extends SQLiteOpenHelper {
                 "landmark TEXT," +
                 "possesion_date TEXT," +
                 "address TEXT," +
-                "owner_name TEXT," +
-                "owner_number TEXT," +
-                "owner_alternate_number TEXT," +
-                "owner_email TEXT," +
                 "developer_name TEXT," +
                 "owner_broker TEXT," +
                 "owner_lives_in_same_building TEXT," +
                 "developer_type TEXT," +
                 "owner_type TEXT," +
+                "floor_no TEXT," +
                 "builtup_area TEXT," +
                 "carpet_area TEXT," +
                 "rent_ammount REAL," +
@@ -132,6 +134,9 @@ public class DBHandler extends SQLiteOpenHelper {
                 "residential_parking_type_basement TEXT," +
                 "residential_parking_type_covered TEXT," +
                 "residential_parking_type_na TEXT," +
+                "emergency_exit TEXT," +
+                "waterbackup_grounded_tanks TEXT,"+
+                "waterbackup_terrace_tanks TEXT,"+
                 "societydata_gated_community TEXT," +
                 "societydata_society_overheadtank TEXT," +
                 "societydata_cctv_servillance TEXT," +
@@ -602,7 +607,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = super.getReadableDatabase();
 
-        Cursor cq = db.rawQuery("Select * from Appointments ORDER BY appointmentTime DESC", null);
+        Cursor cq = db.rawQuery("Select * from Appointments ORDER BY appointmentTime ASC", null);
         String name[] = new String[cq.getCount()];
         String desc[] = new String[cq.getCount()];
         String phone[] = new String[cq.getCount()];
@@ -689,52 +694,88 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = super.getReadableDatabase();
         final Cursor cq = db.rawQuery("Select * from Appointments where id=?", new String[]{s});
 
+        final ProgressDialog pDialog = new ProgressDialog(c);
+        pDialog.setMessage("Sync...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
         RequestQueue queue = Volley.newRequestQueue(c);
         if (cq.moveToNext()) {
 
             SharedPreferences sp = c.getSharedPreferences("Login", c.MODE_PRIVATE);
 
             final Map<String, Object> params = new HashMap<String, Object>();
+
+            //Appoinment Details
+
             params.put("ap_id", cq.getString(cq.getColumnIndex("id")));
             params.put("userid", sp.getString("userID", "Not Found"));
             params.put("ap_name", cq.getString(cq.getColumnIndex("name")));
             params.put("ap_phone", cq.getString(cq.getColumnIndex("phone")));
-       //     params.put("ap_address",cq.getString(cq.getColumnIndex("address")));
+            params.put("ap_address",cq.getString(cq.getColumnIndex("description")));
             params.put("ap_status", cq.getString(cq.getColumnIndex("status")));
-           // params.put("ap_total_livingroom", cq.getString(cq.getColumnIndex("no_of_livingroom")));
-/*
-            params.put("ap_builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
+
+            //Advetiser Details
+            params.put("ap_owner_broker", cq.getString(cq.getColumnIndex("owner_broker")));
+            params.put("ap_owner_lives_in_same_building", cq.getString(cq.getColumnIndex("owner_lives_in_same_building")));
+            params.put("ap_owner_type", cq.getString(cq.getColumnIndex("owner_type")));
+            params.put("ap_alternate_phone_no", cq.getString(cq.getColumnIndex("mobile")));
+            params.put("ap_email", cq.getString(cq.getColumnIndex("email")));
+            params.put("ap_building_no", cq.getString(cq.getColumnIndex("building_no")));
+            params.put("ap_building_name", cq.getString(cq.getColumnIndex("building_name")));
+            params.put("ap_flate_number", cq.getString(cq.getColumnIndex("flate_number")));
+            params.put("ap_floor_no", cq.getString(cq.getColumnIndex("floor_no")));
+            params.put("ap_wing", cq.getString(cq.getColumnIndex("wing")));
+            params.put("ap_street", cq.getString(cq.getColumnIndex("street")));
+            params.put("ap_locality", cq.getString(cq.getColumnIndex("locality")));
+            params.put("ap_sub_locality", cq.getString(cq.getColumnIndex("sub_locality")));
+            params.put("ap_pincode", cq.getString(cq.getColumnIndex("pincode")));
+            params.put("ap_landmark", cq.getString(cq.getColumnIndex("landmark")));
+            params.put("ap_developer_name", cq.getString(cq.getColumnIndex("developer_name")));
+            params.put("ap_developer_type", cq.getString(cq.getColumnIndex("developer_type")));
+
+            //Property Details
+            params.put("ap_bhk_type", cq.getString(cq.getColumnIndex("bhk_type")));
+            params.put("ap_property_type", cq.getString(cq.getColumnIndex("property_type")));
+            params.put("ap_total_livingroom", cq.getString(cq.getColumnIndex("no_of_livingroom")));
+            params.put("ap_total_bedroom", cq.getString(cq.getColumnIndex("no_of_bedroom")));
+            params.put("ap_total_kitchen", cq.getString(cq.getColumnIndex("no_of_kitchen")));
+            params.put("ap_no_of_toilet", cq.getString(cq.getColumnIndex("no_of_bathroom")));
+            params.put("ap_total_washdry", cq.getString(cq.getColumnIndex("no_of_washdry")));
+            params.put("ap_lease_type", cq.getString(cq.getColumnIndex("lease_type")));
+            params.put("ap_preferred_visit_time", cq.getString(cq.getColumnIndex("preferred_visit_time")));
+            params.put("ap_possesion_date", cq.getString(cq.getColumnIndex("possesion_date")));
+
+            //Pricing Details
             params.put("ap_builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
             params.put("ap_carpet_area", cq.getString(cq.getColumnIndex("carpet_area")));
             params.put("ap_rent_ammount", cq.getString(cq.getColumnIndex("rent_ammount")));
             params.put("ap_brokerage_fee", cq.getString(cq.getColumnIndex("brokerage_fee")));
             params.put("ap_maintainance", cq.getString(cq.getColumnIndex("maintainance")));
+            params.put("ap_no_of_floor", cq.getString(cq.getColumnIndex("no_of_floor")));
+            params.put("ap_age_of_building", cq.getString(cq.getColumnIndex("age_of_building")));
             params.put("ap_rent_negotiable", cq.getString(cq.getColumnIndex("rent_negotiable")));
             params.put("ap_security_negotiable", cq.getString(cq.getColumnIndex("security_negotiable")));
             params.put("ap_security_deposit", cq.getString(cq.getColumnIndex("security_deposit")));
-            params.put("ap_no_of_floor", cq.getString(cq.getColumnIndex("no_of_floor")));
-            params.put("ap_age_of_building", cq.getString(cq.getColumnIndex("age_of_building")));
             params.put("ap_terrace", cq.getString(cq.getColumnIndex("terrace")));
             params.put("ap_terrace_garden", cq.getString(cq.getColumnIndex("terrace_garden")));
             params.put("ap_no_of_garden", cq.getString(cq.getColumnIndex("no_of_garden")));
+            params.put("ap_no_of_lift", cq.getString(cq.getColumnIndex("no_of_lift")));
             params.put("ap_lift_type", cq.getString(cq.getColumnIndex("lift_type")));
+
+
+            //Residential Details
+            params.put("ap_no_of_residential", cq.getString(cq.getColumnIndex("no_of_residential")));
             params.put("ap_no_of_storys", cq.getString(cq.getColumnIndex("no_of_storys")));
             params.put("ap_servant_room", cq.getString(cq.getColumnIndex("servant_room")));
             params.put("ap_prayer_room", cq.getString(cq.getColumnIndex("prayer_room")));
             params.put("ap_balconey", cq.getString(cq.getColumnIndex("balcony")));
             params.put("ap_terrace_access", cq.getString(cq.getColumnIndex("terrace_access")));
-            params.put("ap_private_terrace", cq.getString(cq.getColumnIndex("private_access")));
+            params.put("ap_private_access", cq.getString(cq.getColumnIndex("private_access"))); // change
+            params.put("ap_food", cq.getString(cq.getColumnIndex("food")));
+            params.put("ap_ready_to_move", cq.getString(cq.getColumnIndex("ready_to_move")));
+            params.put("ap_pets_allowed", cq.getString(cq.getColumnIndex("pets_allowed")));
             params.put("ap_main_entrance_facing", cq.getString(cq.getColumnIndex("main_entrance_facing")));
-            params.put("ap_power_backup", cq.getString(cq.getColumnIndex("power_backup")));
-            params.put("ap_water_supply", cq.getString(cq.getColumnIndex("water_supply")));
-            params.put("ap_wifi", cq.getString(cq.getColumnIndex("wifi")));
-            params.put("ap_solar_heater", cq.getString(cq.getColumnIndex("solar_heater")));
-            params.put("ap_no_of_residential", cq.getString(cq.getColumnIndex("no_of_residential")));
-            params.put("ap_society_name", cq.getString(cq.getColumnIndex("society_name")));
-            params.put("ap_no_of_building", cq.getString(cq.getColumnIndex("no_of_building")));
-            params.put("ap_boundary_wall", cq.getString(cq.getColumnIndex("boundary_wall")));
-            params.put("ap_property_type", cq.getString(cq.getColumnIndex("property_type")));
-            params.put("ap_bhk_type", cq.getString(cq.getColumnIndex("bhk_type")));
             params.put("ap_residential_visitor_parking_inside", cq.getString(cq.getColumnIndex("residential_visitor_parking_inside")));
             params.put("ap_residential_visitor_parking_outside", cq.getString(cq.getColumnIndex("residential_visitor_parking_outside")));
             params.put("ap_residential_parking_car", cq.getString(cq.getColumnIndex("residential_parking_car")));
@@ -742,6 +783,22 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_residential_parking_na", cq.getString(cq.getColumnIndex("residential_parking_na")));
             params.put("ap_residential_parking_type_basement", cq.getString(cq.getColumnIndex("residential_parking_type_basement")));
             params.put("ap_residential_parking_type_covered", cq.getString(cq.getColumnIndex("residential_parking_type_covered")));
+            params.put("ap_residential_parkingtype_street_parking", cq.getString(cq.getColumnIndex("parkingtype_street_parking")));
+            params.put("ap_residential_parkingtype_individual_floor", cq.getString(cq.getColumnIndex("parkingtype_individual_floor")));
+            params.put("ap_residential_parkingtype_individual_open_air", cq.getString(cq.getColumnIndex("parkingtype_individual_open_air")));
+            params.put("ap_power_backup", cq.getString(cq.getColumnIndex("power_backup")));
+            params.put("ap_water_supply", cq.getString(cq.getColumnIndex("water_supply")));
+            params.put("ap_wifi", cq.getString(cq.getColumnIndex("wifi")));
+            params.put("ap_solar_heater", cq.getString(cq.getColumnIndex("solar_heater")));
+            params.put("ap_emergency_exit", cq.getString(cq.getColumnIndex("emergency_exit")));
+            params.put("ap_waterbackup_grounded_tank", cq.getString(cq.getColumnIndex("waterbackup_grounded_tanks")));
+            params.put("ap_waterbackup_terrace_tank", cq.getString(cq.getColumnIndex("waterbackup_terrace_tanks")));
+
+
+            //Society Details
+            params.put("ap_society_name", cq.getString(cq.getColumnIndex("society_name")));
+            params.put("ap_no_of_building", cq.getString(cq.getColumnIndex("no_of_building")));
+            params.put("ap_boundary_wall", cq.getString(cq.getColumnIndex("boundary_wall")));
             params.put("ap_societydata_gated_community", cq.getString(cq.getColumnIndex("societydata_gated_community")));
             params.put("ap_societydata_society_overheadtank", cq.getString(cq.getColumnIndex("societydata_society_overheadtank")));
             params.put("ap_societydata_cctv_servillance", cq.getString(cq.getColumnIndex("societydata_cctv_servillance")));
@@ -753,45 +810,24 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_societydata_zym", cq.getString(cq.getColumnIndex("societydata_zym")));
             params.put("ap_societydata_smoke_detector", cq.getString(cq.getColumnIndex("societydata_smoke_detector")));
             params.put("ap_societydata_club_house", cq.getString(cq.getColumnIndex("societydata_club_house")));
-            params.put("ap_total_livingroom", cq.getString(cq.getColumnIndex("no_of_livingroom")));
-            params.put("ap_total_bedroom", cq.getString(cq.getColumnIndex("no_of_bedroom")));
-            params.put("ap_total_kitchen", cq.getString(cq.getColumnIndex("no_of_kitchen")));
-            params.put("ap_no_of_toilet", cq.getString(cq.getColumnIndex("no_of_bathroom")));
-            params.put("ap_total_washdry", cq.getString(cq.getColumnIndex("no_of_washdry")));
+            params.put("ap_garden_lawn", cq.getString(cq.getColumnIndex("garden_lawn")));
 
-            params.put("ap_building_no", cq.getString(cq.getColumnIndex("building_no")));
-            params.put("ap_building_name", cq.getString(cq.getColumnIndex("building_name")));
-            params.put("ap_flate_number", cq.getString(cq.getColumnIndex("flate_number")));
-            params.put("ap_wing", cq.getString(cq.getColumnIndex("wing")));
-            params.put("ap_street", cq.getString(cq.getColumnIndex("street")));
-            params.put("ap_locality", cq.getString(cq.getColumnIndex("locality")));
-            params.put("ap_sub_locality", cq.getString(cq.getColumnIndex("sub_locality")));
-            params.put("ap_pincode", cq.getString(cq.getColumnIndex("pincode")));
-            params.put("ap_landmark", cq.getString(cq.getColumnIndex("landmark")));
-            params.put("ap_possesion_date", cq.getString(cq.getColumnIndex("possesion_date")));
-            params.put("ap_no_of_lift", cq.getString(cq.getColumnIndex("no_of_lift")));
-            params.put("ap_pets_allowed", cq.getString(cq.getColumnIndex("pets_allowed")));
-           // params.put("ap_residential_parking_type_na", cq.getString(cq.getColumnIndex("residential_parking_type_na")));
-            params.put("ap_kids_playarea1", cq.getString(cq.getColumnIndex("kids_playarea1")));
-            params.put("ap_saunna_steam", cq.getString(cq.getColumnIndex("saunna_steam")));
-            params.put("ap_yogaroom", cq.getString(cq.getColumnIndex("yogaroom")));
-            params.put("ap_billiards", cq.getString(cq.getColumnIndex("billiards")));
-            params.put("ap_tennis", cq.getString(cq.getColumnIndex("tennis")));
-            params.put("ap_volleyball", cq.getString(cq.getColumnIndex("volleyball")));
             params.put("ap_batminton", cq.getString(cq.getColumnIndex("batminton")));
             params.put("ap_table_tennis", cq.getString(cq.getColumnIndex("table_tennis")));
+            params.put("ap_tennis", cq.getString(cq.getColumnIndex("tennis")));
             params.put("ap_squash", cq.getString(cq.getColumnIndex("squash")));
-            params.put("ap_garden_lawn", cq.getString(cq.getColumnIndex("garden_lawn")));
-            params.put("ap_property_type", cq.getString(cq.getColumnIndex("property_type")));
-            params.put("ap_bhk_type", cq.getString(cq.getColumnIndex("bhk_type")));
-            params.put("ap_lease_type", cq.getString(cq.getColumnIndex("lease_type")));
-            params.put("ap_food", cq.getString(cq.getColumnIndex("food")));
-            params.put("ap_ready_to_move", cq.getString(cq.getColumnIndex("ready_to_move")));
-            params.put("ap_preferred_visit_time", cq.getString(cq.getColumnIndex("preferred_visit_time")));
+            params.put("ap_kids_playarea1", cq.getString(cq.getColumnIndex("kids_playarea1")));
+            params.put("ap_billiards", cq.getString(cq.getColumnIndex("billiards")));
+            params.put("ap_volleyball", cq.getString(cq.getColumnIndex("volleyball")));
+            params.put("ap_saunna_steam", cq.getString(cq.getColumnIndex("saunna_steam")));
+            params.put("ap_yogaroom", cq.getString(cq.getColumnIndex("yogaroom")));
+
+
+
 
 
             //   params.put("img", new FileBody[]{new FileBody(new File("")),new File(""),new File("")});
-*/
+
             Map<String, JSONObject> param_new = new HashMap<>();
             if (cq.getString(cq.getColumnIndex("no_of_livingroom")) != null) {
                 int livingroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_livingroom")));
@@ -1001,21 +1037,26 @@ public class DBHandler extends SQLiteOpenHelper {
 
            Log.d("JSONDATA", new JSONObject(params).toString());
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://junctionerp.com/ankit/vishal.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://junctionerp.com/ankit/update.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            pDialog.dismiss();
                             // Display the first 500 characters of the response string.
                             for (int i = 0; i < 2; i++)
-
                                 Toast.makeText(c, response, Toast.LENGTH_LONG).show();
-
+                            pDialog.dismiss();
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    for (int i = 0; i < 2; i++)
-                        Toast.makeText(c, error.toString(), Toast.LENGTH_LONG).show();
+                    String err=error.getMessage();
+                    if(error instanceof NoConnectionError) {
+                        err="No Internet Access\nCheck Your Internet Connection.";
+                    }
+
+                    Toast.makeText(c,err,Toast.LENGTH_LONG).show();
+                    pDialog.dismiss();
                 }
 
 
@@ -1024,7 +1065,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> param = new HashMap<String, String>();
-                    param.put("vishal", new JSONObject(params).toString());
+                    param.put("jsondata", new JSONObject(params).toString());
                     return param;
                 }
 
@@ -1037,6 +1078,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 }
             };
 // Add the request to the RequestQueue.
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(3000,2,2));
             queue.add(stringRequest);
 
         }
@@ -1057,8 +1099,17 @@ public class DBHandler extends SQLiteOpenHelper {
                 "Appointments"};
         for(int i=0;i<table.length;i++) {
            long j= db.delete(table[i], "id=?", new String[]{Appointment.clicked});
-            Toast.makeText(c,table[i]+ "="+j,Toast.LENGTH_LONG).show();
+          //  Toast.makeText(c,table[i]+ "="+j,Toast.LENGTH_LONG).show();
         }
+
+
+    }
+
+    @SuppressLint("NewApi")
+    public boolean flushAllData() {
+        SQLiteDatabase db = super.getWritableDatabase();
+        File f=new File(db.getPath());
+        return db.deleteDatabase(f);
 
 
     }
@@ -1085,7 +1136,7 @@ public class DBHandler extends SQLiteOpenHelper {
             String responseString = null;
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://dbproperties.ooo/mobile/image.php");
+            HttpPost httppost = new HttpPost("http://junctionerp.com/ankit/image.php");
 
             File sourceFile = new File(image_location);
             try {
@@ -1101,6 +1152,10 @@ public class DBHandler extends SQLiteOpenHelper {
       //          SharedPreferences sp =c.getSharedPreferences("Login", c.MODE_PRIVATE);
                 // Adding file data to http body
       //          entity.addPart("userID", new StringBody(sp.getString("userID", "Not Found")));
+
+                SharedPreferences sp = c.getSharedPreferences("Login", c.MODE_PRIVATE);
+
+                entity.addPart("userid", new StringBody(sp.getString("userID", "Not Found")));
                 entity.addPart("image", new FileBody(sourceFile));
                 entity.addPart("app_id", new StringBody(id));
                 entity.addPart("type", new StringBody(type));
@@ -1144,11 +1199,22 @@ public class DBHandler extends SQLiteOpenHelper {
         @Override
         protected void onPostExecute(String result) {
             //Log.e(TAG, "Response from server: " + result);
-
+            super.onPostExecute(result);
             // showing the server response in an alert dialog
+       //     Toast.makeText(c,result,Toast.LENGTH_LONG).show();
+            if(result.contains("Success")) {
+                SQLiteDatabase db = DBHandler.super.getReadableDatabase();
+                ContentValues cv= new ContentValues();
+                cv.put("status", "success");
+                long i= db.update("ImageSelection", cv, "image_location=?", new String[]{image_location});
+                Toast.makeText(c,i+"",Toast.LENGTH_LONG).show();
+                db.close();
+            }
+
+
             showAlert(result);
 
-            super.onPostExecute(result);
+
             /*SQLiteDatabase db = DBHandler.super.getWritableDatabase();
             Cursor cq = db.rawQuery("Select * from ImageSelection where id=?", new String[]{Appointment.clicked});
             for (int i=0; cq.moveToNext();i++) {
@@ -1173,8 +1239,15 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     private void showAlert(String message) {
 
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        Context current;
+        if(((Activity) c).isFinishing()) {
+            current = MainScreen.getContext();
+            if (((Activity) current).isFinishing())
+                return;
+        }
+        else
+        current=c;
+        AlertDialog.Builder builder = new AlertDialog.Builder(current);
         builder.setMessage(message).setTitle("Response from Servers")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -1185,6 +1258,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+
     }
 
 
@@ -1193,7 +1267,7 @@ public class DBHandler extends SQLiteOpenHelper {
         handler.post(new Runnable() {
             public void run() {
                 SQLiteDatabase db = DBHandler.super.getReadableDatabase();
-                Cursor cq = db.rawQuery("Select * from ImageSelection where id=?", new String[]{Appointment.clicked});
+                Cursor cq = db.rawQuery("Select * from ImageSelection where id=? AND status=?", new String[]{Appointment.clicked, "pending"});
                 for (int i = 0; cq.moveToNext(); i++) {
                     new UploadFileToServer((cq.getString(cq.getColumnIndex("id"))),
                             (cq.getString(cq.getColumnIndex("type"))),
@@ -1363,7 +1437,7 @@ public class DBHandler extends SQLiteOpenHelper {
                                String parkingtype_street_parking, String parkingtype_individual_floor, String parkingtype_individual_open_air, String residential_power_backup,
                                String residential_water_backup, String residential_wifi_internet,
                                String residential_solar_water_heater, String no_of_residential_unit, String pets_allowed,
-                               String food,String ready_to_move, String status) {
+                               String food,String ready_to_move,String emergency_exit,String waterbackup_grounded_tanks,String waterbackup_terrace_tanks, String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
 
@@ -1392,6 +1466,10 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("status_residential", status);
         c1.put("pets_allowed", pets_allowed);
         c1.put("food", food);
+        c1.put("emergency_exit", emergency_exit);
+        c1.put("waterbackup_grounded_tanks", waterbackup_grounded_tanks);
+        c1.put("waterbackup_terrace_tanks", waterbackup_terrace_tanks);
+
         c1.put("ready_to_move", ready_to_move);
 
 
@@ -1435,6 +1513,9 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("no_of_residential_unit", cq.getString(cq.getColumnIndex("no_of_residential")));
             b.putString("pets_allowed", cq.getString(cq.getColumnIndex("pets_allowed")));
             b.putString("food", cq.getString(cq.getColumnIndex("food")));
+            b.putString("emergency_exit", cq.getString(cq.getColumnIndex("emergency_exit")));
+            b.putString("waterbackup_grounded_tanks", cq.getString(cq.getColumnIndex("waterbackup_grounded_tanks")));
+            b.putString("waterbackup_terrace_tanks", cq.getString(cq.getColumnIndex("waterbackup_terrace_tanks")));
             b.putString("ready_to_move", cq.getString(cq.getColumnIndex("ready_to_move")));
 
         }
@@ -1530,7 +1611,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     public void setPropertyDetail(String bhk_type, String property_type, String total_livingroom, String total_bedroom,
-                                  String total_kitchen, String total_bathroom, String total_washdry, String lease_type, String preferred_visit_time, String status) {
+                                  String total_kitchen, String total_bathroom, String total_washdry, String lease_type,
+                                  String preferred_visit_time,String possesion_date, String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
 
@@ -1545,6 +1627,7 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("status_property_detail", status);
         c1.put("lease_type", lease_type);
         c1.put("preferred_visit_time", preferred_visit_time);
+        c1.put("possesion_date", possesion_date);
 
         String click = Appointment.clicked;
         int i = db.update("Appointments", c1, "id=?", new String[]{click});
@@ -1571,6 +1654,7 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("total_washdry", cq.getString(cq.getColumnIndex("no_of_washdry")));
             b.putString("lease_type", cq.getString(cq.getColumnIndex("lease_type")));
             b.putString("preferred_visit_time", cq.getString(cq.getColumnIndex("preferred_visit_time")));
+            b.putString("possesion_date", cq.getString(cq.getColumnIndex("possesion_date")));
 
 
         }
@@ -1582,19 +1666,37 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void setAdvertiserDetail(String owner_name, String owner_number, String owner_alternate_number,
                                     String owner_email, String developer_name, String owner_broker,
-                                    String owner_lives_in_same_building, String developer_type, String owner_type,String status) {
+                                    String owner_lives_in_same_building, String developer_type, String owner_type,
+                                    String building_no, String building_name,
+                                    String flate_number, String wing, String street, String locality,
+                                    String sub_locality, String pincode, String landmark,String floor_no,String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
+/*
+        c1.put("name", name);
+        c1.put("phone", phone);
+        c1.put("email", email);
+        c1.put("mobile", mobile);*/
 
-        c1.put("owner_name", owner_name);
-        c1.put("owner_number", owner_number);
-        c1.put("owner_alternate_number", owner_alternate_number);
-        c1.put("owner_email", owner_email);
+        c1.put("name", owner_name);
+        c1.put("phone", owner_number);
+        c1.put("mobile", owner_alternate_number);
+        c1.put("email", owner_email);
         c1.put("developer_name", developer_name);
         c1.put("owner_broker", owner_broker);
         c1.put("owner_lives_in_same_building", owner_lives_in_same_building);
         c1.put("developer_type", developer_type);
         c1.put("owner_type", owner_type);
+        c1.put("building_no", building_no);
+        c1.put("building_name", building_name);
+        c1.put("flate_number", flate_number);
+        c1.put("wing", wing);
+        c1.put("street", street);
+        c1.put("locality", locality);
+        c1.put("sub_locality", sub_locality);
+        c1.put("pincode", pincode);
+        c1.put("landmark", landmark);
+        c1.put("floor_no", floor_no);
         c1.put("status_advertiser_detail", status);
         String click = Appointment.clicked;
         int i = db.update("Appointments", c1, "id=?", new String[]{click});
@@ -1610,20 +1712,74 @@ public class DBHandler extends SQLiteOpenHelper {
         Bundle b = new Bundle();
 
         if(cq.moveToNext()) {
-            b.putString("owner_name", cq.getString(cq.getColumnIndex("owner_name")));
-            b.putString("owner_number", cq.getString(cq.getColumnIndex("owner_number")));
-            b.putString("owner_alternate_number", cq.getString(cq.getColumnIndex("owner_alternate_number")));
-            b.putString("owner_email", cq.getString(cq.getColumnIndex("owner_email")));
+            b.putString("owner_name", cq.getString(cq.getColumnIndex("name")));
+            b.putString("owner_number", cq.getString(cq.getColumnIndex("phone")));
+            b.putString("owner_alternate_number", cq.getString(cq.getColumnIndex("mobile")));
+            b.putString("owner_email", cq.getString(cq.getColumnIndex("email")));
             b.putString("developer_name", cq.getString(cq.getColumnIndex("developer_name")));
             b.putString("owner_broker", cq.getString(cq.getColumnIndex("owner_broker")));
             b.putString("owner_lives_in_same_building", cq.getString(cq.getColumnIndex("owner_lives_in_same_building")));
             b.putString("developer_type", cq.getString(cq.getColumnIndex("developer_type")));
             b.putString("owner_type", cq.getString(cq.getColumnIndex("owner_type")));
+            b.putString("building_no", cq.getString(cq.getColumnIndex("building_no")));
+            b.putString("building_name", cq.getString(cq.getColumnIndex("building_name")));
+            b.putString("flate_number", cq.getString(cq.getColumnIndex("flate_number")));
+            b.putString("wing", cq.getString(cq.getColumnIndex("wing")));
+            b.putString("street", cq.getString(cq.getColumnIndex("street")));
+            b.putString("locality", cq.getString(cq.getColumnIndex("locality")));
+            b.putString("sub_locality", cq.getString(cq.getColumnIndex("sub_locality")));
+            b.putString("pincode", cq.getString(cq.getColumnIndex("pincode")));
+            b.putString("landmark", cq.getString(cq.getColumnIndex("landmark")));
+            b.putString("floor_no", cq.getString(cq.getColumnIndex("floor_no")));
         }
         db.close();
         return b;
     }
 
+    public int[] getDashBoardStatus() {
+        SQLiteDatabase db = super.getReadableDatabase();
+        int check[]={0,0};
+        Cursor cq = db.rawQuery("Select * from Appointments", null);
+        check[0]=cq.getCount();
+        cq.close();
+        cq = db.rawQuery("Select * from Appointments where status=?", new String[]{"Complete"});
+        check[1]=cq.getCount();
+
+        cq.close();
+        db.close();
+        return check;
+    }
+
+    public String[][] getAppoinmentDetail() {
+        SQLiteDatabase db = super.getReadableDatabase();
+        Cursor cq = db.rawQuery("Select * from Appointments", null);
+      //  Cursor cs = db.rawQuery("Select * from ImageSelection",null);
+
+
+        String[] id = new String[cq.getCount()];
+        String[] status = new String[cq.getCount()];
+        String[] imagestatus = new String[cq.getCount()];
+
+        for (int i = 0; cq.moveToNext(); i++) {
+            id[i] = cq.getString(cq.getColumnIndex("id"));
+            status[i] = (cq.getString(cq.getColumnIndex("status")));
+
+
+          Cursor cs = db.rawQuery("Select * from ImageSelection where id=?",new String[]{id[i]});
+          int count =cs.getCount();
+
+            int k=0;
+               for(;cs.moveToNext()&&"success".equalsIgnoreCase(cs.getString(cs.getColumnIndex("status")));k++);
+            imagestatus[i]=k+"/"+count;
+            cs.close();
+
+        }
+
+        cq.close();
+        db.close();
+        String a[][] = new String[][]{id, status, imagestatus};
+        return a;
+    }
 
 
     }

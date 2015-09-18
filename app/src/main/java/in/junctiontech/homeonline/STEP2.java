@@ -20,7 +20,6 @@ public class STEP2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step2);
-        detail_btn_basic= (Button) findViewById(R.id.detail_btn_basic);
         detail_btn_living= (Button) findViewById(R.id.detail_btn_living);
         detail_btn_bed= (Button) findViewById(R.id.detail_btn_bed);
         detail_btn_bath= (Button) findViewById(R.id.detail_btn_bath);
@@ -34,10 +33,7 @@ public class STEP2 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db=new DBHandler(this,"DB",null,1);
 
-        String status_basic_detail=db.getButtonStatus("Appointments","status_basic_detail");
-        if(status_basic_detail==null);
-        else if(status_basic_detail.equalsIgnoreCase("true"))
-            detail_btn_basic.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
+
 
         String status_basic_property=db.getButtonStatus("Appointments","status_property_detail");
         if(status_basic_property==null);
@@ -101,7 +97,7 @@ public class STEP2 extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_step2, menu);
+        getMenuInflater().inflate(R.menu.menu_main_screen, menu);
         return true;
     }
 
@@ -114,7 +110,16 @@ public class STEP2 extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(this,Prefs.class));
+
+        }else if(id==R.id.main_screen_aboutus) {
+            //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AboutUs.class));
+        }
+        else if(id==R.id.main_screen_help){
+            // Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(this,Help.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -124,9 +129,7 @@ public class STEP2 extends AppCompatActivity {
         int id = v.getId();
         Class s = null;
 
-        if (id == R.id.detail_btn_basic)
-            s = STEP1.class;
-        else if (id == R.id.detail_btn_property)
+         if (id == R.id.detail_btn_property)
             s = PropertyDetails.class;
         else if (id == R.id.detail_btn_living)
             s = LivingRoom.class;

@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -47,7 +49,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Appointment extends AppCompatActivity {
+public class Appointment extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     ListView lv;
     //   String[] title={},address={},phone={};
@@ -65,6 +67,8 @@ public class Appointment extends AppCompatActivity {
     private RadioButton rb_reschedulled;
     private String ststus;
     private RelativeLayout rl;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RequestQueue rq;
 
 
     @Override
@@ -73,107 +77,17 @@ public class Appointment extends AppCompatActivity {
         setContentView(R.layout.activity_appointment);
         db=new DBHandler(this,"DB",null,1);
         lv = (ListView) findViewById(R.id.listView);
-      final  RequestQueue rq = Volley.newRequestQueue(this);
+      rq = Volley.newRequestQueue(this);
     rl= (RelativeLayout) findViewById(R.id.appointmentid);
-        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+
+         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
 
         getDataFromDataBase();
+     //   onRefresh();
         //  mSwipeRefreshLayout.setRefreshing(true);
         mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/mobile/appointment.php",
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-                                // for (int i = 0; i < 5; i++)
-                                try {
-                                    JSONObject jsonObject = new JSONObject(response);
-//                            Toast.makeText(Appointment.this,jsonObject.getString("status"),Toast.LENGTH_LONG).show();
-//                            Toast.makeText(Appointment.this,jsonObject.getString("code"),Toast.LENGTH_LONG).show();
-                                    // Toast.makeText(Appointment.this,jsonObject.getString("data"),Toast.LENGTH_LONG).show();
-                                    JSONObject js = new JSONObject(jsonObject.getString("data"));
-                                    //         Toast.makeText(Appointment.this,js.getString("userID"),Toast.LENGTH_LONG).show();
-
-                                    //   Toast.makeText(Appointment.this,response,Toast.LENGTH_LONG).show();
-
-                                    JSONArray obj = js.getJSONArray("appointment_list");
-
-
-//                            Toast.makeText(Appointment.this,obj.length()+"",Toast.LENGTH_LONG).show();
-                                    for (int i = 0; i < obj.length(); i++) {
-                                        JSONObject n = obj.getJSONObject(i);
-//                                Toast.makeText(Appointment.this,n.getString("name"),Toast.LENGTH_LONG).show();
-//                                Toast.makeText(Appointment.this,n.getString("phone"),Toast.LENGTH_LONG).show();
-//                                Toast.makeText(Appointment.this,n.getString("address"),Toast.LENGTH_LONG).show();
-
-                                        db.saveData(n.getString("appointmentID"),
-                                                n.getString("name"),
-                                                n.getString("address"),
-                                                n.getString("phone"),
-                                                n.getString("appointmentStatus"),
-                                                n.getString("appointmentTime"));
-                                    }
-                                } catch (JSONException e) {
-                                    Toast.makeText(Appointment.this, "error", Toast.LENGTH_LONG).show();
-                                    e.printStackTrace();
-                                }
-                                getDataFromDataBase();
-                               // update();
-                                mSwipeRefreshLayout.setRefreshing(false);
-
-
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //for (int i = 0; i < 2; i++)
-                         //   Toast.makeText(Appointment.this, error.toString(), Toast.LENGTH_LONG).show();
-                      //  getDataFromDataBase();
-//                        getDataFromDataBase();
-                        mSwipeRefreshLayout.setRefreshing(false);
-
-                        Snackbar.make(rl, "No Connection", Snackbar.LENGTH_LONG).setAction("Retry", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mSwipeRefreshLayout.setRefreshing(true);
-                                onRefresh();
-                                // Toast.makeText(LoginScreen.this, get_user + "\n" + get_pass, Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-
-                    }
-
-
-                }) {
-
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>();
-                        SharedPreferences sp = Appointment.this.getSharedPreferences("Login", Appointment.this.MODE_PRIVATE);
-                        params.put("userid", sp.getString("userID", "Not Found"));
-                        //params.put("userid", "1");
-                        return params;
-                    }
-
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> headers = new HashMap<String, String>();
-                        headers.put("Content-Type", "application/x-www-form-urlencoded");
-                        headers.put("abc", "value");
-                        return headers;
-                    }
-                };
-// Add the request to the RequestQueue.
-                rq.add(stringRequest);
-
-
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        onRefresh();
 
 
        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -203,6 +117,110 @@ public class Appointment extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    public void onRefresh() {
+
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://junctionerp.com/ankit/appointment.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        // for (int i = 0; i < 5; i++)
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+//                            Toast.makeText(Appointment.this,jsonObject.getString("status"),Toast.LENGTH_LONG).show();
+//                            Toast.makeText(Appointment.this,jsonObject.getString("code"),Toast.LENGTH_LONG).show();
+                            // Toast.makeText(Appointment.this,jsonObject.getString("data"),Toast.LENGTH_LONG).show();
+                            JSONObject js = new JSONObject(jsonObject.getString("data"));
+                            //         Toast.makeText(Appointment.this,js.getString("userID"),Toast.LENGTH_LONG).show();
+
+                            //   Toast.makeText(Appointment.this,response,Toast.LENGTH_LONG).show();
+
+                            JSONArray obj = js.getJSONArray("appointment_list");
+
+
+//                            Toast.makeText(Appointment.this,obj.length()+"",Toast.LENGTH_LONG).show();
+                            for (int i = 0; i < obj.length(); i++) {
+                                JSONObject n = obj.getJSONObject(i);
+//                                Toast.makeText(Appointment.this,n.getString("name"),Toast.LENGTH_LONG).show();
+//                                Toast.makeText(Appointment.this,n.getString("phone"),Toast.LENGTH_LONG).show();
+//                                Toast.makeText(Appointment.this,n.getString("address"),Toast.LENGTH_LONG).show();
+
+                                db.saveData(n.getString("appointmentID"),
+                                        n.getString("name"),
+                                        n.getString("address"),
+                                        n.getString("phone"),
+                                        n.getString("appointmentStatus"),
+                                        n.getString("appointmentTime"));
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(Appointment.this, "error", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                        getDataFromDataBase();
+                        // update();
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //for (int i = 0; i < 2; i++)
+                //   Toast.makeText(Appointment.this, error.toString(), Toast.LENGTH_LONG).show();
+                //  getDataFromDataBase();
+//                        getDataFromDataBase();
+                mSwipeRefreshLayout.setRefreshing(false);
+
+
+                String err=error.getMessage();
+                if(error instanceof NoConnectionError) {
+                    err="Check Your Internet Connection.";
+
+                }
+
+                Snackbar.make(rl, err, Snackbar.LENGTH_LONG).setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mSwipeRefreshLayout.setRefreshing(true);
+                        onRefresh();
+                        // Toast.makeText(LoginScreen.this, get_user + "\n" + get_pass, Toast.LENGTH_LONG).show();
+                    }
+                }).show();
+
+            }
+
+
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                SharedPreferences sp = Appointment.this.getSharedPreferences("Login", Appointment.this.MODE_PRIVATE);
+                params.put("userid", sp.getString("userID", "Not Found"));
+                //params.put("userid", "1");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                headers.put("abc", "value");
+                return headers;
+            }
+        };
+// Add the request to the RequestQueue.
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(3000,2,2));
+        rq.add(stringRequest);
+
+
+    }
+
 
     public void update()
     {
@@ -266,21 +284,40 @@ public class Appointment extends AppCompatActivity {
                 break;
 
             case R.id.send:
-                s="Send";
+                s="Sync";
                 db.sendDataForParticularId(id[position]);
                 break;
 
             case R.id.delete:
-                db.deleteForParticularID();
-                deleteImage("thumbnail");
-                deleteImage("DB");
-                getDataFromDataBase();
+                alert();
                 s="Delete";
                 break;
 
         }
         Toast.makeText(this,s,Toast.LENGTH_LONG).show();
         return super.onContextItemSelected(item);
+
+
+
+    }
+
+    public void alert()
+    {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+       // builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you want to delete?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                db.deleteForParticularID();
+                deleteImage("thumbnail");
+                deleteImage("DB");
+                getDataFromDataBase();
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
     }
 
     private void deleteImage(String folder) {
@@ -373,7 +410,7 @@ public class Appointment extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_task, menu);
+        getMenuInflater().inflate(R.menu.menu_main_screen, menu);
         return true;
     }
 
@@ -386,7 +423,16 @@ public class Appointment extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(this,Prefs.class));
+
+        }else if(id==R.id.main_screen_aboutus) {
+            //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AboutUs.class));
+        }
+        else if(id==R.id.main_screen_help){
+            // Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(this,Help.class));
         }
 
         return super.onOptionsItemSelected(item);

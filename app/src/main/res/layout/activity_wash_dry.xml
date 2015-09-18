@@ -3,47 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="5dp"
     tools:context="in.junctiontech.homeonline.WashDry">
+
     <TextView
         android:id="@+id/tv_washdry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
+        android:background="#ffaa3f"
         android:textSize="25dp"
-        android:textStyle="bold" />
+         />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/dialog_holo_light_frame"
         android:orientation="horizontal"
-        android:weightSum="100">
+        android:weightSum="100"
+        >
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="50"
             android:gravity="center"
-            android:text="Select "
-            android:textColor="#006699"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:padding="10dp"
+            android:text="Select No."
+            android:textColor="@color/highlight"
+            android:textSize="15dp" />
+
 
         <View
             android:layout_width="1dp"
-            android:layout_height="fill_parent"
-            android:background="#c6f4f1"></View>
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:background="@color/divide"></View>
+
 
         <Spinner
             android:id="@+id/washdry_spinner_total"
-            android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:gravity="center"
-            android:layout_weight="50" />
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:gravity="center" />
 
 
     </LinearLayout>
@@ -60,17 +74,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/washarea_washarea_text"
-            android:layout_weight=".5"
             android:padding="10dp"
-            android:text="Washing Machinate"
-            android:textColor="#006699"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:text="Washing Area"
+            android:textColor="@color/highlight"
+            android:textSize="15dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#000000" />
+            android:background="@color/divide" />
 
         <RadioGroup
             android:id="@+id/washarea_rg_washing"
@@ -78,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/washarea_tv_washing_machient"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="20dp"
             android:weightSum="2">
 
             <RadioButton
@@ -105,41 +117,46 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/dialog_holo_light_frame"
         android:orientation="horizontal"
-        android:weightSum="100">
+        android:weightSum="100"
+        >
 
         <TextView
-            android:id="@+id/washarea_tv_flooringtype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="50"
-            android:padding="10dp"
+            android:gravity="center"
             android:text="Flooring Type"
-            android:textColor="#006699"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textColor="@color/highlight"
+            android:textSize="15dp" />
 
         <View
             android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#000000"></View>
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:background="@color/divide"></View>
 
         <Spinner
             android:id="@+id/washarea_spiner_floring"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:entries="@array/flooring" />
+            android:gravity="center"
+            android:entries="@array/flooring"
+            android:padding="13dp"/>
     </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+
     <Button
 
         android:layout_width="320dp"
-        android:layout_gravity="center"
         android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_button"
         android:onClick="myClick"
         android:text="NEXT"
-        android:textColor="#ffffff"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bg_button"/>
+        android:textColor="#ffffff" />
 </LinearLayout>
 

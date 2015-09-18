@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="in.junctiontech.homeonline.SplashScreen"
+            android:name=".SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
@@ -27,117 +27,148 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.LoginScreen"
+            android:name=".LoginScreen"
             android:label="@string/title_activity_login_screen"
             android:screenOrientation="portrait" />
         <activity
-            android:name="in.junctiontech.homeonline.MainScreen"
+            android:name=".MainScreen"
             android:label="@string/title_activity_main_screen"
-            android:theme="@style/Theme" />
+            android:theme="@style/Theme"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="in.junctiontech.homeonline.Appointment"
+            android:name=".Appointment"
             android:label="@string/title_activity_task"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.STEP1"
-            android:label="@string/title_activity_step1" >
+            android:name=".STEP1"
+            android:label="@string/title_activity_step1"
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.LivingRoom"
+            android:name=".LivingRoom"
             android:label="@string/title_activity_living_room"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.STEP2"
+            android:name=".STEP2"
             android:label="@string/title_activity_step2"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.BedRoom"
+            android:name=".BedRoom"
             android:label="@string/title_activity_bed_room"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.BathRoom"
-            android:label="@string/title_activity_bath_room" >
+            android:name=".BathRoom"
+            android:label="@string/title_activity_bath_room"
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.Kitchen"
+            android:name=".Kitchen"
             android:label="@string/title_activity_kitchen"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.WashDry"
+            android:name=".WashDry"
             android:label="@string/title_activity_wash_area"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.Pricing1"
+            android:name=".Pricing1"
             android:label="@string/title_activity_pricing1"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.ResidentialD1"
+            android:name=".ResidentialD1"
             android:label="@string/title_activity_residential_d1"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.SocietyData1"
+            android:name=".SocietyData1"
             android:label="@string/title_activity_society_d1"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.ImageSelection"
+            android:name=".ImageSelection"
             android:label="@string/title_activity_image_selection"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.PropertyDetails"
+            android:name=".PropertyDetails"
             android:label="@string/title_activity_property_details"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.UploadIamge"
+            android:name=".UploadIamge"
             android:label="@string/title_activity_upload_iamge" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.Gallery"
+            android:name=".Gallery"
             android:label="@string/title_activity_gallery" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.ViewImage"
+            android:name=".ViewImage"
             android:label="@string/title_activity_view_image"
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" >
             //
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.Prefs"
+            android:name=".Prefs"
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.AboutUs"
+            android:name=".AboutUs"
             android:label="@string/title_activity_about_us"
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.Help"
+            android:name=".Help"
             android:label="@string/title_activity_help" >
         </activity>
         <activity
-            android:name="in.junctiontech.homeonline.OpenGallery"
+            android:name=".OpenGallery"
             android:label="@string/title_activity_open_gallery" >
         </activity>
-
         <activity
-            android:name="in.junctiontech.homeonline.AdvertiserDetail"
+            android:name=".AdvertiserDetail"
             android:label="@string/title_activity_advertiser_detail" >
         </activity>
-
         <activity
-            android:name="in.junctiontech.homeonline.NewGallery"
+            android:name=".NewGallery"
             android:label="@string/title_activity_new_gallery" >
         </activity>
+
+
+        <!--     <receiver
+                android:name=".UninstallReceiver"
+                android:enabled="true"
+                android:exported="true"
+                android:priority="999" >
+                <intent-filter>
+                    <action android:name="android.intent.action.PACKAGE_ADDED" >
+                    </action>
+                    <action android:name="android.intent.action.PACKAGE_REMOVED" >
+                    </action>
+                    <data android:scheme="package" />
+                </intent-filter>
+            </receiver>
+              <receiver
+                   android:name="com.junction.homeoffline.UninstallReceiver"
+                   android:enabled="true"
+                   android:exported="true"
+                   android:priority="999" >
+                   <intent-filter>
+                       <action android:name="android.intent.action.PACKAGE_ADDED" >
+                       </action>
+                       <action android:name="android.intent.action.PACKAGE_REMOVED" >
+                       </action>
+                       <data android:scheme="package" />
+                   </intent-filter>
+               </receiver>
+
+       -->
     </application>
 
 </manifest>

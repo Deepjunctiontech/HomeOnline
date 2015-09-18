@@ -20,7 +20,7 @@
       </array>
 
     <array name="no_of_lift">
-
+        <item>"0"</item>
         <item>"1"</item>
         <item>"2"</item>
         <item>"3"</item>
@@ -95,7 +95,7 @@
         <item>"1"</item>
         <item>"2"</item>
         <item>"3"</item>
-        <item>4"</item>
+        <item>"4"</item>
         <item>"5"</item>
         <item>"6"</item>
         <item>"7"</item>
@@ -113,6 +113,7 @@
         <item>"5"</item>
     </array>
     <array name="bhk">
+        <item>"0"</item>
         <item>"1"</item>
         <item>"2"</item>
         <item>"3"</item>
@@ -139,7 +140,7 @@
     <string name="title_activity_image_selection">Image Selection</string>
 
     <array name="property_type">
-        <item>"Flate"</item>
+        <item>"Flat"</item>
         <item>"Apartment"</item>
         <item>"Individual House"</item>
         <item>"Villa"</item>
@@ -167,5 +168,6 @@
     <string name="title_activity_open_gallery">Open Gallery</string>
     <string name="title_activity_advertiser_detail">Advertiser Detail</string>
     <string name="title_activity_new_gallery">Gallery</string>
+    <string name="title_activity_check_external_dir">CheckExternalDir</string>
 
 </resources>

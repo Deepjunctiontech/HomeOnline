@@ -22,13 +22,15 @@ public class SocietyData1 extends AppCompatActivity {
     private TextView name;
     private EditText societyname_edit,no_of_building_edit;
     private DBHandler db;
+    private RadioButton society_rb_brickwall,society_rb_cementedwall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DBHandler(this, "DB", null, 1);
         setContentView(R.layout.activity_society_d1);
         name=(TextView)findViewById(R.id.tv_societydata);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+      //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
         name.setText(b.getString("name"));
         society_Squash= (CheckBox) findViewById(R.id.society_Squash);
@@ -58,6 +60,8 @@ public class SocietyData1 extends AppCompatActivity {
         grill= (RadioButton) findViewById(R.id.society_rb_grill);
         barbed_wire= (RadioButton) findViewById(R.id.society_rb_Barbed_wire);
         electric_wiring= (RadioButton) findViewById(R.id.society_rb_electric_wiring);
+        society_rb_brickwall= (RadioButton) findViewById(R.id.society_rb_brickwall);
+        society_rb_cementedwall= (RadioButton) findViewById(R.id.society_rb_cementedwall);
         boundarywall_na= (RadioButton) findViewById(R.id.society_rb_boundarywall_na);
 
         societyname_edit=(EditText)findViewById(R.id.society_society_edit);
@@ -93,6 +97,10 @@ public class SocietyData1 extends AppCompatActivity {
             barbed_wire.setChecked(true);}
         else if((b.getString("societydata_boundary_wall")).equalsIgnoreCase("Electric Wiring")){
             electric_wiring.setChecked(true);}
+        else if((b.getString("societydata_boundary_wall")).equalsIgnoreCase("Brick Wall")){
+            society_rb_brickwall.setChecked(true);}
+        else if((b.getString("societydata_boundary_wall")).equalsIgnoreCase("Cemented Wall")){
+            society_rb_cementedwall.setChecked(true);}
         else boundarywall_na.setChecked(true);
 
         if(b.getString("societydata_gated_community")==null);
@@ -226,6 +234,10 @@ public class SocietyData1 extends AppCompatActivity {
             boundarywall="Barbed Wire";
         else if(electric_wiring.isChecked())
             boundarywall="Electric Wiring";
+        else if(society_rb_brickwall.isChecked())
+            boundarywall="Brick Wall";
+        else if(society_rb_cementedwall.isChecked())
+            boundarywall="Cemented Wall";
         else
         boundarywall="NA";
 

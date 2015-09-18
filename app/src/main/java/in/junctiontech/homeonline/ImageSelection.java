@@ -1,5 +1,6 @@
 package in.junctiontech.homeonline;
 
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -86,7 +87,7 @@ public class ImageSelection extends AppCompatActivity {
                     int c = Integer.parseInt(check);
                     String[] total = new String[c];
 
-                    for (int i = 0; i < c; i++)
+                    for (int i = 0; i < total.length; i++)
                         total[i] = i + 1 + "";
 
 
@@ -113,7 +114,7 @@ public class ImageSelection extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (view != null)
                     selected_particular = ((TextView) view).getText().toString();
-            Toast.makeText(ImageSelection.this,selected_particular,Toast.LENGTH_LONG).show();
+         //   Toast.makeText(ImageSelection.this,selected_particular,Toast.LENGTH_LONG).show();
 
 
             }
@@ -354,9 +355,21 @@ public class ImageSelection extends AppCompatActivity {
 //        i.putExtra("filePath",fileUri.getPath());
 //        i.putExtra("path",path);
 //        startActivity(i);
-
+//        String appPath = this.getApplicationContext().getFilesDir().getAbsolutePath();
+//        Toast.makeText(this,appPath,Toast.LENGTH_LONG).show();
+//        File f=new File(appPath);
+//        try {
+//            f.createNewFile();
+//            Toast.makeText(this,f.createNewFile()+"",Toast.LENGTH_LONG).show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        ContextWrapper c = new ContextWrapper(this);
+//        Toast.makeText(this, c.getFilesDir().getPath(), Toast.LENGTH_LONG).show();
         Intent i=new Intent(this,NewGallery.class);
        startActivity(i);
+        finish();
     }
 
 }

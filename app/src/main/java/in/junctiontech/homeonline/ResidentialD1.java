@@ -21,7 +21,7 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
     private CheckBox insideparking,outsideparking,parking_car,parking_two_wheeler,
             parking_na,parkingtype_basement,parkingtype_covered,parkingtype_na;
     private Spinner no_of_storeys,main_enterance_facing;
-    private String storeys="1",enterance="N";
+    private String storeys="0",enterance="N";
     private DBHandler db;
     private RadioButton power_partial,power_full,power_nobackup;
     private RadioButton water_partial,water_full,water_nobackup;
@@ -35,13 +35,15 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
     private String[] no_of_storey;
     private String[] mainenterancefacing1;
     private RadioButton property_food_veg, property_food_alltype, property_ready_to_move_yes, property_ready_to_move_no;
+    private CheckBox emergency_exit,waterbackup_grounded_tanks,waterbackup_terrace_tanks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_residential_d1);
         db = new DBHandler(this, "DB", null, 1);
         TextView name = (TextView) findViewById(R.id.tv_residential);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+    //    name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
         name.setText(b.getString("name"));
         serventroom = (CheckBox) findViewById(R.id.residential_ck_serventroom);
@@ -58,6 +60,9 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
         parking_na = (CheckBox) findViewById(R.id.residential_parking_na);
         parkingtype_covered = (CheckBox) findViewById(R.id.residential_parkingtype_covered);
         parkingtype_basement = (CheckBox) findViewById(R.id.residential_parkingtype_basement);
+        emergency_exit = (CheckBox) findViewById(R.id.residential_ck_emergency_exit);
+        waterbackup_grounded_tanks = (CheckBox) findViewById(R.id.tv_waterbackup_grounded_tanks);
+        waterbackup_terrace_tanks = (CheckBox) findViewById(R.id.tv_waterbackup_terrace_tanks);
 //        parkingtype_na = (CheckBox) findViewById(R.id.residential_parkingtype_na);
 
         residential_parkingtype_open = (CheckBox) findViewById(R.id.residential_parkingtype_open);
@@ -250,7 +255,17 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
         else if((b.getString("residential_visitor_parking_outside")).equalsIgnoreCase("Y"))
             outsideparking.setChecked(true);
 
+        if(b.getString("emergency_exit")==null);
+        else if((b.getString("emergency_exit")).equalsIgnoreCase("Y"))
+            emergency_exit.setChecked(true);
 
+        if(b.getString("waterbackup_grounded_tanks")==null);
+        else if((b.getString("waterbackup_grounded_tanks")).equalsIgnoreCase("Y"))
+            waterbackup_grounded_tanks.setChecked(true);
+
+        if(b.getString("waterbackup_terrace_tanks")==null);
+        else if((b.getString("waterbackup_terrace_tanks")).equalsIgnoreCase("Y"))
+            waterbackup_terrace_tanks.setChecked(true);
 
         if(b.getString("pets_allowed")==null)
             pets_allowed_no.setChecked(true);
@@ -327,6 +342,10 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
         String wifi_internet = (wifi.isChecked() ? "Y" : "N");
         String solarwater_heater1 = (solar.isChecked() ? "Y" : "N");
         String  pets_allowed = (pets_allowed_yes.isChecked() ? "Yes" : "No");
+        String  emergency = (emergency_exit.isChecked() ? "Y" : "N");
+
+        String  terrace_tanks = (waterbackup_terrace_tanks.isChecked() ? "Y" : "N");
+        String  grounded_tanks = (waterbackup_grounded_tanks.isChecked() ? "Y" : "N");
 
         String   food = (property_food_veg.isChecked() ? "Veg" : "All Type");
         String   ready_to_move = (property_ready_to_move_yes.isChecked() ? "Y" : "N");
@@ -351,7 +370,7 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
                 enterance,inside,outside,parking_car1,parking_two_wheeler1,parking_na1,parkingtype_basement1,parkingtype_covered1,
                 parkingtype_street_parking,parkingtype_individual_floor,parkingtype_individual_open_air,
                 powersupply,watersupply,wifi_internet,solarwater_heater1,residential_unit,pets_allowed,food,ready_to_move
-                ,"true"
+                ,emergency,grounded_tanks,terrace_tanks,"true"
         );
     }
 

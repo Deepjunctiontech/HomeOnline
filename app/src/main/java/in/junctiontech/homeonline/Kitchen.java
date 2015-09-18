@@ -28,6 +28,7 @@ public class Kitchen extends AppCompatActivity {
     private Spinner kitchen_spinner_total;
     private String kitchen_id="1";
     private String[] plateform;
+    private boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +85,9 @@ public class Kitchen extends AppCompatActivity {
         kitchen_spinner_total.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position!=0)
+                if(status==true)
                 setKitchen();
+                status=true;
                 kitchen_id = ((TextView) view).getText().toString();
                 //            Toast.makeText(BedRoom.this, bedroom_id, Toast.LENGTH_SHORT).show();
                 getKitchen(kitchen_id);

@@ -24,8 +24,21 @@ private TextView tv_advertiser;
     private Spinner advertiser_spinner_owner_type;
     String owner_type="Freehold",owner_type_array[];
 
+    private EditText advertise_et_locality_edit;
+    private EditText advertise_et_sublocality_edit;
+    private EditText advertise_et_pincode_edit;
+    private EditText advertise_et_landmark_edit;
+    private EditText advertise_et_building_no_edit;
+    private EditText advertise_et_flate_no_edit;
+    private EditText advertise_et_building_name_edit;
+    private EditText advertise_et_wing_edit;
+    private EditText advertise_et_street_edit;
+    private TextView advertise_et_possesion_date_edit;
+
 
     private DBHandler db;
+    private EditText advertise_et_floor_no_edit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +80,19 @@ private TextView tv_advertiser;
 
             }
         });
+
+
+        advertise_et_locality_edit = (EditText) findViewById(R.id.advertise_et_locality_edit);
+        advertise_et_sublocality_edit = (EditText) findViewById(R.id.advertise_et_sublocality_edit);
+        advertise_et_pincode_edit = (EditText) findViewById(R.id.advertise_et_pincode_edit);
+        advertise_et_landmark_edit = (EditText) findViewById(R.id.advertise_et_landmark_edit);
+        advertise_et_building_no_edit = (EditText) findViewById(R.id.advertise_et_building_no_edit);
+        advertise_et_building_name_edit = (EditText) findViewById(R.id.advertise_et_building_name_edit);
+        advertise_et_flate_no_edit = (EditText) findViewById(R.id.advertise_et_flate_no_edit);
+        advertise_et_wing_edit = (EditText) findViewById(R.id.advertise_et_wing_edit);
+        advertise_et_street_edit = (EditText) findViewById(R.id.advertise_et_street_edit);
+        advertise_et_floor_no_edit = (EditText) findViewById(R.id.advertise_et_floor_no_edit);
+
 
 
 
@@ -126,9 +152,21 @@ private TextView tv_advertiser;
         String  owner_lives_in_same_building = (advertiser_lives_in_same_building_yes.isChecked() ? "Yes" : "No");
         String  developer_type = (developer_private.isChecked() ? "Private" : "Govt");
 
+        String building_no = advertise_et_building_no_edit.getText().toString();
+        String building_name = advertise_et_building_name_edit.getText().toString();
+        String flate_number = advertise_et_flate_no_edit.getText().toString();
+        String wing = advertise_et_wing_edit.getText().toString();
+        String street = advertise_et_street_edit.getText().toString();
+        String locality = advertise_et_locality_edit.getText().toString();
+        String sub_locality = advertise_et_sublocality_edit.getText().toString();
+        String pincode = advertise_et_pincode_edit.getText().toString();
+        String landmark = advertise_et_landmark_edit.getText().toString();
+        String floor_no = advertise_et_floor_no_edit.getText().toString();
+
 
         db.setAdvertiserDetail(owner_name,owner_number,owner_alternate_number,owner_email,developer_name,owner_broker,
-                owner_lives_in_same_building,developer_type,owner_type,"true");
+                owner_lives_in_same_building,developer_type,owner_type,building_no,building_name,flate_number,wing,street,locality,
+                sub_locality,pincode,landmark,floor_no,"true");
     }
 
     public void getAdvertiser() {
@@ -139,6 +177,17 @@ private TextView tv_advertiser;
         advertise_et_owner_alternate_number_edit.setText(b.getString("owner_alternate_number"));
         advertise_et_owner_email_edit.setText(b.getString("owner_email"));
         advertise_et_developer_name_edit.setText(b.getString("developer_name"));
+
+        advertise_et_building_no_edit.setText(b.getString("building_no"));
+        advertise_et_building_name_edit.setText(b.getString("building_name"));
+        advertise_et_flate_no_edit.setText(b.getString("flate_number"));
+        advertise_et_wing_edit.setText(b.getString("wing"));
+        advertise_et_street_edit.setText(b.getString("street"));
+        advertise_et_locality_edit.setText(b.getString("locality"));
+        advertise_et_sublocality_edit.setText(b.getString("sub_locality"));
+        advertise_et_pincode_edit.setText(b.getString("pincode"));
+        advertise_et_landmark_edit.setText(b.getString("landmark"));
+        advertise_et_floor_no_edit.setText(b.getString("floor_no"));
 
         if (b.getString("owner_broker") == null);
           else if ((b.getString("owner_broker")).equalsIgnoreCase("Owner"))

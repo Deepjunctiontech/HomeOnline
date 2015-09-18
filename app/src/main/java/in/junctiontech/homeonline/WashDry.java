@@ -22,6 +22,7 @@ public class WashDry extends AppCompatActivity {
     private String washarea_flooringtype = "Marble";
     private Spinner washdry_spinner_total;
     private String washdry_id="1";
+    private boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class WashDry extends AppCompatActivity {
 
         db = new DBHandler(this, "DB", null, 1);
         TextView name   = (TextView) findViewById(R.id.tv_washdry);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+     //   name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
         name.setText(b.getString("name"));
         yes = (RadioButton) findViewById(R.id.washarea_rb_yes);
@@ -70,8 +71,9 @@ public class WashDry extends AppCompatActivity {
         washdry_spinner_total.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position!=0)
+                if(status==true)
                 clickWashArea();
+                status=true;
                 washdry_id = ((TextView) view).getText().toString();
                 getWashDry(washdry_id);
 

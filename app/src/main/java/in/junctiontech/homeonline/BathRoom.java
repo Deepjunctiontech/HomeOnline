@@ -25,6 +25,7 @@ public class BathRoom extends AppCompatActivity {
     private String flooringtype="Marble";
     private Spinner bath_spinner_total;
     private static String bathroom_id="1";
+    private boolean status;
 
 
     @Override
@@ -84,8 +85,10 @@ public class BathRoom extends AppCompatActivity {
         bath_spinner_total.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position!=0)
+                if(status==true)
                 setbathRoom();
+                status=true;
+
                bathroom_id = ((TextView) view).getText().toString();
                 //            Toast.makeText(BedRoom.this, bedroom_id, Toast.LENGTH_SHORT).show();
                 getBathRoom(bathroom_id);
