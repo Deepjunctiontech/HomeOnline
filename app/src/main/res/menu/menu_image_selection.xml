@@ -2,6 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="in.junctiontech.homeonline.ImageSelection">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    <item
+        app:showAsAction="always"
+        android:icon="@drawable/home"
+        android:id="@+id/action_HOME"
+        android:orderInCategory="100"
+        android:title="HOME" />
 </menu>

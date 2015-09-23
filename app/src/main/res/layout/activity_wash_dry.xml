@@ -3,29 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="in.junctiontech.homeonline.WashDry">
+    tools:context="in.junctiontech.homeonline.WashDry"
+    android:background="@drawable/yyy">
 
-    <TextView
-        android:id="@+id/tv_washdry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textColor="#ffffff"
-        android:background="#ffaa3f"
-        android:textSize="25dp"
-         />
 
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:layout_weight="80">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +35,7 @@
             android:padding="10dp"
             android:text="Select No."
             android:textColor="@color/highlight"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
 
         <View
@@ -57,7 +50,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:gravity="center" />
+            android:gravity="center"
+            />
 
 
     </LinearLayout>
@@ -70,14 +64,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/washarea_tv_washing_machient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/washarea_washarea_text"
             android:padding="10dp"
             android:text="Washing Area"
             android:textColor="@color/highlight"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
@@ -85,12 +77,10 @@
             android:background="@color/divide" />
 
         <RadioGroup
-            android:id="@+id/washarea_rg_washing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/washarea_tv_washing_machient"
             android:orientation="horizontal"
-            android:padding="20dp"
+            android:padding="10dp"
             android:weightSum="2">
 
             <RadioButton
@@ -127,7 +117,7 @@
             android:gravity="center"
             android:text="Flooring Type"
             android:textColor="@color/highlight"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <View
             android:layout_width="1dp"
@@ -152,11 +142,12 @@
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_button"
         android:onClick="myClick"
         android:text="NEXT"
         android:textColor="#ffffff" />
 </LinearLayout>
+
 

@@ -29,7 +29,8 @@
         <activity
             android:name=".LoginScreen"
             android:label="@string/title_activity_login_screen"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".MainScreen"
             android:label="@string/title_activity_main_screen"
@@ -111,21 +112,25 @@
         <activity
             android:name=".ViewImage"
             android:label="@string/title_activity_view_image"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" >
-            //
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert"
+            android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name=".Prefs"
-            android:label="@string/title_activity_setting" >
+            android:label="@string/title_activity_setting"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AboutUs"
             android:label="@string/title_activity_about_us"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert" >
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.Alert"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Help"
-            android:label="@string/title_activity_help" >
+            android:label="@string/title_activity_help"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".OpenGallery"
@@ -133,11 +138,13 @@
         </activity>
         <activity
             android:name=".AdvertiserDetail"
-            android:label="@string/title_activity_advertiser_detail" >
+            android:label="@string/title_activity_advertiser_detail"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".NewGallery"
-            android:label="@string/title_activity_new_gallery" >
+            android:label="@string/title_activity_new_gallery"
+            android:screenOrientation="portrait">
         </activity>
 
 

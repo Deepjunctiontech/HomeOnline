@@ -2,21 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     tools:context="in.junctiontech.homeonline.LivingRoom"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/yyy">
 
-    <TextView
-        android:id="@+id/tv_living"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
-
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/lv_spinner"
@@ -33,20 +29,21 @@
             android:padding="10dp"
             android:gravity="center"
             android:text="Select a room "
-            android:textColor="#006699"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textColor="@color/highlight"
+            android:textSize="15sp" />
 
         <View
             android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#c6f4f1"></View>
+            android:layout_height="15dp"
+            android:background="@color/divide"
+            android:layout_gravity="center"></View>
 
         <Spinner
             android:id="@+id/property_spinner_total_living"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
+            android:gravity="center"
             />
 
 
@@ -70,20 +67,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/living"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Living Room"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -140,27 +134,32 @@
                 android:orientation="horizontal"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:weightSum="100" >
+
                 <TextView
-                    android:id="@+id/livingroom_ck_flooringtype"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/livingroom_ck_falseceiling"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
                     android:padding="10dp"
                     android:text="Flooring Type"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_weight="50"/>
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    />
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#000000"></View>
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center">
+
+                </View>
                 <Spinner
                     android:id="@+id/livingroom_spiner_flooringtype"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/flooring"
-                    android:layout_weight="50"/>
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="13dp"/>
             </LinearLayout>
 
 
@@ -182,7 +181,9 @@
                 android:onClick="send"
                 android:text="Send" />-->
         </LinearLayout>
+
     </ScrollView>
+
     <Button
 
         android:layout_width="320dp"
@@ -194,4 +195,5 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/bg_button"/>
+    </LinearLayout>
 </LinearLayout>

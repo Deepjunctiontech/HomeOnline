@@ -32,10 +32,12 @@ public class BathRoom extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bath_room);     db = new DBHandler(this, "DB", null, 1);
-        TextView name = (TextView) findViewById(R.id.tv_bath);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+      //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
 
         glasspartion= (CheckBox) findViewById(R.id.bathroom_ck_glasspartition);
         shower= (CheckBox) findViewById(R.id.bathroom_ck_showercurtain);
@@ -225,6 +227,7 @@ public class BathRoom extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_my_next) {
+            item.setEnabled(false);
             setbathRoom();
       //      Toast.makeText(this,"NEXT",Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, Kitchen.class));
@@ -255,6 +258,7 @@ public class BathRoom extends AppCompatActivity {
         db.setBathRoom(bathroom_id, bathroom_type, hot_water_supply, toilet, glass_partition, shower_curtain, bathtub , windows,cabinate, exhaust_fan, flooringtype, "true");
     }
     public void myClick(View v){
+        v.setEnabled(false);
         setbathRoom();
         startActivity(new Intent(this,Kitchen.class));
         finish();

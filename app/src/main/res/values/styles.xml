@@ -1,8 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="textAppearanceListItem">@style/list_item_appearance</item>
+        <item name="colorPrimary">#f77c14</item>
+        <item name="actionBarStyle">@style/themeActionBar</item>
+      <!--  <item name="colorAccent">#f77c14</item>
+        <item name="android:textColorPrimary">#212121</item>
+        <item name="android:textColorSecondary">#727272</item>
+         <item name="android:textColorHint">@color/texthintcolor</item>-->
+
     </style>
 
 
@@ -16,7 +23,7 @@
 
     </style>
 
-    <!-- Customize your theme here. -->
+
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">#FFCC00</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
@@ -24,5 +31,45 @@
     </style>
 
 
+    <!-- Customize your theme here.
+      <style name="MyTheme.ActionBarStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+          <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+          <item name="android:subtitleTextStyle">@style/MyTheme.ActionBar.Subtitle</item>
+          <item name="android:background">#8B0000</item>
+      </style>
+
+      <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+          <item name="android:textColor">#FFFFFF</item>
+      </style>
+
+      <style name="MyTheme.ActionBar.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
+          <item name="android:textColor">#2638ff</item>
+      </style>
+      -->
+
+    <style name="themeActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <!--<item name="android:background">@drawable/abactionbargradient</item>
+        <item name="android:titleTextStyle">@style/styleActionBarTitleText</item>
+        <item name="android:subtitleTextStyle">@style/styleActionBarSubTitleText</item>-->
+        <!-- Support library compatibility -->
+
+        <item name="titleTextStyle">@style/styleActionBarTitleText</item>
+        <item name="subtitleTextStyle">@style/styleActionBarSubTitleText</item>
+    </style>
+
+    <!-- ActionBar title text -->
+    <style name="styleActionBarTitleText"
+        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <!-- The textColor property is backward compatible with the Support Library -->
+    </style>
+
+    <!-- ActionBar title text -->
+    <style name="styleActionBarSubTitleText"
+        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textSize">13sp</item>
+        <!-- The textColor property is backward compatible with the Support Library -->
+    </style>
 
 </resources>

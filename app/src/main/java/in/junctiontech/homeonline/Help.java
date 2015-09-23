@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class Help extends AppCompatActivity {
 
@@ -18,6 +19,12 @@ public class Help extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    public void onPause()
+    {
+        super.onPause();
+      finish();
     }
 
 }

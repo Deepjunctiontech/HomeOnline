@@ -5,12 +5,14 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,9 +30,10 @@ public class PropertyDetails extends AppCompatActivity {
             property_spinner_kitchen, property_spinner_bathroom, property_spinner_washdry,property_spiner_preferred_visit_time;
     public static String total_livingroom = "1", total_bedroom = "1", total_bathroom = "1", total_kitchen = "1", total_washdry = "1";
     private String property_array[],lease_type_array[],preferred_visit_time_array[],bhk_type_array[],property_type_array[];
-    private TextView property_et_possesion_date_edit;
+    private Button property_et_possesion_date;
     private Calendar calendar;
     private int year,month,day;
+    private boolean check;
 
 
     @Override
@@ -38,7 +41,18 @@ public class PropertyDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property_details);
         Intent i = this.getIntent();
+        db = new DBHandler(this, "DB", null, 1);
+      //  name=(TextView)findViewById(R.id.tv_property_detail);
+        // name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        Bundle b = db.getIdName();
+      //  name.setText(b.getString("name"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
+
 
         calendar=Calendar.getInstance();
         year=calendar.get(Calendar.YEAR);
@@ -55,13 +69,11 @@ public class PropertyDetails extends AppCompatActivity {
         property_spiner_property_type = (Spinner) findViewById(R.id.property_spiner_property_type);
         property_spiner_lease_type = (Spinner) findViewById(R.id.property_spiner_lease_type);
         property_spiner_preferred_visit_time = (Spinner) findViewById(R.id.property_spiner_preferred_visit_time);
-        property_et_possesion_date_edit = (TextView) findViewById(R.id.property_et_possesion_date_edit);
+        property_et_possesion_date = (Button) findViewById(R.id.property_et_possesion_date);
+        String curr=day+"/"+(month+1)+"/"+year+"";
+        property_et_possesion_date.setText(curr);
 
-        db = new DBHandler(this, "DB", null, 1);
-        name=(TextView)findViewById(R.id.tv_property_detail);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-        Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+
 
         Resources r = this.getResources();
         property_type_array = r.getStringArray(R.array.property_type);
@@ -106,7 +118,9 @@ public class PropertyDetails extends AppCompatActivity {
 
                     char c=bhk_type.charAt(0);
              //   Toast.makeText(PropertyDetails.this,c+"",Toast.LENGTH_LONG).show();
+                if(check==true)
                 property_spinner_bedroom.setSelection(c-49);
+                check=true;
 
             }
 
@@ -200,6 +214,7 @@ public class PropertyDetails extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+
         startActivity(new Intent(this, STEP2.class));
         finish();
         return true;
@@ -223,7 +238,8 @@ public class PropertyDetails extends AppCompatActivity {
 
 
          if (id == R.id.action_my_next) {
-            Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
+             item.setEnabled(false);
             savePropertyDetail();
             startActivity(new Intent(this, AdvertiserDetail.class));
             finish();
@@ -279,7 +295,7 @@ public class PropertyDetails extends AppCompatActivity {
 
     private void savePropertyDetail() {
 
-        String possession_date =property_et_possesion_date_edit.getText().toString();
+        String possession_date =property_et_possesion_date.getText().toString();
         db.setPropertyDetail(bhk_type,property_type,total_livingroom, total_bedroom, total_kitchen, total_bathroom, total_washdry,
                 lease_type, preferred_visit_time,possession_date,"true");
 
@@ -290,7 +306,11 @@ public class PropertyDetails extends AppCompatActivity {
         super.onResume();
 
         Bundle b = db.getPropertyDetail();
-        property_et_possesion_date_edit.setText(b.getString("possesion_date"));
+
+        if(b.getString("possesion_date")==null);
+        else
+        property_et_possesion_date.setText(b.getString("possesion_date"));
+
         String s = b.getString("property_type");
 
         if (s == null) ;
@@ -412,6 +432,7 @@ public class PropertyDetails extends AppCompatActivity {
 
 
     public void myClick(View v) {
+        v.setEnabled(false);
         savePropertyDetail();
         startActivity(new Intent(this, AdvertiserDetail.class));
         finish();
@@ -436,7 +457,7 @@ public class PropertyDetails extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener myDateListener= new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            property_et_possesion_date_edit.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
+            property_et_possesion_date.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
 
         }
     };

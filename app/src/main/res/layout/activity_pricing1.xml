@@ -2,32 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:orientation="vertical"
     tools:context="in.junctiontech.homeonline.Pricing1"
-    android:orientation="vertical">
+    android:background="@drawable/yyy">
 
-    <TextView
-        android:id="@+id/tv_pricing"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+
 
     <ScrollView
         android:id="@+id/sc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="80">
+        android:layout_weight="80"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
+           >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp"
+            android:background="@android:drawable/dialog_holo_light_frame">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/pricing1_build_text"
@@ -40,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:ems="10"
-                    android:hint=" Built-Up Area"
+                    android:hint="Built-Up Area (Sq.ft)"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
@@ -55,9 +54,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-
                     android:ems="10"
-                    android:hint="Carpet Area"
+                    android:hint="Carpet Area (Sq.ft)"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
@@ -91,7 +89,7 @@
                     android:layout_margin="16dp"
 
                     android:ems="10"
-                    android:hint="Brokerage Fee "
+                    android:hint="Brokerage Fee"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
@@ -109,7 +107,7 @@
                     android:layout_margin="16dp"
 
                     android:ems="10"
-                    android:hint="Maintenance "
+                    android:hint="Maintenance Fee"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
@@ -126,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:ems="10"
-                    android:hint="Number of Floors "
+                    android:hint="Number Of Floors "
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
@@ -143,11 +141,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:ems="10"
-                    android:hint="Age of Building "
+                    android:hint="Age of Building"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
-
+</LinearLayout>
             <LinearLayout
                 android:id="@+id/ll"
                 android:layout_width="match_parent"
@@ -156,59 +154,50 @@
                 android:layout_below="@+id/etmaintanance"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:orientation="vertical"
-                android:padding="20dp">
-
-                <CheckBox
-
-                    android:id="@+id/pricing1_ck_rent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_alignTop="@+id/pricing1_ck_security"
-
-                    android:text="Rent Negotiable" />
-
-                <CheckBox
-                    android:id="@+id/pricing1_ck_security"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Security Negotiable" />
-
-                <CheckBox
-                    android:id="@+id/pricing1_ck_deposite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Security Deposit" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="20dp"
+                >
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
 
                         <CheckBox
-                            android:id="@+id/pricing1_ck_terrace"
-
-                            android:text="Terrace" />
-
+                            android:id="@+id/pricing1_ck_rent"
+                            android:text="Rent Negotiable" />
                         <CheckBox
                             android:id="@+id/pricing1_ck_garden"
-
                             android:text="Terrace Garden" />
+
                     </TableRow>
+
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/pricing1_ck_deposite"
+                            android:text="Security Deposit" />
+
+
+                        <CheckBox
+                            android:id="@+id/pricing1_ck_terrace"
+                            android:text="Terrace" />
+
+
+                    </TableRow>
+
+                    <TableRow android:layout_span="1">
+                        <CheckBox
+                            android:id="@+id/pricing1_ck_security"
+                            android:text="Security Negotiable" />
+
+                    </TableRow>
+
                 </TableLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -220,26 +209,29 @@
 
                 <TextView
                     android:id="@+id/tvgarden"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
                     android:padding="10dp"
                     android:text="No of Garden "
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_weight="50"/>
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15sp" />
+
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#000000"
-                    ></View>
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center">
+
+                </View>
 
                 <Spinner
                     android:id="@+id/pricing_spiner_garden"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="50"
-
+                    android:padding="13dp"
                     android:entries="@array/garden"
 
                     />
@@ -256,26 +248,29 @@
                 <TextView
 
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
                     android:layout_weight="50"
                     android:padding="10dp"
                     android:text="No of Lifts"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/divide"></View>
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center">
+
+                </View>
 
                 <Spinner
                     android:id="@+id/pricing_spinner_lifts"
                     android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="50"
-
                     android:entries="@array/no_of_lift"
+                    android:padding="13dp"
 
                     />
             </LinearLayout>
@@ -292,14 +287,13 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Lift Type "
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <RadioGroup
 
@@ -324,23 +318,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Automatic"
-                        android:checked="true"/>
+                        android:checked="true"
+                        android:text="Automatic" />
 
                 </RadioGroup>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
     <Button
 
         android:layout_width="320dp"
-        android:layout_gravity="center"
         android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_button"
         android:onClick="myClick"
         android:text="NEXT"
-        android:textColor="#ffffff"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bg_button"/>
+        android:textColor="#ffffff" />
 </LinearLayout>
 

@@ -42,10 +42,12 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_residential_d1);
         db = new DBHandler(this, "DB", null, 1);
-        TextView name = (TextView) findViewById(R.id.tv_residential);
     //    name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
         serventroom = (CheckBox) findViewById(R.id.residential_ck_serventroom);
         prayer = (CheckBox) findViewById(R.id.residential_ck_prayerroom);
         balcony = (CheckBox) findViewById(R.id.residential_ck_balcony);
@@ -310,6 +312,7 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
         //noinspection SimplifiableIfStatement
 
        if(id==R.id.action_my_next){
+           item.setEnabled(false);
            saveResidential();
             Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this,SocietyData1.class));
@@ -393,6 +396,7 @@ public class ResidentialD1 extends AppCompatActivity {private CheckBox serventro
     }
 
     public void myClick(View v){
+        v.setEnabled(false);
         saveResidential();
         startActivity(new Intent(this,SocietyData1.class));
         finish();

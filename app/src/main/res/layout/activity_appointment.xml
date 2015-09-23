@@ -3,7 +3,8 @@
     android:id="@+id/appointmentid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.junctiontech.homeonline.Appointment">
+    tools:context="in.junctiontech.homeonline.Appointment"
+    >
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/activity_main_swipe_refresh_layout"

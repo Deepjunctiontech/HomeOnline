@@ -43,6 +43,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -245,6 +246,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "type TEXT," +
                 "room_id TEXT," +
                 "image_location TEXT," +
+                "image_location_thumbnail TEXT," +
                 "status TEXT," +
                 "FOREIGN KEY(id) REFERENCES Appointments(id))");
 
@@ -1037,7 +1039,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
            Log.d("JSONDATA", new JSONObject(params).toString());
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://junctionerp.com/ankit/update.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/mobile/update.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -1136,7 +1138,7 @@ public class DBHandler extends SQLiteOpenHelper {
             String responseString = null;
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://junctionerp.com/ankit/image.php");
+            HttpPost httppost = new HttpPost("http://dbproperties.ooo/mobile/image.php");
 
             File sourceFile = new File(image_location);
             try {
@@ -1207,7 +1209,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 ContentValues cv= new ContentValues();
                 cv.put("status", "success");
                 long i= db.update("ImageSelection", cv, "image_location=?", new String[]{image_location});
-                Toast.makeText(c,i+"",Toast.LENGTH_LONG).show();
+               // Toast.makeText(c,i+"",Toast.LENGTH_LONG).show();
                 db.close();
             }
 
@@ -1239,15 +1241,32 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     private void showAlert(String message) {
 
+
+
+
         Context current;
-        if(((Activity) c).isFinishing()) {
-            current = MainScreen.getContext();
-            if (((Activity) current).isFinishing())
-                return;
+
+
+        current = NewGallery.getContext();
+
+        if(((Activity) current).isFinishing())
+        {
+            if(((Activity) c).isFinishing()) {
+                //Toast
+                current = MainScreen.getContext();
+                if (((Activity) current).isFinishing())
+                    return;
+                else
+                ((MainScreen) current).onResume();
+            }
+            else
+                current=c;
         }
         else
-        current=c;
-        AlertDialog.Builder builder = new AlertDialog.Builder(current);
+            ((NewGallery) current).onResume();
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(current,R.style.AppCompatAlertDialogStyle);
         builder.setMessage(message).setTitle("Response from Servers")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -1583,13 +1602,14 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-
+       String local= path;
         cv.put("id", Appointment.clicked);
         cv.put("type", selected);
         cv.put("room_id", room_id);
-        cv.put("image_location", path);
+        cv.put("image_location", local);
         cv.put("status", "pending");
-
+        String s=path.replace("DB","thumbnail");
+        cv.put("image_location_thumbnail",s);
         //  db.update("ImageSelection", cv, "id=?", new String[]{Appointment.clicked});
         long i = db.insert("ImageSelection", null, cv);
         db.close();
@@ -1601,8 +1621,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = super.getReadableDatabase();
         Cursor cur = db.rawQuery("Select * from Appointments where id=?", new String[]{Appointment.clicked});
-        if (cur.moveToNext())
+        if (cur.moveToNext()) {
             b.putString("name", cur.getString(cur.getColumnIndex("name")));
+            b.putString("description", cur.getString(cur.getColumnIndex("description")));
+        }
         else Toast.makeText(c, "error", Toast.LENGTH_SHORT).show();
         cur.close();
         db.close();
@@ -1779,6 +1801,23 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
         String a[][] = new String[][]{id, status, imagestatus};
         return a;
+    }
+
+    public ArrayList[] giveImageURL(String type)
+    {
+
+        SQLiteDatabase db = super.getReadableDatabase();
+        Cursor cq = db.rawQuery("Select * from ImageSelection where id=? AND type=?", new String[]{Appointment.clicked, type});
+        ArrayList<File> arr = new ArrayList<File>();
+        ArrayList<String> brr = new ArrayList<String>();
+        for (int i = 0; cq.moveToNext(); i++) {
+                            arr.add(new File(cq.getString(cq.getColumnIndex("image_location_thumbnail"))));
+            brr.add(new String(cq.getString(cq.getColumnIndex("status"))));
+
+        }
+        cq.close();
+        db.close();
+        return (new ArrayList[]{arr,brr});
     }
 
 

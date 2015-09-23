@@ -139,7 +139,7 @@ public class LoginScreen extends Activity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             StringRequest strReq = new StringRequest(Request.Method.POST,
-                    "http://junctionerp.com/ankit/login.php", new Response.Listener<String>() {
+                    "http://dbproperties.ooo/mobile/login.php", new Response.Listener<String>() {
 
                 @Override
                 public void onResponse(String response) {

@@ -1,9 +1,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="5dp"
+    android:layout_height="match_parent"
     tools:context="in.junctiontech.homeonline.ImageSelection"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/images">
 
+
+    <TextView
+        android:id="@+id/tv_imageSelection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#ffffff"
+        android:background="#ffaa3f"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:gravity="center">
     <LinearLayout
         android:id="@+id/image_linear"
         android:layout_width="match_parent"
@@ -15,21 +35,22 @@
         <TextView
             android:id="@+id/image_select"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="50"
             android:padding="10dp"
             android:text="Types Of Room"
-            android:textColor="#006699"
-            android:textSize="18dp"
-            android:textStyle="bold"
+            android:textColor="@color/highlight"
+            android:gravity="center"
+            android:textSize="15sp"
 
             />
 
 
         <View
             android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#000000"></View>
+            android:layout_height="15dp"
+            android:background="@color/divide"
+            android:layout_gravity="center"></View>
 
 
         <Spinner
@@ -38,7 +59,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:entries="@array/imageselection"></Spinner>
+            android:entries="@array/imageselection"
+            android:gravity="center"
+            android:padding="13dp"></Spinner>
     </LinearLayout>
 
 
@@ -53,21 +76,22 @@
         <TextView
             android:id="@+id/image_select_particular"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="50"
             android:padding="10dp"
             android:text="Select Particular ID"
-            android:textColor="#006699"
-            android:textSize="18dp"
-            android:textStyle="bold"
+            android:textColor="@color/highlight"
+            android:gravity="center"
+            android:textSize="15sp"
 
             />
 
 
         <View
             android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#000000"></View>
+            android:layout_height="15dp"
+            android:background="@color/divide"
+            android:layout_gravity="center"></View>
 
 
         <Spinner
@@ -76,6 +100,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
+            android:gravity="center"
             ></Spinner>
     </LinearLayout>
 
@@ -106,6 +131,7 @@
         android:layout_below="@+id/openCamera"
         android:layout_centerHorizontal="true"
         android:onClick="send_To_Server"/>
+    </LinearLayout>
 
 
 </LinearLayout>

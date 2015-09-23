@@ -4,7 +4,8 @@
     android:id="@+id/dl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.junctiontech.homeonline.MainScreen">
+    tools:context="in.junctiontech.homeonline.MainScreen"
+    >
 
 
     <LinearLayout
@@ -17,19 +18,19 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffaa3f"
+            android:background="#f77c14"
             android:minHeight="?attr/actionBarSize"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="DashBoard"></android.support.v7.widget.Toolbar>
-
-
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/yyy">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,11 +54,11 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
+                            android:gravity="center"
                             android:padding="10dp"
                             android:text="Status Completed "
                             android:textColor="@color/highlight"
-                            android:gravity="center"
-                            android:textSize="15dp"/>
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="1dp"
@@ -89,12 +90,11 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
+                            android:gravity="center"
                             android:padding="10dp"
                             android:text="Status In Process "
                             android:textColor="@color/highlight"
-                            android:gravity="center"
-                            android:textSize="15dp"
-                            />
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="1dp"
@@ -133,7 +133,7 @@
                             android:gravity="center"
                             android:text="ID"
                             android:textColor="@color/highlight"
-                            android:textSize="15dp"/>
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="1dp"
@@ -148,7 +148,7 @@
                             android:gravity="center"
                             android:text="Status"
                             android:textColor="@color/highlight"
-                            android:textSize="15dp"/>
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="1dp"
@@ -162,7 +162,7 @@
                             android:gravity="center"
                             android:text="Image"
                             android:textColor="@color/highlight"
-                            android:textSize="15dp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -175,7 +175,6 @@
                         android:id="@+id/lv_for_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         ></ListView>
 
 
@@ -185,9 +184,9 @@
 
 
         <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></android.support.v4.view.ViewPager>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></android.support.v4.view.ViewPager>
 
     </LinearLayout>
 
@@ -196,6 +195,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@drawable/yyy"
         app:headerLayout="@layout/drawer_header"
         app:itemIconTint="#48981b"
         app:itemTextColor="#993225"

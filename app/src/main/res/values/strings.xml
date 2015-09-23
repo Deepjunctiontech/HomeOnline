@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DB</string>
+    <string name="app_name">Home Online</string>
     <string name="btname"><u>Bath Room</u></string>
     <string name="bdname"><u>Bed Room</u></string>
     <string name="lvname"><u>Living Room</u></string>
@@ -18,6 +18,7 @@
         <item>"SANDEEP"</item>
         <item>"CHATRAPAL"</item>
       </array>
+
 
     <array name="no_of_lift">
         <item>"0"</item>
@@ -167,7 +168,7 @@
     <string name="title_activity_help">Help</string>
     <string name="title_activity_open_gallery">Open Gallery</string>
     <string name="title_activity_advertiser_detail">Advertiser Detail</string>
-    <string name="title_activity_new_gallery">Gallery</string>
+    <string name="title_activity_new_gallery">Image Section</string>
     <string name="title_activity_check_external_dir">CheckExternalDir</string>
 
 </resources>

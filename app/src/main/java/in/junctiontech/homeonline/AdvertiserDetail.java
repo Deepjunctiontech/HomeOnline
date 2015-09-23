@@ -47,10 +47,12 @@ private TextView tv_advertiser;
         db = new DBHandler(this, "DB", null, 1);
         Resources r=this.getResources();
         owner_type_array= r.getStringArray(R.array.owner_type);
-        tv_advertiser=(TextView)findViewById(R.id.tv_advertiser);
-        tv_advertiser.setPaintFlags(tv_advertiser.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+    //    tv_advertiser.setPaintFlags(tv_advertiser.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        tv_advertiser.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
 
         advertiser_owner=(RadioButton)findViewById(R.id.advertiser_owner);
         advertiser_broker=(RadioButton)findViewById(R.id.advertiser_broker);
@@ -127,6 +129,7 @@ private TextView tv_advertiser;
 
 
         if(id==R.id.action_my_next){
+            item.setEnabled(false);
             setAdvertiserDetail();
             Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this,LivingRoom.class));
@@ -136,6 +139,7 @@ private TextView tv_advertiser;
         return super.onOptionsItemSelected(item);
     }
     public void myClick(View v){
+        v.setEnabled(false);
         setAdvertiserDetail();
         startActivity(new Intent(this,LivingRoom.class));
         finish();

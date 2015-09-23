@@ -29,10 +29,13 @@ public class SocietyData1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         db = new DBHandler(this, "DB", null, 1);
         setContentView(R.layout.activity_society_d1);
-        name=(TextView)findViewById(R.id.tv_societydata);
+
       //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
         society_Squash= (CheckBox) findViewById(R.id.society_Squash);
         society_table_tennis= (CheckBox) findViewById(R.id.society_table_tennis);
         society_kids_play_area= (CheckBox) findViewById(R.id.society_kids_play_area);
@@ -211,9 +214,10 @@ public class SocietyData1 extends AppCompatActivity {
         int id = item.getItemId();
 
          if(id==R.id.action_my_next){
+             item.setEnabled(false);
             saveSociety();
             Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this,ImageSelection.class));
+            startActivity(new Intent(this,NewGallery.class));
             finish();
         }
 
@@ -272,8 +276,9 @@ public class SocietyData1 extends AppCompatActivity {
 
     }
     public void myClick(View v){
+        v.setEnabled(false);
         saveSociety();
-        startActivity(new Intent(this,ImageSelection.class));
+        startActivity(new Intent(this,NewGallery.class));
         finish();
     }
 }

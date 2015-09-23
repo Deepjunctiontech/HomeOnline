@@ -85,7 +85,8 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
         getDataFromDataBase();
      //   onRefresh();
         //  mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
+        mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED,Color.BLACK,
+                Color.CYAN, Color.GRAY,Color.YELLOW, Color.MAGENTA, Color.LTGRAY);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         onRefresh();
 
@@ -124,7 +125,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
 
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://junctionerp.com/ankit/appointment.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/mobile/appointment.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -158,7 +159,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                         n.getString("appointmentTime"));
                             }
                         } catch (JSONException e) {
-                            Toast.makeText(Appointment.this, "error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Appointment.this, "Invalid Response From Server", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
                         getDataFromDataBase();

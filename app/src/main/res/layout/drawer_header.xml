@@ -2,12 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:alpha="0.8"
-    android:background="#ffffffff"
-    android:orientation="vertical">
+
+    android:orientation="vertical"
+    android:background="@drawable/azz"
+    android:scaleType = "centerCrop">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/abc"
@@ -18,11 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_gravity="bottom"
-        android:gravity="center|bottom"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="#e1000000"/>
+        android:gravity="left"
+        android:padding="20dp"
+        android:textSize="12sp"
+        android:textStyle="bold|italic"
+        android:textColor="#f8ffff"
+        />
 
 
 </FrameLayout>

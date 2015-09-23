@@ -41,10 +41,12 @@ public class BedRoom extends AppCompatActivity {
         bathroom = (CheckBox) findViewById(R.id.bedroom_ck_attachbathroom);
         bedroom_spinner_floring = (Spinner) findViewById(R.id.bedroom_spiner_flooringtype);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView name = (TextView) findViewById(R.id.tv_bedroom);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+      //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
 
         bedroom_spinner_floring.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -208,6 +210,7 @@ public class BedRoom extends AppCompatActivity {
 
 
         if (id == R.id.action_my_next) {
+            item.setEnabled(false);
             setBedRoom();
           //  Toast.makeText(this,"NEXT",Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, BathRoom.class));
@@ -241,6 +244,7 @@ public class BedRoom extends AppCompatActivity {
 
     }
     public void myClick(View v){
+        v.setEnabled(false);
         setBedRoom();
         startActivity(new Intent(this, BathRoom.class));
         finish();

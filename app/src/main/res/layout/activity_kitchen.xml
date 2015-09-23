@@ -2,21 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     tools:context="in.junctiontech.homeonline.Kitchen"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/yyy">
 
-    <TextView
-        android:id="@+id/tv_kitchen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textSize="25dp"
-        android:textStyle="bold" />
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+    <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/dialog_holo_light_frame"
@@ -25,24 +23,26 @@
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="50"
             android:padding="10dp"
             android:text="Select Kitchen No."
-            android:textColor="#006699"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textColor="@color/highlight"
+            android:gravity="center"
+            android:textSize="15sp" />
 
         <View
             android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#c6f4f1"></View>
+            android:layout_height="15dp"
+            android:background="@color/divide"
+            android:layout_gravity="center"></View>
 
         <Spinner
             android:id="@+id/kitchen_spinner_total"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
+            android:gravity="center"
             />
 
 
@@ -66,24 +66,24 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_cabinets"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight=".5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:padding="10dp"
-                    android:text="Cabinetes"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:text="Cabinets                                                           "
+                     android:textColor="@color/highlight"
+                    android:textSize="15sp"/>
+                 <!--  android:singleLine="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit ="marquee_forever"
+                    android:ellipsize="marquee"-->
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <RadioGroup
-                    android:id="@+id/kitchen_rg_cabinates"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_cabinets"
@@ -115,12 +115,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+
                     android:stretchColumns="*">
 
                     <TableRow>
@@ -172,32 +173,32 @@
                 android:weightSum="100">
 
                 <TextView
-                    android:id="@+id/tv_material"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:layout_weight="50"
                     android:padding="10dp"
                     android:text="Plateform Material"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-
-                    />
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15sp"
                 />
 
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#000000"></View>
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center"></View>
 
 
                 <Spinner
 
                     android:id="@+id/kitchen_spiner_plteform"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-                    android:entries="@array/plateform"></Spinner>
+                    android:entries="@array/plateform"
+                    android:gravity="center"
+                    android:padding="13dp"></Spinner>
 
             </LinearLayout>
         </LinearLayout>
@@ -214,4 +215,5 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/bg_button"/>
+    </LinearLayout>
 </LinearLayout>

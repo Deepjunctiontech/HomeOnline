@@ -35,10 +35,13 @@ public class Kitchen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen);
         db = new DBHandler(this, "DB", null, 1);
-        TextView name = (TextView) findViewById(R.id.tv_kitchen);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+      //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
+
         fridge = (CheckBox) findViewById(R.id.kitchen_ck_refridge);
         gaspipeline = (CheckBox) findViewById(R.id.kitchen_ck_gaspipeline);
         waterpurifier = (CheckBox) findViewById(R.id.kitchen_ck_waterpurifier);
@@ -206,6 +209,7 @@ public class Kitchen extends AppCompatActivity {
 
 
        if(id==R.id.action_my_next){
+           item.setEnabled(false);
             setKitchen();
             Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this,WashDry.class));
@@ -229,6 +233,7 @@ public class Kitchen extends AppCompatActivity {
 
     }
     public void myClick(View v){
+        v.setEnabled(false);
         setKitchen();
         startActivity(new Intent(this,WashDry.class));
         finish();

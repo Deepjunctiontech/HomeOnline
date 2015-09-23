@@ -4,19 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="in.junctiontech.homeonline.ResidentialD1">
+    tools:context="in.junctiontech.homeonline.ResidentialD1"
+    android:background="@drawable/yyy">
 
 
-    <TextView
-        android:id="@+id/tv_residential"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:textColor="#ffffff"
-        android:background="#ffaa3f"
-        android:textSize="25dp"
-        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp"
+            android:background="@android:drawable/dialog_holo_light_frame">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/residential_residential_text"
@@ -45,7 +42,7 @@
                     android:hint=" No. of Residential Unit"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
-
+</LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +57,7 @@
                     android:text="No. of Storey's"
                     android:textColor="@color/highlight"
                     android:gravity="center"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:layout_weight="50"/>
                 <View
                     android:layout_width="1dp"
@@ -86,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:orientation="vertical"
+                android:padding="20dp"
 
 
                 >
@@ -93,7 +91,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -155,7 +153,7 @@
                     android:padding="10dp"
                     android:text="Food"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -167,7 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:weightSum="2">
 
                     <RadioButton
@@ -207,7 +205,7 @@
                     android:padding="10dp"
                     android:text="Ready to Move"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -220,7 +218,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:weightSum="2">
 
                     <RadioButton
@@ -260,7 +258,7 @@
                     android:padding="10dp"
                     android:text="Pets Allowed"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -272,7 +270,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:weightSum="2">
 
                     <RadioButton
@@ -309,7 +307,7 @@
                     android:text="Main Entrance Facing"
                     android:textColor="@color/highlight"
                     android:gravity="center"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
                 <View
                     android:layout_width="1dp"
                     android:layout_height="15dp"
@@ -340,7 +338,7 @@
                     android:padding="10dp"
                     android:text="Visitor Parking"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -350,7 +348,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -381,7 +379,7 @@
                     android:padding="10dp"
                     android:text="Parking"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -391,7 +389,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -431,7 +429,7 @@
                     android:padding="10dp"
                     android:text="Parking Type"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -442,7 +440,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -498,7 +496,7 @@
                     android:padding="10dp"
                     android:text="Power Backup"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp"/>
+                    android:textSize="15sp"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -506,11 +504,10 @@
                     android:background="@color/divide" />
 
                 <RadioGroup
-                    android:id="@+id/residential_rg_powerbackup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:weightSum="3">
 
                     <RadioButton
@@ -552,7 +549,7 @@
                     android:padding="10dp"
                     android:text="Water Supply"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -560,11 +557,10 @@
                     android:background="@color/divide" />
 
                 <RadioGroup
-                    android:id="@+id/residential_rg_waterbackup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:weightSum="3">
 
                     <RadioButton
@@ -606,14 +602,14 @@
                     android:padding="10dp"
                     android:text="Water Backup"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/divide" />
                 <TableLayout
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stretchColumns="*">
@@ -673,6 +669,6 @@
         android:text="NEXT"
         android:textColor="#ffffff"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/bg_button"/>
 </LinearLayout>

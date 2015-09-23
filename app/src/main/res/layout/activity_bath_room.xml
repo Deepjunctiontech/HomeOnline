@@ -3,18 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="5dp"
-    tools:context="in.junctiontech.homeonline.BathRoom">
+    tools:context="in.junctiontech.homeonline.BathRoom"
+    android:background="@drawable/yyy">
 
-    <TextView
-        android:id="@+id/tv_bath"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:padding="10dp"
-        android:textColor="#000000"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
 
     <LinearLayout
@@ -26,24 +22,26 @@
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="50"
             android:padding="10dp"
-            android:text="Select a room "
-            android:textColor="#006699"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:text="Select Room No."
+            android:textColor="@color/highlight"
+            android:gravity="center"
+            android:textSize="15sp" />
 
         <View
             android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#c6f4f1"></View>
+            android:layout_height="15dp"
+            android:background="@color/divide"
+            android:layout_gravity="center"></View>
 
         <Spinner
             android:id="@+id/bath_spinner_total"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
+            android:gravity="center"
             />
 
 
@@ -69,19 +67,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/bathtype"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Bath Type"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
 
                 <RadioGroup
@@ -123,38 +119,38 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Hot Water Supply"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <RadioGroup
-
-                    android:id="@+id/bathroom_rg_watersupply"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:weightSum="100">
+                    android:weightSum="100"
+                    >
 
 
                     <RadioButton
                         android:id="@+id/bathroom_rb_geyser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="50"
+                        android:layout_weight="43"
                         android:text="Geyser" />
+
 
                     <RadioButton
                         android:id="@+id/bathroom_rb_gas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="50"
+                        android:layout_weight="57"
                         android:text="Gas" />
+
                 </RadioGroup>
             </LinearLayout>
 
@@ -170,14 +166,13 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Toilet"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#000000" />
+                    android:background="@color/divide" />
 
                 <RadioGroup
                     android:id="@+id/bathroom_rg_toilet"
@@ -208,12 +203,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+
                     android:stretchColumns="*">
 
                     <TableRow>
@@ -226,8 +222,6 @@
 
                         <CheckBox
                             android:id="@+id/bathroom_ck_showercurtain"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="Shower Curtain" />
                     </TableRow>
 
@@ -235,14 +229,10 @@
 
                         <CheckBox
                             android:id="@+id/bathroom_ck_bathtub"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="Bath Tub" />
 
                         <CheckBox
                             android:id="@+id/bathroom_ck_cabinets"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="Cabinets" />
                     </TableRow>
 
@@ -250,15 +240,11 @@
 
                         <CheckBox
                             android:id="@+id/bathroom_ck_windows"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="Windows" />
 
 
                         <CheckBox
                             android:id="@+id/bathroom_ck_exhaustfan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="Exhaust Fan" />
                     </TableRow>
                 </TableLayout>
@@ -273,26 +259,29 @@
 
                 <TextView
                     android:id="@+id/flooringtype"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:layout_weight="50"
                     android:padding="10dp"
                     android:text="Flooring Type"
-                    android:textColor="#006699"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#000000"></View>
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center"></View>
 
                 <Spinner
                     android:id="@+id/bathroom_spiner_flooringtype"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-                    android:entries="@array/flooring" />
+                    android:entries="@array/flooring"
+                    android:gravity="center"
+                    android:padding="13dp"/>
 
 
 
@@ -311,5 +300,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/bg_button"/>
+</LinearLayout>
 </LinearLayout>
 

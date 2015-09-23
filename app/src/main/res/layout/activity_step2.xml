@@ -1,101 +1,138 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/yyy"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="in.junctiontech.homeonline.STEP2"
-    android:orientation="vertical">
+    tools:context="in.junctiontech.homeonline.STEP2">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Property Detail"
-                android:onClick="myClick"
                 android:id="@+id/detail_btn_property"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
+                android:text="Property Detail"
+                android:textColor="#ffffff"
+
+
                 />
 
 
             <Button
+                android:id="@+id/detail_btn_advertiser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
                 android:text="Advertiser Detail"
-                android:onClick="myClick"
-                android:id="@+id/detail_btn_advertiser"/>
+                android:textColor="#ffffff" />
+
             <Button
+                android:id="@+id/detail_btn_living"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
                 android:text="Living Room"
-                android:onClick="myClick"
-                android:id="@+id/detail_btn_living"/>
+                android:textColor="#ffffff" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bed Room"
-                android:onClick="myClick"
                 android:id="@+id/detail_btn_bed"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
+                android:text="Bed Room"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/detail_btn_bath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
                 android:text="Bath Room"
-                android:onClick="myClick"
-                android:id="@+id/detail_btn_bath"/>
+                android:textColor="#ffffff" />
 
             <Button
+                android:id="@+id/detail_btn_kitchen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
                 android:text="Kitchen"
-                android:onClick="myClick"
-                android:id="@+id/detail_btn_kitchen"/>
+                android:textColor="#ffffff" />
 
             <Button
+                android:id="@+id/detail_btn_wash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
                 android:text="Wash Dry"
-                android:onClick="myClick"
-                android:id="@+id/detail_btn_wash"/>
+                android:textColor="#ffffff" />
 
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pricing"
-                android:onClick="myClick"
                 android:id="@+id/detail_btn_pricing"
-                />
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Residential"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
                 android:onClick="myClick"
-                android:id="@+id/detail_btn_residential"
-                />
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Society"
-                android:onClick="myClick"
-                android:id="@+id/detail_btn_society"
-                />
+                android:text="Pricing"
+                android:textColor="#ffffff" />
 
             <Button
+                android:id="@+id/detail_btn_residential"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Image Selection"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
                 android:onClick="myClick"
+                android:text="Residential"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/detail_btn_society"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
+                android:text="Society"
+                android:textColor="#ffffff" />
+
+            <Button
                 android:id="@+id/detail_btn_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_button"
+                android:onClick="myClick"
+                android:text="Image Section"
+                android:textColor="#ffffff"
                 />
 
         </LinearLayout>

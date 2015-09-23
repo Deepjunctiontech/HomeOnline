@@ -193,12 +193,6 @@ public class STEP1 extends AppCompatActivity {
 
     }
 
-    public void selectPossessionDate(View v)
-    {
-        showDialog(999);
-        Toast.makeText(this,"Date",Toast.LENGTH_LONG).show();
-    }
-
 
     @Override
     protected Dialog onCreateDialog(int id) {

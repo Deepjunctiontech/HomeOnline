@@ -12,6 +12,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -58,6 +60,10 @@ public class ImageSelection extends AppCompatActivity {
         image_spinner= (Spinner) findViewById(R.id.image_spinner);
         image_spinner_particular= (Spinner) findViewById(R.id.image_spinner_particular);
         db = new DBHandler(this, "DB", null, 1);
+        TextView name = (TextView) findViewById(R.id.tv_imageSelection);
+        //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        Bundle b = db.getIdName();
+        name.setText(b.getString("name"));
     //    imgPreview = (ImageView) findViewById(R.id.image);
         btnCapturePicture = (Button) findViewById(R.id.openCamera);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -167,6 +173,7 @@ public class ImageSelection extends AppCompatActivity {
      */
     private void captureImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+      //  Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
 
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
 
@@ -199,8 +206,8 @@ public class ImageSelection extends AppCompatActivity {
         // changes
         outState.putParcelable("file_uri", fileUri);
         outState.putString("type_spinner", selected);
-        outState.putString("room_id",selected_particular);
-        outState.putString("strn",strn);
+        outState.putString("room_id", selected_particular);
+        outState.putString("strn", strn);
     }
 
     @Override
@@ -370,6 +377,32 @@ public class ImageSelection extends AppCompatActivity {
         Intent i=new Intent(this,NewGallery.class);
        startActivity(i);
         finish();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_image_selection, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_HOME) {
+
+                Toast.makeText(this,"HOME",Toast.LENGTH_LONG).show();
+            finish();
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

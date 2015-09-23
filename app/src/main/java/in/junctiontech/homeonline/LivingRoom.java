@@ -46,10 +46,12 @@ private CheckBox sofa,diningtable,ac,tv,shoerack,falseceiling;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db = new DBHandler(this, "DB", null, 1);
 
-        TextView name = (TextView) findViewById(R.id.tv_living);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+      //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
 
         String check=db.getNoOfRoom("no_of_livingroom");
         detail_btn_living= (Button) findViewById(R.id.detail_btn_living);
@@ -120,7 +122,9 @@ private CheckBox sofa,diningtable,ac,tv,shoerack,falseceiling;
         int id = item.getItemId();
 
         if (id == R.id.action_my_next) {
+            item.setEnabled(false);
             setLiving();
+
             Toast.makeText(this,"NEXT",Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, BedRoom.class));
             finish();
@@ -217,7 +221,8 @@ private CheckBox sofa,diningtable,ac,tv,shoerack,falseceiling;
 
     }
 
-    public void myClick(View v){
+    public void myClick(View v) {
+        v.setEnabled(false);
         setLiving();
         startActivity(new Intent(this,BedRoom.class));
         finish();

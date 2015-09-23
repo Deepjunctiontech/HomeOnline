@@ -30,10 +30,13 @@ public class WashDry extends AppCompatActivity {
         setContentView(R.layout.activity_wash_dry);
 
         db = new DBHandler(this, "DB", null, 1);
-        TextView name   = (TextView) findViewById(R.id.tv_washdry);
+
      //   name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
         yes = (RadioButton) findViewById(R.id.washarea_rb_yes);
         no = (RadioButton) findViewById(R.id.washarea_rb__no);
 

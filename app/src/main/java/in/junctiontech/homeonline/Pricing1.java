@@ -38,10 +38,12 @@ public class Pricing1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pricing1);
         db = new DBHandler(this, "DB", null, 1);
-        name=(TextView)findViewById(R.id.tv_pricing);
-        name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+    //    name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-        name.setText(b.getString("name"));
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
 //        rl = (RelativeLayout) findViewById(R.id.pricing);
         rent = (CheckBox) findViewById(R.id.pricing1_ck_rent);
         security = (CheckBox) findViewById(R.id.pricing1_ck_security);
@@ -190,6 +192,7 @@ public class Pricing1 extends AppCompatActivity {
         int id = item.getItemId();
 
        if(id==R.id.action_my_next){
+           item.setEnabled(false);
            savePricing();
             Toast.makeText(this,"NEXT",Toast.LENGTH_LONG).show();
             startActivity(new Intent(this,ResidentialD1.class));
@@ -298,6 +301,7 @@ public class Pricing1 extends AppCompatActivity {
     }
 
     public void myClick(View v) {
+        v.setEnabled(false);
         savePricing();
         startActivity(new Intent(this, ResidentialD1.class));
         finish();

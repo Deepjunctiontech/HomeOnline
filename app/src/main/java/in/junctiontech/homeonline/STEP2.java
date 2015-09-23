@@ -32,7 +32,11 @@ public class STEP2 extends AppCompatActivity {
         detail_btn_advertiser= (Button) findViewById(R.id.detail_btn_advertiser);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db=new DBHandler(this,"DB",null,1);
-
+        Bundle b = db.getIdName();
+        getSupportActionBar().setTitle(
+                getSupportActionBar().getTitle() + " - " + b.getString("name"));
+        //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
+        getSupportActionBar().setSubtitle(b.getString("description"));
 
 
         String status_basic_property=db.getButtonStatus("Appointments","status_property_detail");
@@ -126,6 +130,7 @@ public class STEP2 extends AppCompatActivity {
     }
 
     public void myClick(View v) {
+        v.setEnabled(false);
         int id = v.getId();
         Class s = null;
 
@@ -144,7 +149,7 @@ public class STEP2 extends AppCompatActivity {
         else if (id == R.id.detail_btn_wash)
             s = WashDry.class;
         else if (id == R.id.detail_btn_image)
-            s = ImageSelection.class;
+            s = NewGallery.class;
         else if (id == R.id.detail_btn_pricing)
             s = Pricing1.class;
         else if (id == R.id.detail_btn_residential)

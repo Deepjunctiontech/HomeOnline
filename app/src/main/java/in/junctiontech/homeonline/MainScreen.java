@@ -78,6 +78,7 @@ public class MainScreen extends AppCompatActivity implements NavigationView.OnNa
     @Override
     public void onResume()
     {
+        myadp=null;
         this.c=this;
         super.onResume();
         updateTable();
@@ -191,6 +192,7 @@ public class MainScreen extends AppCompatActivity implements NavigationView.OnNa
         for (int i = 0; i < f.length; i++) {
                     f[i].delete();
                 }
+        mediaStorageDir.delete();
         //Toast.makeText(this,mediaStorageDir.delete()+"",Toast.LENGTH_LONG).show();
 
 
@@ -231,9 +233,15 @@ public class MainScreen extends AppCompatActivity implements NavigationView.OnNa
         String[] status = data[1];
         String[] imagestatus = data[2];
         myadp=null;
-        myadp = new myAdapter(this, id, status,imagestatus);
 
-        lv_for_status.setAdapter(myadp);
+        if(id.length!=0)
+        {
+            myadp = new myAdapter(this, id, status,imagestatus);
+            lv_for_status.setAdapter(myadp);
+        }
+        else
+            lv_for_status.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new String[]{"Currently No Apppointment Available"}));
+
 
     }
 

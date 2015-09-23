@@ -3,19 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="in.junctiontech.homeonline.SocietyData1"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:background="#ffaa3f"
-        android:textSize="25dp"
-        android:gravity="center"
-        android:id="@+id/tv_societydata"
-        android:padding="10dp"
-
-        />
+    android:orientation="vertical"
+    android:background="@drawable/yyy">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,8 +16,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp"
+            android:background="@android:drawable/dialog_holo_light_frame">
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/society_society_text"
                 android:layout_width="match_parent"
@@ -48,8 +45,7 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/society_building_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/society_society_text">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/society_buildingy_edit"
@@ -60,6 +56,7 @@
                     android:ems="10"
                     android:hint="No of Building" />
             </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +70,7 @@
                     android:padding="10dp"
                     android:text="Boundary Wall"
                     android:textColor="@color/highlight"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     />
 
                 <View
@@ -81,7 +78,7 @@
                     android:layout_height="1dp"
                     android:background="@color/divide" />
                 <RadioGroup
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_boundarywall"
@@ -144,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="15dp">
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -253,7 +250,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
@@ -324,7 +321,7 @@
         android:text="NEXT"
         android:textColor="#ffffff"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/bg_button"/>
 </LinearLayout>
 
