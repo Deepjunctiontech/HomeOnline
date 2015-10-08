@@ -84,13 +84,13 @@
                 android:textColor="#ffffff" />
 
             <Button
-                android:id="@+id/detail_btn_wash"
+                android:id="@+id/detail_btn_rentscreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@drawable/bg_button"
                 android:onClick="myClick"
-                android:text="Wash Dry"
+                android:text="Rent Screen"
                 android:textColor="#ffffff" />
 
 

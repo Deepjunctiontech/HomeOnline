@@ -1,0 +1,306 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/yyy"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_weight="80"
+    tools:context="in.junctiontech.homeonline.RentScreen">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="80">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/rentscreen_brokerage_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+
+                    android:ems="10"
+                    android:hint="Brokerage Fee"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/rentscreen_maintanance_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="Maintenance Fee (Monthly)"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp"
+                    android:text="Food"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divide"/>
+
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/rentscreen_food_veg"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+
+                        android:text="Veg" />
+
+                    <RadioButton
+                        android:id="@+id/rentscreen_food_nonveg"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+
+                        android:text="Non Veg"
+                        android:checked="true"
+
+                    />
+
+                    <RadioButton
+                        android:id="@+id/rentscreen_food_no_preference"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No Preferences"
+                        android:checked="true"
+
+                    />
+
+                </RadioGroup>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Lease Type"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Spinner
+                    android:id="@+id/rentscreen_spinner_lease_type"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:entries="@array/lease_type"
+                    android:gravity="center"
+                    android:padding="13dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Pets Allowed"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divide" />
+
+                <RadioGroup
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="2">
+
+                    <RadioButton
+                        android:id="@+id/rentscreen_rb_pets_allowed_yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+
+
+                    <RadioButton
+                        android:id="@+id/rentscreen_rb_pets_allowed_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="No" />
+
+
+                </RadioGroup>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:stretchColumns="*">
+
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/rentscreen_ck_rent"
+                            android:text="Rent Negotiable" />
+                        <CheckBox
+                            android:id="@+id/rentscreen_ck_deposite"
+                            android:text="Security Deposit" />
+
+
+                    </TableRow>
+
+                    <TableRow android:layout_span="1">
+
+                        <CheckBox
+                            android:id="@+id/rentscreen_ck_security"
+                            android:text="Security Negotiable" />
+
+
+
+
+                    </TableRow>
+
+                </TableLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Availability Date"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Button
+                    android:id="@+id/rentscreen_et_possesion_date"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:onClick="selectAvailabilityDate"
+
+                    />
+
+            </LinearLayout>
+
+
+
+       </LinearLayout>
+</ScrollView>
+    <Button
+
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_button"
+        android:onClick="myClick"
+        android:text="NEXT"
+        android:textColor="#ffffff" />
+
+</LinearLayout>
+
+

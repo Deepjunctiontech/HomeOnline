@@ -22,14 +22,13 @@ import java.util.Calendar;
 
 public class PropertyDetails extends AppCompatActivity {
 
-    private TextView name;
-    private Spinner property_spiner_bhk_type, property_spiner_property_type, property_spiner_lease_type;
+    private Spinner property_spiner_bhk_type, property_spiner_property_type;
     private DBHandler db;
-    private String property_type = "Flat", bhk_type = "1 BHK", preferred_visit_time = "By Appointment", lease_type = "No Restriction";
-    private Spinner property_spinner_livingroom, step1_spiner_preferred_visit_time, property_spinner_bedroom,
-            property_spinner_kitchen, property_spinner_bathroom, property_spinner_washdry,property_spiner_preferred_visit_time;
-    public static String total_livingroom = "1", total_bedroom = "1", total_bathroom = "1", total_kitchen = "1", total_washdry = "1";
-    private String property_array[],lease_type_array[],preferred_visit_time_array[],bhk_type_array[],property_type_array[];
+    private String property_type = "Flat", bhk_type = "1 BHK", preferred_visit_time = "By Appointment";
+    private Spinner property_spinner_livingroom,  property_spinner_bedroom,
+            property_spinner_kitchen, property_spinner_bathroom, property_spinner_balcony,property_spiner_preferred_visit_time;
+    public static String total_livingroom = "1", total_bedroom = "1", total_bathroom = "1", total_kitchen = "1", total_balcony = "1";
+    private String property_array[],preferred_visit_time_array[],bhk_type_array[],property_type_array[];
     private Button property_et_possesion_date;
     private Calendar calendar;
     private int year,month,day;
@@ -42,10 +41,7 @@ public class PropertyDetails extends AppCompatActivity {
         setContentView(R.layout.activity_property_details);
         Intent i = this.getIntent();
         db = new DBHandler(this, "DB", null, 1);
-      //  name=(TextView)findViewById(R.id.tv_property_detail);
-        // name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
-      //  name.setText(b.getString("name"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle(
@@ -63,11 +59,11 @@ public class PropertyDetails extends AppCompatActivity {
         property_spinner_bedroom=(Spinner)this.findViewById(R.id.property_spinner_bedroom);
         property_spinner_kitchen=(Spinner)this.findViewById(R.id.property_spinner_kitchen);
         property_spinner_bathroom=(Spinner)this.findViewById(R.id.property_spinner_bathroom);
-        property_spinner_washdry=(Spinner)this.findViewById(R.id.property_spinner_washdry);
+        property_spinner_balcony=(Spinner)this.findViewById(R.id.property_spinner_balcony);
 
         property_spiner_bhk_type = (Spinner) findViewById(R.id.property_spiner_bhk_type);
         property_spiner_property_type = (Spinner) findViewById(R.id.property_spiner_property_type);
-        property_spiner_lease_type = (Spinner) findViewById(R.id.property_spiner_lease_type);
+
         property_spiner_preferred_visit_time = (Spinner) findViewById(R.id.property_spiner_preferred_visit_time);
         property_et_possesion_date = (Button) findViewById(R.id.property_et_possesion_date);
         String curr=day+"/"+(month+1)+"/"+year+"";
@@ -78,23 +74,11 @@ public class PropertyDetails extends AppCompatActivity {
         Resources r = this.getResources();
         property_type_array = r.getStringArray(R.array.property_type);
         property_array = r.getStringArray(R.array.property);
-        lease_type_array=r.getStringArray(R.array.lease_type);
+
         preferred_visit_time_array=r.getStringArray(R.array.preferred_visit_time);
         bhk_type_array=r.getStringArray(R.array.bhk_type);
 
-        property_spiner_lease_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                lease_type = lease_type_array[position];
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
         property_spiner_preferred_visit_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -196,10 +180,10 @@ public class PropertyDetails extends AppCompatActivity {
 
             }
         });
-        property_spinner_washdry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        property_spinner_balcony.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                total_washdry = property_array[position];
+                total_balcony = property_array[position];
               //  Toast.makeText(PropertyDetails.this, total_washdry, Toast.LENGTH_SHORT).show();
             }
 
@@ -238,7 +222,7 @@ public class PropertyDetails extends AppCompatActivity {
 
 
          if (id == R.id.action_my_next) {
-           // Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
              item.setEnabled(false);
             savePropertyDetail();
             startActivity(new Intent(this, AdvertiserDetail.class));
@@ -296,8 +280,8 @@ public class PropertyDetails extends AppCompatActivity {
     private void savePropertyDetail() {
 
         String possession_date =property_et_possesion_date.getText().toString();
-        db.setPropertyDetail(bhk_type,property_type,total_livingroom, total_bedroom, total_kitchen, total_bathroom, total_washdry,
-                lease_type, preferred_visit_time,possession_date,"true");
+        db.setPropertyDetail(bhk_type,property_type,total_livingroom, total_bedroom, total_kitchen, total_bathroom, total_balcony,
+                preferred_visit_time,possession_date,"true");
 
     }
 
@@ -348,18 +332,7 @@ public class PropertyDetails extends AppCompatActivity {
             property_spiner_preferred_visit_time.setSelection(i);
         }
 
-        String s3=b.getString("lease_type");
 
-        if(s3==null);
-        else {
-            int i=0;
-            for(;i<lease_type_array.length;i++){
-                if(lease_type_array[i].equalsIgnoreCase(s3))
-                    break;
-            }
-            property_spiner_lease_type.setSelection(i);
-
-    }
 
         String livingroom=b.getString("total_livingroom");
 
@@ -413,17 +386,17 @@ public class PropertyDetails extends AppCompatActivity {
             property_spinner_bathroom.setSelection(i);
         }
 
-        String washdry=b.getString("total_washdry");
+        String balcony=b.getString("total_balcony");
 
-        if(washdry==null);
+        if(balcony==null);
         else {
             int i=0;
             for(;i<property_array.length;i++){
 
-                if(property_array[i].equalsIgnoreCase(washdry))
+                if(property_array[i].equalsIgnoreCase(balcony))
                     break;
             }
-            property_spinner_washdry.setSelection(i);
+            property_spinner_balcony.setSelection(i);
         }
 
 
@@ -441,7 +414,7 @@ public class PropertyDetails extends AppCompatActivity {
     public void selectPossessionDate(View v)
     {
         showDialog(999);
-        Toast.makeText(this,"Date",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Date Selection",Toast.LENGTH_LONG).show();
     }
 
 

@@ -212,7 +212,7 @@ public class Kitchen extends AppCompatActivity {
            item.setEnabled(false);
             setKitchen();
             Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this,WashDry.class));
+            startActivity(new Intent(this,RentScreen.class));
             finish();
         }
 
@@ -235,7 +235,7 @@ public class Kitchen extends AppCompatActivity {
     public void myClick(View v){
         v.setEnabled(false);
         setKitchen();
-        startActivity(new Intent(this,WashDry.class));
+        startActivity(new Intent(this,RentScreen.class));
         finish();
     }
 }

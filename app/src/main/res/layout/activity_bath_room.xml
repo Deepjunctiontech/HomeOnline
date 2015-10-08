@@ -233,7 +233,7 @@
 
                         <CheckBox
                             android:id="@+id/bathroom_ck_cabinets"
-                            android:text="Cabinets" />
+                            android:text="Cabinate" />
                     </TableRow>
 
                     <TableRow>

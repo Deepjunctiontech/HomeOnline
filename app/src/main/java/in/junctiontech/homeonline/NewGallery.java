@@ -42,19 +42,19 @@ public class NewGallery extends AppCompatActivity {
 
     private GridView gv;
     Integer[] imageIDs = {
-            R.drawable.living,
-            R.drawable.bed,
-            R.drawable.bath,
-            R.drawable.kitchen,
-            R.drawable.washdry,
+            R.drawable.living_room,
+            R.drawable.bed_room,
+            R.drawable.bath_room,
+            R.drawable.kitchennew,
+            R.drawable.balcony,
 
 
     };
     private static final String IMAGE_DIRECTORY_NAME = "DB";
     private static String path;
 
-    String room_name[] = {"Living Room", "Bed Room", "Bath Room", "Kitchen", "Wash Dry"};
-    private String[] brr={"no_of_livingroom","no_of_bedroom","no_of_bathroom","no_of_kitchen","no_of_washdry"};
+    String room_name[] = {"Living Room", "Bed Room", "Bath Room", "Kitchen", "Balcony"};
+    private String[] brr={"no_of_livingroom","no_of_bedroom","no_of_bathroom","no_of_kitchen","no_of_balcony"};
     private int itemBackground;
     int click;
     private ArrayList<File> list;
@@ -447,7 +447,7 @@ public class NewGallery extends AppCompatActivity {
     {
         obj = null;
         super.onPause();
-        Toast.makeText(this,"onPause",Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this,"onPause",Toast.LENGTH_LONG).show();
 
     }
 
@@ -455,7 +455,7 @@ public class NewGallery extends AppCompatActivity {
     {
         super.onResume();
         this.c=this;
-        Toast.makeText(this,"onResume",Toast.LENGTH_LONG).show();
+     //   Toast.makeText(this,"onResume",Toast.LENGTH_LONG).show();
         updateGridView();
 
     }

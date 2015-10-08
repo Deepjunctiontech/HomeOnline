@@ -305,7 +305,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
     public void alert()
     {
         AlertDialog.Builder builder =
-                new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+                new AlertDialog.Builder(this);
        // builder.setTitle("Confirmation");
         builder.setMessage("Are you sure you want to delete?");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/yyy"
     android:orientation="vertical"
-    tools:context="in.junctiontech.homeonline.AdvertiserDetail"
-    android:background="@drawable/yyy">
+    tools:context="in.junctiontech.homeonline.AdvertiserDetail">
 
 
     <ScrollView
@@ -22,15 +22,93 @@
 
             >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical">
 
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Advertiser Type"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divide" />
+
+                <RadioGroup
+
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="100">
+
+
+                    <RadioButton
+                        android:id="@+id/advertiser_owner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:checked="true"
+                        android:text="Owner" />
+
+                    <RadioButton
+                        android:id="@+id/advertiser_broker"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="Broker" />
+                </RadioGroup>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="25dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
-                >
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Ownership Type"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Spinner
+                    android:id="@+id/advertiser_spinner_owner_type"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:entries="@array/owner_type"
+                    android:gravity="center"
+                    android:padding="13dp" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical"
+                android:padding="25dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_owner_name_text"
@@ -93,7 +171,6 @@
                 </android.support.design.widget.TextInputLayout>
 
 
-
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_building_no_text"
                     android:layout_width="match_parent"
@@ -106,23 +183,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:ems="10"
-                        android:hint="Building No."
+                        android:hint="Building No / Building Name"
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/advertise_et_building_name_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/advertise_et_building_name_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:ems="10"
-                        android:hint="Building Name" />
-                </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_flate_no_text"
@@ -153,6 +217,21 @@
                         android:hint="Floor No"
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/advertise_et_society_name_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/advertise_et_society_name_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:ems="10"
+                        android:hint="Society Name" />
+                </android.support.design.widget.TextInputLayout>
+
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_wing_text"
@@ -213,8 +292,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_pincode_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/advertise_et_pincode_edit"
@@ -229,8 +307,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_landmark_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                   >
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/advertise_et_landmark_edit"
@@ -241,20 +318,6 @@
                         android:hint="Landmark" />
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/advertise_et_developer_name_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/advertise_et_developer_name_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:ems="10"
-                        android:hint="Developer's Name"
-                        android:inputType="textPersonName" />
-                </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
 
@@ -300,8 +363,8 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:text="Private"
-                            android:checked="true"/>
+                            android:checked="true"
+                            android:text="Private" />
 
                         <RadioButton
                             android:id="@+id/developer_govt"
@@ -312,134 +375,10 @@
                     </RadioGroup>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:drawable/dialog_holo_light_frame"
-                    android:orientation="vertical">
-
-                    <TextView
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="Advertiser Type"
-                        android:textColor="@color/highlight"
-                        android:textSize="15sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/divide" />
-
-                    <RadioGroup
 
 
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp"
-                        android:weightSum="100">
 
 
-                        <RadioButton
-                            android:id="@+id/advertiser_owner"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:text="Owner"
-                            android:checked="true"/>
-
-                        <RadioButton
-                            android:id="@+id/advertiser_broker"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:text="Broker" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:drawable/dialog_holo_light_frame"
-                    android:orientation="vertical">
-
-                    <TextView
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="Lives in Same Building"
-                        android:textColor="@color/highlight"
-                        android:textSize="15sp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/divide" />
-
-                    <RadioGroup
-
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp"
-                        android:weightSum="100">
-
-
-                        <RadioButton
-                            android:id="@+id/advertiser_lives_in_same_building_yes"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:text="Yes"
-                            android:checked="true"/>
-
-                        <RadioButton
-                            android:id="@+id/advertiser_lives_in_same_building_no"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:text="No" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:drawable/dialog_holo_light_frame"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="50"
-                        android:padding="10dp"
-                        android:text="Owner Type"
-                        android:textColor="@color/highlight"
-                        android:gravity="center"
-                        android:textSize="15sp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="15dp"
-                        android:background="@color/divide"
-                        android:layout_gravity="center"></View>
-
-                    <Spinner
-                        android:id="@+id/advertiser_spinner_owner_type"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:entries="@array/owner_type"
-                        android:padding="13dp"
-                        android:gravity="center"/>
-
-
-                </LinearLayout>
 
 
             </LinearLayout>

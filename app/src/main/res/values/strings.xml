@@ -11,14 +11,21 @@
     <string name="close">Close</string>
     <string name="title_activity_task">Appointment</string>
 
-    <array name="list">
-        <item>"VISHAL"</item>
-        <item>"ANKIT"</item>
-        <item>"ROHIT"</item>
-        <item>"SANDEEP"</item>
-        <item>"CHATRAPAL"</item>
+    <array name="sale_status">
+        <item>"New"</item>
+        <item>"Resale"</item>
       </array>
 
+
+    <array name="units">
+        <item>"square inch"</item>
+        <item>"square foot"</item>
+        <item>"square yard"</item>
+        <item>"square mile"</item>
+        <item>"square meter"</item>
+        <item>"square km"</item>
+
+    </array>
 
     <array name="no_of_lift">
         <item>"0"</item>
@@ -113,13 +120,47 @@
         <item>"4"</item>
         <item>"5"</item>
     </array>
-    <array name="bhk">
-        <item>"0"</item>
+    <array name="no_of_storey">
         <item>"1"</item>
         <item>"2"</item>
         <item>"3"</item>
         <item>"4"</item>
         <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+        <item>"10"</item>
+        <item>"11"</item>
+        <item>"12"</item>
+        <item>"13"</item>
+        <item>"14"</item>
+        <item>"15"</item>
+        <item>"16"</item>
+        <item>"17"</item>
+        <item>"18"</item>
+        <item>"19"</item>
+        <item>"20"</item>
+        <item>"21"</item>
+        <item>"22"</item>
+        <item>"23"</item>
+        <item>"24"</item>
+        <item>"25"</item>
+        <item>"26"</item>
+        <item>"27"</item>
+        <item>"28"</item>
+        <item>"29"</item>
+        <item>"30"</item>
+        <item>"31"</item>
+        <item>"32"</item>
+        <item>"33"</item>
+        <item>"34"</item>
+        <item>"35"</item>
+        <item>"36"</item>
+        <item>"37"</item>
+        <item>"38"</item>
+        <item>"39"</item>
+        <item>"40"</item>
     </array>
     <array name="flooring">
         <item>"Marble"</item>
@@ -170,5 +211,6 @@
     <string name="title_activity_advertiser_detail">Advertiser Detail</string>
     <string name="title_activity_new_gallery">Image Section</string>
     <string name="title_activity_check_external_dir">CheckExternalDir</string>
+    <string name="title_activity_rent_screen">RentScreen</string>
 
 </resources>

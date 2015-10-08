@@ -26,7 +26,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="50"
             android:padding="10dp"
-            android:text="Select Kitchen No."
+            android:text="Kitchen"
             android:textColor="@color/highlight"
             android:gravity="center"
             android:textSize="15sp" />
@@ -69,7 +69,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:padding="10dp"
-                    android:text="Cabinets                                                           "
+                    android:text="Cabinate                                                           "
                      android:textColor="@color/highlight"
                     android:textSize="15sp"/>
                  <!--  android:singleLine="true"
@@ -177,7 +177,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="50"
                     android:padding="10dp"
-                    android:text="Plateform Material"
+                    android:text="Platform"
                     android:textColor="@color/highlight"
                     android:gravity="center"
                     android:textSize="15sp"

@@ -2,61 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.junctiontech.homeonline.SocietyData1"
+    android:background="@drawable/yyy"
     android:orientation="vertical"
-    android:background="@drawable/yyy">
+    tools:context="in.junctiontech.homeonline.SocietyData1">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="80"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="25dp"
-            android:background="@android:drawable/dialog_holo_light_frame">
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/society_society_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/society_society_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:ems="10"
-                    android:hint="Society Name"
-
-                    />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/society_building_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/society_buildingy_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:hint="No of Building" />
-            </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,20 +30,19 @@
                     android:padding="10dp"
                     android:text="Boundary Wall"
                     android:textColor="@color/highlight"
-                    android:textSize="15sp"
-                    />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/divide" />
+
                 <RadioGroup
-                    android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_boundarywall"
                     android:orientation="vertical"
-                    android:weightSum="3">
+                    android:padding="10dp"
+                    >
 
                     <RadioButton
                         android:id="@+id/society_rb_Barbed_wire"
@@ -148,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:stretchColumns="*">
 
-                    <TableRow android:layout_span="1">
+                    <TableRow android:layout_span="1"
+                        android:layout_width="match_parent">
 
                         <CheckBox
                             android:id="@+id/society_ck_gc"
@@ -212,16 +172,19 @@
 
                             android:text="GYM" />
                     </TableRow>
+
                     <TableRow>
-                    <CheckBox
-                        android:id="@+id/society_garden_lawn"
 
-                        android:text="Garden Lawn" />
-                    <CheckBox
-                        android:id="@+id/society_ck_multipurpose"
+                        <CheckBox
+                            android:id="@+id/society_garden_lawn"
 
-                        android:text="Multi Purpose" />
-                   </TableRow>
+                            android:text="Garden Lawn" />
+
+                        <CheckBox
+                            android:id="@+id/society_ck_multipurpose"
+
+                            android:text="Multi Purpose" />
+                    </TableRow>
 
                 </TableLayout>
             </LinearLayout>
@@ -231,97 +194,275 @@
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:orientation="vertical"
-                >
+                android:padding="15dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Play Area"
-                    android:textColor="@color/highlight"
-                    android:textSize="15dp"
-                    />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divide" />
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:stretchColumns="*">
-
-                    <TableRow android:layout_span="1">
 
                         <CheckBox
-                            android:id="@+id/society_batminton"
-                            android:text="Badminton Court " />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_24HWS"
+                            android:text="24 Hours Water Supply" />
+
 
                         <CheckBox
-                            android:id="@+id/society_volleyball"
-
-                            android:text="Volleyball Court" />
-                    </TableRow>
-                    <TableRow android:layout_span="1">
-
-                        <CheckBox
-                            android:id="@+id/society_tennis"
-                            android:text="Tennis Court " />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_aerobic_room"
+                            android:text="Aerobic Room" />
 
                         <CheckBox
-                            android:id="@+id/society_billiards"
-
-                            android:text="Billiards Table" />
-                    </TableRow>
-                    <TableRow android:layout_span="1">
-
-                        <CheckBox
-                            android:id="@+id/society_Squash"
-                            android:text="Squash Court " />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_amphithreater"
+                            android:text="Amphithreater" />
 
                         <CheckBox
-                            android:id="@+id/society_yogaroom"
-
-                            android:text="Yoga Room" />
-                    </TableRow>
-                    <TableRow android:layout_span="1">
-
-                        <CheckBox
-                            android:id="@+id/society_table_tennis"
-                            android:text="Table Tennis " />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_atm_bank"
+                            android:text="Atm / Bank" />
 
                         <CheckBox
-                            android:id="@+id/society_saunna_steam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_banquet_hall"
 
-                            android:text="Sauna Steam" />
-                    </TableRow>
-                    <TableRow android:layout_span="1">
+                            android:text="Banquet Hall" />
+
 
                         <CheckBox
-                            android:id="@+id/society_kids_play_area"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_barbeque_pit"
+                            android:text="Barbeque Pit" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_basketball_tennis_court"
+
+                            android:text="Basketball / Tennis Court" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_centralized_ac"
+                            android:text="Centralized AC" />
+
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_conference_room"
+                            android:text="Confrence Room" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_day_care_center"
+                            android:text="Day Care Center" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_dth_tv_facility"
+                            android:text="DTH TV Facilities" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_early_learning_play_group"
+                            android:text="Early Learning Centre / Play Group" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_golf_cource"
+                            android:text="Golf Cource" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_guest_accomadation"
+                            android:text="Guest Accomadation" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_indoor_games_room"
+                            android:text="Indoor Games Room" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_indoor_bedminton_court"
+                            android:text="Indoor Squash / Bedminton Court" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_intercom"
+                            android:text="Intercom" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_kids_club"
+                            android:text="Kids Club" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_kids_play_area"
                             android:text="Kids Play Area " />
 
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_laundry_service"
 
-                    </TableRow>
+                            android:text="Laundry Service" />
 
 
-                </TableLayout>
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_meditation_center"
+                            android:text="Meditiation Center" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_paved_comound"
+                            android:text="Paved Comound" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_power_backup"
+
+                            android:text="Power Backup" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_property_maintenace_staff"
+                            android:text="Property / Maintenace Staff" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_rain_water_harvesting"
+                            android:text="Rain Water Harvesting" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_recreational_facilities"
+                            android:text="Recreational Pool / Facilities" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_rentable_community_space"
+                            android:text="Rentable Community Space" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_reserverd_parking"
+                            android:text="Reserverd Parking" />
+
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_school"
+                            android:text="School" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_service_goods_lift"
+                            android:text="Service / Goods lift" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_sevage_treatment_plan"
+                            android:text="Sevage Treatment Plan" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_shooping_retail"
+                            android:text="Shooping center / Retail shop" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_skating_court"
+                            android:text="Skating Court" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_strolling_cycling_jogging"
+                            android:text="Strolling / Cycling / Jogging track" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_vaastu_complaint"
+                            android:text="Vaastu Complaint" />
+
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_visitor_parking"
+                            android:text="Visitor Parking" />
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_waiting_lounge"
+                            android:text="Waiting Lounge" />
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/society_ck_waste_disposal"
+                            android:text="Waste Disposal" />
+
+
+
             </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>
+
     <Button
 
         android:layout_width="320dp"
-        android:layout_gravity="center"
         android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_button"
         android:onClick="myClick"
         android:text="NEXT"
-        android:textColor="#ffffff"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_button"/>
+        android:textColor="#ffffff" />
 </LinearLayout>
 

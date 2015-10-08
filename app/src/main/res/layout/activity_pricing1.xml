@@ -6,8 +6,6 @@
     tools:context="in.junctiontech.homeonline.Pricing1"
     android:background="@drawable/yyy">
 
-
-
     <ScrollView
         android:id="@+id/sc"
         android:layout_width="match_parent"
@@ -39,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:ems="10"
-                    android:hint="Built-Up Area (Sq.ft)"
+                    android:hint="Built-Up Area"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
@@ -55,9 +53,46 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:ems="10"
-                    android:hint="Carpet Area (Sq.ft)"
+                    android:hint="Carpet Area"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:padding="10dp"
+                    android:text="Unit"
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center">
+
+                </View>
+
+                <Spinner
+                    android:id="@+id/pricing_spinner_units"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:entries="@array/units"
+                    android:padding="13dp"
+
+                    />
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/pricing1_rent_text"
@@ -72,51 +107,17 @@
                     android:layout_margin="16dp"
 
                     android:ems="10"
-                    android:hint="Rent Amount"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/pricing1_Brokerage_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/pricing1_rent_text">
-
-                <EditText
-                    android:id="@+id/pricing1_Brokerage_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-
-                    android:ems="10"
-                    android:hint="Brokerage Fee"
+                    android:hint="Rent / Sale Amount"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/pricing1_Maintanance_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/pricing1_Brokerage_text">
-
-                <EditText
-                    android:id="@+id/pricing1_Maintanance_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-
-                    android:ems="10"
-                    android:hint="Maintenance Fee"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
 
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/pricing1_floors_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/pricing1_Maintanance_text">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/pricing1_floors_edit"
@@ -145,97 +146,27 @@
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
-</LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/pricing1_plot_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/editText2"
-                android:layout_below="@+id/etmaintanance"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="vertical"
-                android:padding="20dp"
-                >
+                android:layout_below="@id/pricing1_floors_text">
 
-                <TableLayout
+                <EditText
+                    android:id="@+id/pricing1_plot_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-                    android:stretchColumns="*">
-
-                    <TableRow android:layout_span="1">
-
-                        <CheckBox
-                            android:id="@+id/pricing1_ck_rent"
-                            android:text="Rent Negotiable" />
-                        <CheckBox
-                            android:id="@+id/pricing1_ck_garden"
-                            android:text="Terrace Garden" />
-
-                    </TableRow>
-
-                    <TableRow android:layout_span="1">
-
-                        <CheckBox
-                            android:id="@+id/pricing1_ck_deposite"
-                            android:text="Security Deposit" />
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="Plot Area"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
 
 
-                        <CheckBox
-                            android:id="@+id/pricing1_ck_terrace"
-                            android:text="Terrace" />
+</LinearLayout>
 
 
-                    </TableRow>
 
-                    <TableRow android:layout_span="1">
-                        <CheckBox
-                            android:id="@+id/pricing1_ck_security"
-                            android:text="Security Negotiable" />
-
-                    </TableRow>
-
-                </TableLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <TextView
-                    android:id="@+id/tvgarden"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="50"
-                    android:padding="10dp"
-                    android:text="No of Garden "
-                    android:textColor="@color/highlight"
-                    android:gravity="center"
-                    android:textSize="15sp" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="15dp"
-                    android:background="@color/divide"
-                    android:layout_gravity="center">
-
-                </View>
-
-                <Spinner
-                    android:id="@+id/pricing_spiner_garden"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:padding="13dp"
-                    android:entries="@array/garden"
-
-                    />
-            </LinearLayout>
 
 
             <LinearLayout
@@ -275,54 +206,45 @@
                     />
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:weightSum="100">
 
                 <TextView
-                    android:id="@+id/tvlift_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
                     android:padding="10dp"
-                    android:text="Lift Type "
+                    android:text="Sale Status"
                     android:textColor="@color/highlight"
-                    android:textSize="15sp"/>
+                    android:gravity="center"
+                    android:textSize="15sp" />
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divide" />
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center">
 
-                <RadioGroup
+                </View>
 
-                    android:id="@+id/pricing1_rg_lifttype"
-                    android:layout_width="match_parent"
+                <Spinner
+                    android:id="@+id/pricing_spinner_salestatus"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="2">
+                    android:layout_weight="50"
+                    android:entries="@array/sale_status"
+                    android:padding="13dp"
 
-                    <RadioButton
-                        android:id="@+id/pricing1_rb_manual"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_weight="1"
-
-                        android:text="Manual" />
-
-                    <RadioButton
-                        android:id="@+id/pricing1_rb_automatic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:text="Automatic" />
-
-                </RadioGroup>
+                    />
             </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 

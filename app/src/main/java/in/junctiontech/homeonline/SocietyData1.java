@@ -14,16 +14,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SocietyData1 extends AppCompatActivity {
-    private RadioButton glass,grill,barbed_wire,electric_wiring,boundarywall_na;
-    private CheckBox community,reg,overhead,security,cctv,smoke,fire,club,swiming,zym,multipurpose;
-    private CheckBox kids_play_area,society_saunna_steam,society_yogaroom,society_billiards,society_Squash,
-            society_table_tennis,society_kids_play_area,
-            society_tennis,society_volleyball,society_batminton,society_garden_lawn;
-    private TextView name;
-    private EditText societyname_edit,no_of_building_edit;
-    private DBHandler db;
-    private RadioButton society_rb_brickwall,society_rb_cementedwall;
+    private RadioButton glass,grill,barbed_wire,electric_wiring,boundarywall_na,society_rb_brickwall,society_rb_cementedwall;
+    private CheckBox community,reg,overhead,security,cctv,smoke,fire,club,swiming,zym,multipurpose,society_garden_lawn;
 
+
+    private DBHandler db;
+
+    private CheckBox society_ck_24HWS,society_ck_aerobic_room,society_ck_amphithreater,
+            society_ck_atm_bank,society_ck_banquet_hall,society_ck_barbeque_pit,society_ck_basketball_tennis_court,society_ck_centralized_ac
+            ,society_ck_conference_room,society_ck_day_care_center,society_ck_dth_tv_facility,society_ck_early_learning_play_group,
+            society_ck_golf_cource, society_ck_guest_accomadation,society_ck_indoor_games_room,society_ck_indoor_bedminton_court,
+            society_ck_intercom,society_ck_kids_club,society_ck_kids_play_area,society_ck_laundry_service,society_ck_meditation_center,
+            society_ck_paved_comound,society_ck_power_backup,society_ck_property_maintenace_staff,
+            society_ck_rain_water_harvesting,society_ck_recreational_facilities,society_ck_rentable_community_space,
+            society_ck_reserverd_parking,society_ck_school,society_ck_service_goods_lift,society_ck_sevage_treatment_plan,
+            society_ck_shooping_retail,society_ck_skating_court,society_ck_strolling_cycling_jogging,society_ck_vaastu_complaint,society_ck_visitor_parking,
+            society_ck_waiting_lounge,society_ck_waste_disposal ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +42,7 @@ public class SocietyData1 extends AppCompatActivity {
                 getSupportActionBar().getTitle() + " - " + b.getString("name"));
         //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
         getSupportActionBar().setSubtitle(b.getString("description"));
-        society_Squash= (CheckBox) findViewById(R.id.society_Squash);
-        society_table_tennis= (CheckBox) findViewById(R.id.society_table_tennis);
-        society_kids_play_area= (CheckBox) findViewById(R.id.society_kids_play_area);
+
         community= (CheckBox) findViewById(R.id.society_ck_gc);
         reg= (CheckBox) findViewById(R.id.society_ck_rs);
         overhead= (CheckBox) findViewById(R.id.society_ck_sot);
@@ -50,13 +54,6 @@ public class SocietyData1 extends AppCompatActivity {
         zym= (CheckBox) findViewById(R.id.society_ck_zym);
         multipurpose= (CheckBox) findViewById(R.id.society_ck_multipurpose);
         security= (CheckBox) findViewById(R.id.society_ck_security);
-        kids_play_area=(CheckBox)findViewById(R.id.society_kids_play_area);
-        society_saunna_steam=(CheckBox)findViewById(R.id.society_saunna_steam);
-        society_yogaroom=(CheckBox)findViewById(R.id.society_yogaroom);
-        society_billiards=(CheckBox)findViewById(R.id.society_billiards);
-        society_tennis=(CheckBox)findViewById(R.id.society_tennis);
-        society_volleyball=(CheckBox)findViewById(R.id.society_volleyball);
-        society_batminton=(CheckBox)findViewById(R.id.society_batminton);
         society_garden_lawn=(CheckBox)findViewById(R.id.society_garden_lawn);
 
         glass= (RadioButton) findViewById(R.id.society_rb_glass);
@@ -67,8 +64,46 @@ public class SocietyData1 extends AppCompatActivity {
         society_rb_cementedwall= (RadioButton) findViewById(R.id.society_rb_cementedwall);
         boundarywall_na= (RadioButton) findViewById(R.id.society_rb_boundarywall_na);
 
-        societyname_edit=(EditText)findViewById(R.id.society_society_edit);
-        no_of_building_edit=(EditText)findViewById(R.id.society_buildingy_edit);
+        society_ck_24HWS= (CheckBox) findViewById(R.id.society_ck_24HWS);
+        society_ck_aerobic_room= (CheckBox) findViewById(R.id.society_ck_aerobic_room);
+        society_ck_amphithreater= (CheckBox) findViewById(R.id.society_ck_amphithreater);
+        society_ck_atm_bank=(CheckBox)findViewById(R.id.society_ck_atm_bank);
+        society_ck_banquet_hall=(CheckBox)findViewById(R.id.society_ck_banquet_hall);
+        society_ck_barbeque_pit=(CheckBox)findViewById(R.id.society_ck_barbeque_pit);
+        society_ck_basketball_tennis_court=(CheckBox)findViewById(R.id.society_ck_basketball_tennis_court);
+        society_ck_centralized_ac=(CheckBox)findViewById(R.id.society_ck_centralized_ac);
+        society_ck_conference_room= (CheckBox) findViewById(R.id.society_ck_conference_room);
+        society_ck_day_care_center= (CheckBox) findViewById(R.id.society_ck_day_care_center);
+        society_ck_dth_tv_facility= (CheckBox) findViewById(R.id.society_ck_dth_tv_facility);
+        society_ck_early_learning_play_group=(CheckBox)findViewById(R.id.society_ck_early_learning_play_group);
+        society_ck_golf_cource=(CheckBox)findViewById(R.id.society_ck_golf_cource);
+        society_ck_guest_accomadation=(CheckBox)findViewById(R.id.society_ck_guest_accomadation);
+        society_ck_indoor_games_room=(CheckBox)findViewById(R.id.society_ck_indoor_games_room);
+        society_ck_indoor_bedminton_court=(CheckBox)findViewById(R.id.society_ck_indoor_bedminton_court);
+        society_ck_intercom=(CheckBox)findViewById(R.id.society_ck_intercom);
+        society_ck_kids_club=(CheckBox)findViewById(R.id.society_ck_kids_club);
+        society_ck_kids_play_area= (CheckBox) findViewById(R.id.society_ck_kids_play_area);
+        society_ck_laundry_service= (CheckBox) findViewById(R.id.society_ck_laundry_service);
+        society_ck_meditation_center= (CheckBox) findViewById(R.id.society_ck_meditation_center);
+        society_ck_paved_comound=(CheckBox)findViewById(R.id.society_ck_paved_comound);
+        society_ck_power_backup=(CheckBox)findViewById(R.id.society_ck_power_backup);
+        society_ck_property_maintenace_staff=(CheckBox)findViewById(R.id.society_ck_property_maintenace_staff);
+        society_ck_rain_water_harvesting=(CheckBox)findViewById(R.id.society_ck_rain_water_harvesting);
+        society_ck_recreational_facilities=(CheckBox)findViewById(R.id.society_ck_recreational_facilities);
+        society_ck_rentable_community_space=(CheckBox)findViewById(R.id.society_ck_rentable_community_space);
+        society_ck_reserverd_parking=(CheckBox)findViewById(R.id.society_ck_reserverd_parking);
+        society_ck_school= (CheckBox) findViewById(R.id.society_ck_school);
+        society_ck_service_goods_lift= (CheckBox) findViewById(R.id.society_ck_service_goods_lift);
+        society_ck_sevage_treatment_plan=(CheckBox)findViewById(R.id.society_ck_sevage_treatment_plan);
+        society_ck_shooping_retail=(CheckBox)findViewById(R.id.society_ck_shooping_retail);
+        society_ck_skating_court=(CheckBox)findViewById(R.id.society_ck_skating_court);
+        society_ck_strolling_cycling_jogging=(CheckBox)findViewById(R.id.society_ck_strolling_cycling_jogging);
+        society_ck_vaastu_complaint=(CheckBox)findViewById(R.id.society_ck_vaastu_complaint);
+        society_ck_visitor_parking=(CheckBox)findViewById(R.id.society_ck_visitor_parking);
+        society_ck_waiting_lounge=(CheckBox)findViewById(R.id.society_ck_waiting_lounge);
+        society_ck_waste_disposal=(CheckBox)findViewById(R.id.society_ck_waste_disposal);
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -84,8 +119,6 @@ public class SocietyData1 extends AppCompatActivity {
 
 
         Bundle b = db.getSocietyData();
-        societyname_edit.setText(b.getString("societydata_society_name"));
-        no_of_building_edit.setText(b.getString("societydata_no_of_building"));
 
 
         if(b.getString("societydata_boundary_wall")==null)
@@ -151,48 +184,163 @@ public class SocietyData1 extends AppCompatActivity {
             zym.setChecked(true);
 
 
-        if(b.getString("kids_playarea1")==null);
-        else if((b.getString("kids_playarea1")).equalsIgnoreCase("Y"))
-            kids_play_area.setChecked(true);
-
-        if(b.getString("saunna_steam")==null);
-        else if((b.getString("saunna_steam")).equalsIgnoreCase("Y"))
-            society_saunna_steam.setChecked(true);
-
-        if(b.getString("yogaroom")==null);
-        else if((b.getString("yogaroom")).equalsIgnoreCase("Y"))
-            society_yogaroom.setChecked(true);
-
-        if(b.getString("billiards")==null);
-        else if((b.getString("billiards")).equalsIgnoreCase("Y"))
-            society_billiards.setChecked(true);
-
-        if(b.getString("tennis")==null);
-        else if((b.getString("tennis")).equalsIgnoreCase("Y"))
-            society_tennis.setChecked(true);
-
-        if(b.getString("volleyball")==null);
-        else if((b.getString("volleyball")).equalsIgnoreCase("Y"))
-            society_volleyball.setChecked(true);
-
-        if(b.getString("batminton")==null);
-        else if((b.getString("batminton")).equalsIgnoreCase("Y"))
-            society_batminton.setChecked(true);
-
         if(b.getString("garden_lawn")==null);
         else if((b.getString("garden_lawn")).equalsIgnoreCase("Y"))
             society_garden_lawn.setChecked(true);
 
-        if(b.getString("squash")==null);
-        else if((b.getString("squash")).equalsIgnoreCase("Y"))
-            society_Squash.setChecked(true);
-
-        if(b.getString("table_tennis")==null);
-        else if((b.getString("table_tennis")).equalsIgnoreCase("Y"))
-            society_table_tennis.setChecked(true);
 
 
+        if(b.getString("society_ck_24HWS")==null);
+        else if((b.getString("society_ck_24HWS")).equalsIgnoreCase("Y"))
+            society_ck_24HWS.setChecked(true);
 
+        if(b.getString("society_ck_aerobic_room")==null);
+        else if((b.getString("society_ck_aerobic_room")).equalsIgnoreCase("Y"))
+            society_ck_aerobic_room.setChecked(true);
+
+        if(b.getString("society_ck_amphithreater")==null);
+        else if((b.getString("society_ck_amphithreater")).equalsIgnoreCase("Y"))
+            society_ck_amphithreater.setChecked(true);
+
+        if(b.getString("society_ck_atm_bank")==null);
+        else if((b.getString("society_ck_atm_bank")).equalsIgnoreCase("Y"))
+            society_ck_atm_bank.setChecked(true);
+
+        if(b.getString("society_ck_banquet_hall")==null);
+        else if((b.getString("society_ck_banquet_hall")).equalsIgnoreCase("Y"))
+            society_ck_banquet_hall.setChecked(true);
+
+        if(b.getString("society_ck_barbeque_pit")==null);
+        else if((b.getString("society_ck_barbeque_pit")).equalsIgnoreCase("Y"))
+            society_ck_barbeque_pit.setChecked(true);
+
+        if(b.getString("society_ck_basketball_tennis_court")==null);
+        else if((b.getString("society_ck_basketball_tennis_court")).equalsIgnoreCase("Y"))
+            society_ck_basketball_tennis_court.setChecked(true);
+
+        if(b.getString("society_ck_centralized_ac")==null);
+        else if((b.getString("society_ck_centralized_ac")).equalsIgnoreCase("Y"))
+            society_ck_centralized_ac.setChecked(true);
+
+        if(b.getString("society_ck_conference_room")==null);
+        else if((b.getString("society_ck_conference_room")).equalsIgnoreCase("Y"))
+            society_ck_conference_room.setChecked(true);
+
+        if(b.getString("society_ck_day_care_center")==null);
+        else if((b.getString("society_ck_day_care_center")).equalsIgnoreCase("Y"))
+            society_ck_day_care_center.setChecked(true);
+
+        if(b.getString("society_ck_dth_tv_facility")==null);
+        else if((b.getString("society_ck_dth_tv_facility")).equalsIgnoreCase("Y"))
+            society_ck_dth_tv_facility.setChecked(true);
+
+        if(b.getString("society_ck_early_learning_play_group")==null);
+        else if((b.getString("society_ck_early_learning_play_group")).equalsIgnoreCase("Y"))
+            society_ck_early_learning_play_group.setChecked(true);
+
+        if(b.getString("society_ck_golf_cource")==null);
+        else if((b.getString("society_ck_golf_cource")).equalsIgnoreCase("Y"))
+            society_ck_golf_cource.setChecked(true);
+
+        if(b.getString("society_ck_guest_accomadation")==null);
+        else if((b.getString("society_ck_guest_accomadation")).equalsIgnoreCase("Y"))
+            society_ck_guest_accomadation.setChecked(true);
+
+        if(b.getString("society_ck_indoor_games_room")==null);
+        else if((b.getString("society_ck_indoor_games_room")).equalsIgnoreCase("Y"))
+            society_ck_indoor_games_room.setChecked(true);
+
+        if(b.getString("society_ck_indoor_bedminton_court")==null);
+        else if((b.getString("society_ck_indoor_bedminton_court")).equalsIgnoreCase("Y"))
+            society_ck_indoor_bedminton_court.setChecked(true);
+
+        if(b.getString("society_ck_intercom")==null);
+        else if((b.getString("society_ck_intercom")).equalsIgnoreCase("Y"))
+            society_ck_intercom.setChecked(true);
+
+        if(b.getString("society_ck_kids_club")==null);
+        else if((b.getString("society_ck_kids_club")).equalsIgnoreCase("Y"))
+            society_ck_kids_club.setChecked(true);
+
+        if(b.getString("society_ck_kids_play_area")==null);
+        else if((b.getString("society_ck_kids_play_area")).equalsIgnoreCase("Y"))
+            society_ck_kids_play_area.setChecked(true);
+
+        if(b.getString("society_ck_laundry_service")==null);
+        else if((b.getString("society_ck_laundry_service")).equalsIgnoreCase("Y"))
+            society_ck_laundry_service.setChecked(true);
+
+        if(b.getString("society_ck_meditation_center")==null);
+        else if((b.getString("society_ck_meditation_center")).equalsIgnoreCase("Y"))
+            society_ck_meditation_center.setChecked(true);
+
+        if(b.getString("society_ck_paved_comound")==null);
+        else if((b.getString("society_ck_paved_comound")).equalsIgnoreCase("Y"))
+            society_ck_paved_comound.setChecked(true);
+
+        if(b.getString("society_ck_power_backup")==null);
+        else if((b.getString("society_ck_power_backup")).equalsIgnoreCase("Y"))
+            society_ck_power_backup.setChecked(true);
+
+        if(b.getString("society_ck_property_maintenace_staff")==null);
+        else if((b.getString("society_ck_property_maintenace_staff")).equalsIgnoreCase("Y"))
+            society_ck_property_maintenace_staff.setChecked(true);
+
+        if(b.getString("society_ck_rain_water_harvesting")==null);
+        else if((b.getString("society_ck_rain_water_harvesting")).equalsIgnoreCase("Y"))
+            society_ck_rain_water_harvesting.setChecked(true);
+
+        if(b.getString("society_ck_recreational_facilities")==null);
+        else if((b.getString("society_ck_recreational_facilities")).equalsIgnoreCase("Y"))
+            society_ck_recreational_facilities.setChecked(true);
+
+        if(b.getString("society_ck_rentable_community_space")==null);
+        else if((b.getString("society_ck_rentable_community_space")).equalsIgnoreCase("Y"))
+            society_ck_rentable_community_space.setChecked(true);
+
+        if(b.getString("society_ck_reserverd_parking")==null);
+        else if((b.getString("society_ck_reserverd_parking")).equalsIgnoreCase("Y"))
+            society_ck_reserverd_parking.setChecked(true);
+
+        if(b.getString("society_ck_school")==null);
+        else if((b.getString("society_ck_school")).equalsIgnoreCase("Y"))
+            society_ck_school.setChecked(true);
+
+        if(b.getString("society_ck_service_goods_lift")==null);
+        else if((b.getString("society_ck_service_goods_lift")).equalsIgnoreCase("Y"))
+            society_ck_service_goods_lift.setChecked(true);
+
+        if(b.getString("society_ck_sevage_treatment_plan")==null);
+        else if((b.getString("society_ck_sevage_treatment_plan")).equalsIgnoreCase("Y"))
+            society_ck_sevage_treatment_plan.setChecked(true);
+
+        if(b.getString("society_ck_shooping_retail")==null);
+        else if((b.getString("society_ck_shooping_retail")).equalsIgnoreCase("Y"))
+            society_ck_shooping_retail.setChecked(true);
+
+        if(b.getString("society_ck_skating_court")==null);
+        else if((b.getString("society_ck_skating_court")).equalsIgnoreCase("Y"))
+            society_ck_skating_court.setChecked(true);
+
+        if(b.getString("society_ck_strolling_cycling_jogging")==null);
+        else if((b.getString("society_ck_strolling_cycling_jogging")).equalsIgnoreCase("Y"))
+            society_ck_strolling_cycling_jogging.setChecked(true);
+
+        if(b.getString("society_ck_vaastu_complaint")==null);
+        else if((b.getString("society_ck_vaastu_complaint")).equalsIgnoreCase("Y"))
+            society_ck_vaastu_complaint.setChecked(true);
+
+        if(b.getString("society_ck_visitor_parking")==null);
+        else if((b.getString("society_ck_visitor_parking")).equalsIgnoreCase("Y"))
+            society_ck_visitor_parking.setChecked(true);
+
+        if(b.getString("society_ck_waiting_lounge")==null);
+        else if((b.getString("society_ck_waiting_lounge")).equalsIgnoreCase("Y"))
+            society_ck_waiting_lounge.setChecked(true);
+
+        if(b.getString("society_ck_waste_disposal")==null);
+        else if((b.getString("society_ck_waste_disposal")).equalsIgnoreCase("Y"))
+            society_ck_waste_disposal.setChecked(true);
 
 
     }
@@ -227,8 +375,6 @@ public class SocietyData1 extends AppCompatActivity {
 
     private void saveSociety() {
         String boundarywall;
-        String societyname=societyname_edit.getText().toString();
-        String no_of_building=no_of_building_edit.getText().toString();
 
         if(glass.isChecked()){
             boundarywall="Glass";
@@ -256,23 +402,57 @@ public class SocietyData1 extends AppCompatActivity {
         String swimming_pool = (swiming.isChecked() ? "Y" : "N");
         String zym1 = (zym.isChecked() ? "Y" : "N");
         String multipurpose1 = (multipurpose.isChecked() ? "Y" : "N");
-        String kids_playarea1 = (kids_play_area.isChecked() ? "Y" : "N");
-        String saunna_steam = (society_saunna_steam.isChecked() ? "Y" : "N");
-        String yogaroom = (society_yogaroom.isChecked() ? "Y" : "N");
-        String billiards = (society_billiards.isChecked() ? "Y" : "N");
-        String tennis = (society_tennis.isChecked() ? "Y" : "N");
-        String volleyball = (society_volleyball.isChecked() ? "Y" : "N");
-        String batminton = (society_batminton.isChecked() ? "Y" : "N");
-
-        String table_tennis = (society_table_tennis.isChecked() ? "Y" : "N");
-        String squash = (society_Squash.isChecked() ? "Y" : "N");
         String garden_lawn = (society_garden_lawn.isChecked() ? "Y" : "N");
 
 
-        db.setSocietyData(societyname,no_of_building,boundarywall,gated_comunity,
+
+
+
+
+
+        db.setSocietyData(boundarywall,gated_comunity,
                 overhead_tank,cctv_servillance,fire_hydrant_system,
-                swimming_pool,multipurpose1,reg_society,security1,smoke_detector,club_house,zym1,
-                kids_playarea1,saunna_steam,yogaroom,billiards,tennis,volleyball,batminton,table_tennis,squash,garden_lawn,"true");
+                swimming_pool,multipurpose1,reg_society,security1,smoke_detector,club_house,zym1
+                ,garden_lawn,
+                (society_ck_24HWS.isChecked() ? "Y" : "N"),
+                (society_ck_aerobic_room.isChecked() ? "Y" : "N"),
+                (society_ck_amphithreater.isChecked() ? "Y" : "N"),
+                (society_ck_atm_bank.isChecked() ? "Y" : "N"),
+                (society_ck_banquet_hall.isChecked() ? "Y" : "N"),
+                (society_ck_barbeque_pit.isChecked() ? "Y" : "N"),
+                (society_ck_basketball_tennis_court.isChecked() ? "Y" : "N"),
+                (society_ck_centralized_ac.isChecked() ? "Y" : "N"),
+                (society_ck_conference_room.isChecked() ? "Y" : "N"),
+                (society_ck_day_care_center.isChecked() ? "Y" : "N"),
+                (society_ck_dth_tv_facility.isChecked() ? "Y" : "N"),
+                (society_ck_early_learning_play_group.isChecked() ? "Y" : "N"),
+                (society_ck_golf_cource.isChecked() ? "Y" : "N"),
+                (society_ck_guest_accomadation.isChecked() ? "Y" : "N"),
+                (society_ck_indoor_games_room.isChecked() ? "Y" : "N"),
+                (society_ck_indoor_bedminton_court.isChecked() ? "Y" : "N"),
+                (society_ck_intercom.isChecked() ? "Y" : "N"),
+                (society_ck_kids_club.isChecked() ? "Y" : "N"),
+                (society_ck_kids_play_area.isChecked() ? "Y" : "N"),
+                (society_ck_laundry_service.isChecked() ? "Y" : "N"),
+                (society_ck_meditation_center.isChecked() ? "Y" : "N"),
+                (society_ck_paved_comound.isChecked() ? "Y" : "N"),
+                (society_ck_power_backup.isChecked() ? "Y" : "N"),
+                (society_ck_property_maintenace_staff.isChecked() ? "Y" : "N"),
+                (society_ck_rain_water_harvesting.isChecked() ? "Y" : "N"),
+                (society_ck_recreational_facilities.isChecked() ? "Y" : "N"),
+                (society_ck_rentable_community_space.isChecked() ? "Y" : "N"),
+                (society_ck_reserverd_parking.isChecked() ? "Y" : "N"),
+                (society_ck_school.isChecked() ? "Y" : "N"),
+                (society_ck_service_goods_lift.isChecked() ? "Y" : "N"),
+                (society_ck_sevage_treatment_plan.isChecked() ? "Y" : "N"),
+                (society_ck_shooping_retail.isChecked() ? "Y" : "N"),
+                (society_ck_skating_court.isChecked() ? "Y" : "N"),
+                (society_ck_strolling_cycling_jogging.isChecked() ? "Y" : "N"),
+                (society_ck_vaastu_complaint.isChecked() ? "Y" : "N"),
+                (society_ck_visitor_parking.isChecked() ? "Y" : "N"),
+                (society_ck_waiting_lounge.isChecked() ? "Y" : "N"),
+                (society_ck_waste_disposal.isChecked() ? "Y" : "N"),
+                "true");
 
     }
     public void myClick(View v){

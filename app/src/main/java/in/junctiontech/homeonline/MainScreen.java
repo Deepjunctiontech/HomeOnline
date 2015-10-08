@@ -154,7 +154,7 @@ public class MainScreen extends AppCompatActivity implements NavigationView.OnNa
     public void alert()
     {
         AlertDialog.Builder builder =
-                new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+                new AlertDialog.Builder(this);
         // builder.setTitle("Confirmation");
         builder.setMessage("Are you sure you want to logout\nAll data will be flush...?");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -16,28 +16,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AdvertiserDetail extends AppCompatActivity {
-private TextView tv_advertiser;
-    private RadioButton advertiser_owner,advertiser_broker,advertiser_lives_in_same_building_yes,advertiser_lives_in_same_building_no,
-            developer_private,developer_govt;
-    private EditText advertise_et_owner_name_edit,advertise_et_owner_number_edit,advertise_et_owner_alternate_number_edit,
-            advertise_et_owner_email_edit,advertise_et_developer_name_edit;
+
+    private RadioButton advertiser_owner, advertiser_broker, developer_private, developer_govt;
+    private EditText
+            advertise_et_owner_name_edit, advertise_et_owner_number_edit, advertise_et_owner_alternate_number_edit,
+            advertise_et_owner_email_edit,
+            advertise_et_locality_edit, advertise_et_sublocality_edit, advertise_et_pincode_edit, advertise_et_landmark_edit,
+            advertise_et_building_no_name_edit ,advertise_et_flate_no_edit,
+            advertise_et_society_name_edit, advertise_et_wing_edit,
+            advertise_et_street_edit,advertise_et_floor_no_edit;
+
+
     private Spinner advertiser_spinner_owner_type;
-    String owner_type="Freehold",owner_type_array[];
-
-    private EditText advertise_et_locality_edit;
-    private EditText advertise_et_sublocality_edit;
-    private EditText advertise_et_pincode_edit;
-    private EditText advertise_et_landmark_edit;
-    private EditText advertise_et_building_no_edit;
-    private EditText advertise_et_flate_no_edit;
-    private EditText advertise_et_building_name_edit;
-    private EditText advertise_et_wing_edit;
-    private EditText advertise_et_street_edit;
-    private TextView advertise_et_possesion_date_edit;
-
+    String owner_type = "Freehold", owner_type_array[];
 
     private DBHandler db;
-    private EditText advertise_et_floor_no_edit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,29 +39,36 @@ private TextView tv_advertiser;
         setContentView(R.layout.activity_advertiser_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db = new DBHandler(this, "DB", null, 1);
-        Resources r=this.getResources();
-        owner_type_array= r.getStringArray(R.array.owner_type);
-    //    tv_advertiser.setPaintFlags(tv_advertiser.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        Resources r = this.getResources();
+        owner_type_array = r.getStringArray(R.array.owner_type);
+        //    tv_advertiser.setPaintFlags(tv_advertiser.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
         getSupportActionBar().setTitle(
                 getSupportActionBar().getTitle() + " - " + b.getString("name"));
         //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
         getSupportActionBar().setSubtitle(b.getString("description"));
 
-        advertiser_owner=(RadioButton)findViewById(R.id.advertiser_owner);
-        advertiser_broker=(RadioButton)findViewById(R.id.advertiser_broker);
-        advertiser_lives_in_same_building_yes=(RadioButton)findViewById(R.id.advertiser_lives_in_same_building_yes);
-        advertiser_lives_in_same_building_no=(RadioButton)findViewById(R.id.advertiser_lives_in_same_building_no);
-        developer_private=(RadioButton)findViewById(R.id.developer_private);
-        developer_govt=(RadioButton)findViewById(R.id.developer_govt);
+        advertiser_owner = (RadioButton) findViewById(R.id.advertiser_owner);
+        advertiser_broker = (RadioButton) findViewById(R.id.advertiser_broker);
+        developer_private = (RadioButton) findViewById(R.id.developer_private);
+        developer_govt = (RadioButton) findViewById(R.id.developer_govt);
 
-        advertise_et_owner_name_edit=(EditText)findViewById(R.id.advertise_et_owner_name_edit);
-        advertise_et_owner_number_edit=(EditText)findViewById(R.id.advertise_et_owner_number_edit);
-        advertise_et_owner_alternate_number_edit=(EditText)findViewById(R.id.advertise_et_owner_alternate_number_edit);
-        advertise_et_owner_email_edit=(EditText)findViewById(R.id.advertise_et_owner_email_edit);
-        advertise_et_developer_name_edit=(EditText)findViewById(R.id.advertise_et_developer_name_edit);
+        advertise_et_owner_name_edit = (EditText) findViewById(R.id.advertise_et_owner_name_edit);
+        advertise_et_owner_number_edit = (EditText) findViewById(R.id.advertise_et_owner_number_edit);
+        advertise_et_owner_alternate_number_edit = (EditText) findViewById(R.id.advertise_et_owner_alternate_number_edit);
+        advertise_et_owner_email_edit = (EditText) findViewById(R.id.advertise_et_owner_email_edit);
+        advertise_et_locality_edit = (EditText) findViewById(R.id.advertise_et_locality_edit);
+        advertise_et_sublocality_edit = (EditText) findViewById(R.id.advertise_et_sublocality_edit);
+        advertise_et_pincode_edit = (EditText) findViewById(R.id.advertise_et_pincode_edit);
+        advertise_et_landmark_edit = (EditText) findViewById(R.id.advertise_et_landmark_edit);
+        advertise_et_building_no_name_edit = (EditText) findViewById(R.id.advertise_et_building_no_edit);
+        advertise_et_society_name_edit = (EditText) findViewById(R.id.advertise_et_society_name_edit);
+        advertise_et_flate_no_edit = (EditText) findViewById(R.id.advertise_et_flate_no_edit);
+        advertise_et_wing_edit = (EditText) findViewById(R.id.advertise_et_wing_edit);
+        advertise_et_street_edit = (EditText) findViewById(R.id.advertise_et_street_edit);
+        advertise_et_floor_no_edit = (EditText) findViewById(R.id.advertise_et_floor_no_edit);
 
-        advertiser_spinner_owner_type=(Spinner)findViewById(R.id.advertiser_spinner_owner_type);
+        advertiser_spinner_owner_type = (Spinner) findViewById(R.id.advertiser_spinner_owner_type);
         advertiser_spinner_owner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -83,17 +84,6 @@ private TextView tv_advertiser;
             }
         });
 
-
-        advertise_et_locality_edit = (EditText) findViewById(R.id.advertise_et_locality_edit);
-        advertise_et_sublocality_edit = (EditText) findViewById(R.id.advertise_et_sublocality_edit);
-        advertise_et_pincode_edit = (EditText) findViewById(R.id.advertise_et_pincode_edit);
-        advertise_et_landmark_edit = (EditText) findViewById(R.id.advertise_et_landmark_edit);
-        advertise_et_building_no_edit = (EditText) findViewById(R.id.advertise_et_building_no_edit);
-        advertise_et_building_name_edit = (EditText) findViewById(R.id.advertise_et_building_name_edit);
-        advertise_et_flate_no_edit = (EditText) findViewById(R.id.advertise_et_flate_no_edit);
-        advertise_et_wing_edit = (EditText) findViewById(R.id.advertise_et_wing_edit);
-        advertise_et_street_edit = (EditText) findViewById(R.id.advertise_et_street_edit);
-        advertise_et_floor_no_edit = (EditText) findViewById(R.id.advertise_et_floor_no_edit);
 
 
 
@@ -128,36 +118,34 @@ private TextView tv_advertiser;
         int id = item.getItemId();
 
 
-        if(id==R.id.action_my_next){
+        if (id == R.id.action_my_next) {
             item.setEnabled(false);
             setAdvertiserDetail();
-            Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this,LivingRoom.class));
+           // Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, LivingRoom.class));
             finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
-    public void myClick(View v){
+
+    public void myClick(View v) {
         v.setEnabled(false);
         setAdvertiserDetail();
-        startActivity(new Intent(this,LivingRoom.class));
+        startActivity(new Intent(this, LivingRoom.class));
         finish();
     }
 
-    private void setAdvertiserDetail(){
+    private void setAdvertiserDetail() {
 
-        String owner_name=advertise_et_owner_name_edit.getText().toString();
-        String owner_number=advertise_et_owner_number_edit.getText().toString();
-        String owner_alternate_number=advertise_et_owner_alternate_number_edit.getText().toString();
-        String owner_email=advertise_et_owner_email_edit.getText().toString();
-        String developer_name=advertise_et_developer_name_edit.getText().toString();
-        String  owner_broker = (advertiser_owner.isChecked() ? "Owner" : "Broker");
-        String  owner_lives_in_same_building = (advertiser_lives_in_same_building_yes.isChecked() ? "Yes" : "No");
-        String  developer_type = (developer_private.isChecked() ? "Private" : "Govt");
-
-        String building_no = advertise_et_building_no_edit.getText().toString();
-        String building_name = advertise_et_building_name_edit.getText().toString();
+        String owner_name = advertise_et_owner_name_edit.getText().toString();
+        String owner_number = advertise_et_owner_number_edit.getText().toString();
+        String owner_alternate_number = advertise_et_owner_alternate_number_edit.getText().toString();
+        String owner_email = advertise_et_owner_email_edit.getText().toString();
+        String owner_broker = (advertiser_owner.isChecked() ? "Owner" : "Broker");
+        String developer_type = (developer_private.isChecked() ? "Private" : "Govt");
+        String building_no = advertise_et_building_no_name_edit.getText().toString();
+        String society_name = advertise_et_society_name_edit.getText().toString();
         String flate_number = advertise_et_flate_no_edit.getText().toString();
         String wing = advertise_et_wing_edit.getText().toString();
         String street = advertise_et_street_edit.getText().toString();
@@ -168,9 +156,9 @@ private TextView tv_advertiser;
         String floor_no = advertise_et_floor_no_edit.getText().toString();
 
 
-        db.setAdvertiserDetail(owner_name,owner_number,owner_alternate_number,owner_email,developer_name,owner_broker,
-                owner_lives_in_same_building,developer_type,owner_type,building_no,building_name,flate_number,wing,street,locality,
-                sub_locality,pincode,landmark,floor_no,"true");
+        db.setAdvertiserDetail(owner_name, owner_number, owner_alternate_number, owner_email, owner_broker,
+                 developer_type, owner_type, building_no, society_name, flate_number, wing, street, locality,
+                sub_locality, pincode, landmark, floor_no, "true");
     }
 
     public void getAdvertiser() {
@@ -180,10 +168,9 @@ private TextView tv_advertiser;
         advertise_et_owner_number_edit.setText(b.getString("owner_number"));
         advertise_et_owner_alternate_number_edit.setText(b.getString("owner_alternate_number"));
         advertise_et_owner_email_edit.setText(b.getString("owner_email"));
-        advertise_et_developer_name_edit.setText(b.getString("developer_name"));
 
-        advertise_et_building_no_edit.setText(b.getString("building_no"));
-        advertise_et_building_name_edit.setText(b.getString("building_name"));
+        advertise_et_building_no_name_edit.setText(b.getString("building_no"));
+        advertise_et_society_name_edit.setText(b.getString("society_name"));
         advertise_et_flate_no_edit.setText(b.getString("flate_number"));
         advertise_et_wing_edit.setText(b.getString("wing"));
         advertise_et_street_edit.setText(b.getString("street"));
@@ -193,21 +180,15 @@ private TextView tv_advertiser;
         advertise_et_landmark_edit.setText(b.getString("landmark"));
         advertise_et_floor_no_edit.setText(b.getString("floor_no"));
 
-        if (b.getString("owner_broker") == null);
-          else if ((b.getString("owner_broker")).equalsIgnoreCase("Owner"))
+        if (b.getString("owner_broker") == null) ;
+        else if ((b.getString("owner_broker")).equalsIgnoreCase("Owner"))
             advertiser_owner.setChecked(true);
         else if ((b.getString("owner_broker")).equalsIgnoreCase("Broker"))
             advertiser_broker.setChecked(true);
 
 
-        if (b.getString("owner_lives_in_same_building") == null);
-        else if ((b.getString("owner_lives_in_same_building")).equalsIgnoreCase("Yes"))
-            advertiser_lives_in_same_building_yes.setChecked(true);
-        else if ((b.getString("owner_lives_in_same_building")).equalsIgnoreCase("No"))
-            advertiser_lives_in_same_building_no.setChecked(true);
-
-        if (b.getString("developer_type") == null);
-                  else if ((b.getString("developer_type")).equalsIgnoreCase("Private"))
+        if (b.getString("developer_type") == null) ;
+        else if ((b.getString("developer_type")).equalsIgnoreCase("Private"))
             developer_private.setChecked(true);
         else if ((b.getString("developer_type")).equalsIgnoreCase("Govt"))
             developer_private.setChecked(true);

@@ -12,7 +12,7 @@ import android.widget.Button;
 public class STEP2 extends AppCompatActivity {
 
     private DBHandler db;
-    private Button detail_btn_basic,detail_btn_living,detail_btn_bed,detail_btn_bath,detail_btn_kitchen,detail_btn_wash,detail_btn_pricing;
+    private Button detail_btn_basic,detail_btn_living,detail_btn_bed,detail_btn_bath,detail_btn_kitchen,detail_btn_rentScreen,detail_btn_pricing;
     private Button detail_btn_residential,detail_btn_society;
     private Button detail_btn_property,detail_btn_advertiser;
 
@@ -24,7 +24,7 @@ public class STEP2 extends AppCompatActivity {
         detail_btn_bed= (Button) findViewById(R.id.detail_btn_bed);
         detail_btn_bath= (Button) findViewById(R.id.detail_btn_bath);
         detail_btn_kitchen= (Button) findViewById(R.id.detail_btn_kitchen);
-        detail_btn_wash= (Button) findViewById(R.id.detail_btn_wash);
+        detail_btn_rentScreen= (Button) findViewById(R.id.detail_btn_rentscreen);
         detail_btn_pricing= (Button) findViewById(R.id.detail_btn_pricing);
         detail_btn_residential= (Button) findViewById(R.id.detail_btn_residential);
         detail_btn_society= (Button) findViewById(R.id.detail_btn_society);
@@ -70,10 +70,10 @@ public class STEP2 extends AppCompatActivity {
         else if(status_kitchen.equalsIgnoreCase("true"))
             detail_btn_kitchen.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
-        String status_wash=db.getButtonStatus("WashDry","status_wash");
-        if(status_wash==null);
-        else if(status_wash.equalsIgnoreCase("true"))
-            detail_btn_wash.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
+        String status_rentscreen=db.getButtonStatus("Appointments","status_rentscreen");
+        if(status_rentscreen==null);
+        else if(status_rentscreen.equalsIgnoreCase("true"))
+            detail_btn_rentScreen.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
         String status_pricing=db.getButtonStatus("Appointments","status_pricing");
         if(status_pricing==null);
@@ -146,8 +146,8 @@ public class STEP2 extends AppCompatActivity {
             s = BathRoom.class;
         else if (id == R.id.detail_btn_kitchen)
             s = Kitchen.class;
-        else if (id == R.id.detail_btn_wash)
-            s = WashDry.class;
+        else if (id == R.id.detail_btn_rentscreen)
+            s = RentScreen.class;
         else if (id == R.id.detail_btn_image)
             s = NewGallery.class;
         else if (id == R.id.detail_btn_pricing)
