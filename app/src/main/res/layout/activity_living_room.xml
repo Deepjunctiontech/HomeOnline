@@ -28,7 +28,7 @@
             android:layout_weight="50"
             android:padding="10dp"
             android:gravity="center"
-            android:text="Select a room "
+            android:text="Living Room"
             android:textColor="@color/highlight"
             android:textSize="15sp" />
 

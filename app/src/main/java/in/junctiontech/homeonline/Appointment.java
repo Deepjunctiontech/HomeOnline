@@ -125,7 +125,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
 
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/mobile/appointment.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/vhosts/mobile/appointment.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

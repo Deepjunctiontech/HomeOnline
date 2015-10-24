@@ -106,7 +106,7 @@
                         <CheckBox
 
                             android:id="@+id/residential_ck_prayerroom"
-                            android:text="Prayer's Room" />
+                            android:text="Prayer Room" />
                     </TableRow>
 
                     <TableRow>

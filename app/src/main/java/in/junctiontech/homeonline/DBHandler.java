@@ -45,6 +45,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -724,7 +725,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
             SharedPreferences sp = c.getSharedPreferences("Login", c.MODE_PRIVATE);
 
-            final Map<String, Object> params = new HashMap<String, Object>();
+            final Map<String, Object> params = new LinkedHashMap<>();
 
             //Appoinment Details
 
@@ -864,7 +865,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
             //   params.put("img", new FileBody[]{new FileBody(new File("")),new File(""),new File("")});
 
-            Map<String, JSONObject> param_new = new HashMap<>();
+            Map<String, JSONObject> param_new = new LinkedHashMap<>();
             if (cq.getString(cq.getColumnIndex("no_of_livingroom")) != null) {
                 int livingroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_livingroom")));
 
@@ -876,7 +877,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
                     if (l.moveToNext()) {
 
-                        Map<String, Object> param1 = new HashMap<String, Object>();
+                        Map<String, Object> param1 = new LinkedHashMap<String, Object>();
                         param1.put("id", "LivingRoom" + (1 + i));
                         param1.put("sofa", l.getString(l.getColumnIndex("sofa")));
                         param1.put("dining_table", l.getString(l.getColumnIndex("dining_table")));
@@ -942,7 +943,7 @@ public class DBHandler extends SQLiteOpenHelper {
             }*/
 
             param_new = null;
-            param_new = new HashMap<String, JSONObject>();
+            param_new = new LinkedHashMap<String, JSONObject>();
 
             if (cq.getString(cq.getColumnIndex("no_of_kitchen")) != null) {
                 int kitchen = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_kitchen")));
@@ -956,7 +957,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
                     if (l.moveToNext()) {
 
-                        Map<String, Object> param1 = new HashMap<String, Object>();
+                        Map<String, Object> param1 = new LinkedHashMap<String, Object>();
                         param1.put("id", "Kitchen" + (1 + i));
                         param1.put("cabinet", l.getString(l.getColumnIndex("kitchen_cabinetes")));
                         param1.put("gas_pipeline", l.getString(l.getColumnIndex("kitchen_gas_pipeline")));
@@ -984,7 +985,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 params.put("ap_kitchens", param_new);
             }
             param_new = null;
-            param_new = new HashMap<String, JSONObject>();
+            param_new = new LinkedHashMap<String, JSONObject>();
 
             if (cq.getString(cq.getColumnIndex("no_of_bedroom")) != null) {
                 int bedroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_bedroom")));
@@ -998,7 +999,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
                     if (l.moveToNext()) {
 
-                        Map<String, Object> param1 = new HashMap<String, Object>();
+                        Map<String, Object> param1 = new LinkedHashMap<String, Object>();
                         param1.put("id", "BedRoom" + (1 + i));
                         param1.put("bed", l.getString(l.getColumnIndex("bed")));
                         param1.put("ac", l.getString(l.getColumnIndex("ac")));
@@ -1027,7 +1028,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 params.put("ap_bedrooms", param_new);
             }
             param_new = null;
-            param_new = new HashMap<String, JSONObject>();
+            param_new = new LinkedHashMap<String, JSONObject>();
 
             if (cq.getString(cq.getColumnIndex("no_of_bathroom")) != null) {
                 int bathroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_bathroom")));
@@ -1041,7 +1042,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
                     if (l.moveToNext()) {
 
-                        Map<String, Object> param_living = new HashMap<String, Object>();
+                        Map<String, Object> param_living = new LinkedHashMap<String, Object>();
                         param_living.put("id", "Toilet" + (1 + i));
                         param_living.put("type", l.getString(l.getColumnIndex("bathroom_bath_type")));
                         param_living.put("style", l.getString(l.getColumnIndex("bathroom_toilet")));
@@ -1071,8 +1072,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
             Log.d("JSONDATA", new JSONObject(params).toString());
+         //   longInfo( new JSONObject(params).toString());
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/mobile/update.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/vhosts/mobile/update.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -1119,6 +1121,14 @@ public class DBHandler extends SQLiteOpenHelper {
         }
         getImageURL();
 
+    }
+
+    public static void longInfo(String str) {
+        if(str.length() > 4000) {
+            Log.i("JSON_Format", str.substring(0, 4000));
+            longInfo(str.substring(4000));
+        } else
+            Log.i("JSON_Format", str);
     }
 
     public void deleteForParticularID() {
@@ -1172,7 +1182,7 @@ public class DBHandler extends SQLiteOpenHelper {
             String responseString = null;
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://dbproperties.ooo/mobile/image.php");
+            HttpPost httppost = new HttpPost("http://dbproperties.ooo/vhosts/mobile/image.php");
 
             File sourceFile = new File(image_location);
             try {

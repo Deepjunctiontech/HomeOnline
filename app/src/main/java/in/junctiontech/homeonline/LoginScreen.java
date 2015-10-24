@@ -139,7 +139,7 @@ public class LoginScreen extends Activity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             StringRequest strReq = new StringRequest(Request.Method.POST,
-                    "http://dbproperties.ooo/mobile/login.php", new Response.Listener<String>() {
+                    "http://dbproperties.ooo/vhosts/mobile/login.php", new Response.Listener<String>() {
 
                 @Override
                 public void onResponse(String response) {
@@ -195,8 +195,8 @@ public class LoginScreen extends Activity {
                     if(error instanceof NoConnectionError) {
                        err="No Internet Access\nCheck Your Internet Connection.";
                     }
-
-                    Snackbar.make(rl, err, Snackbar.LENGTH_LONG).setAction("Dismiss", new View.OnClickListener() {
+                    // TODO dispaly appropriate message ex 404- page not found..
+                    Snackbar.make(rl, err+"\n"+error.toString(), Snackbar.LENGTH_LONG).setAction("Dismiss", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 

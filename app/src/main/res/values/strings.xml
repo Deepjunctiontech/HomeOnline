@@ -14,16 +14,15 @@
     <array name="sale_status">
         <item>"New"</item>
         <item>"Resale"</item>
-      </array>
+    </array>
 
 
     <array name="units">
         <item>"square inch"</item>
         <item>"square foot"</item>
         <item>"square yard"</item>
-        <item>"square mile"</item>
         <item>"square meter"</item>
-        <item>"square km"</item>
+
 
     </array>
 
@@ -168,6 +167,7 @@
         <item>"Ceramic"</item>
         <item>"Stone"</item>
         <item>"Laminate"</item>
+        <item>"Anti Skid Tiles"</item>
     </array>
     <string name="title_activity_step1">Basic Details</string>
     <string name="title_activity_step2">Details</string>
@@ -182,24 +182,25 @@
     <string name="title_activity_image_selection">Image Selection</string>
 
     <array name="property_type">
-        <item>"Flat"</item>
+
         <item>"Apartment"</item>
-        <item>"Individual House"</item>
-        <item>"Villa"</item>
+        <item>"Builder Floor"</item>
+        <item>"Villas"</item>
         <item>"Farm House"</item>
         <item>"Row House"</item>
-        <item>"Duplex"</item>
-        <item>"Service and Studio"</item>
-        <item>"Pent House"</item>
+        <item>"Service Apartment"</item>
+        <item>"Studio Apartment"</item>
+        <item>"Residential Apartment"</item>
+
     </array>
     <array name="imageselection">
 
-    <item>"Living Room"</item>
-    <item>"Bed Room"</item>
-    <item>"Bath Room"</item>
-    <item>"Kitchen"</item>
-    <item>"Wash Dry"</item>
-</array>
+        <item>"Living Room"</item>
+        <item>"Bed Room"</item>
+        <item>"Bath Room"</item>
+        <item>"Kitchen"</item>
+        <item>"Wash Dry"</item>
+    </array>
     <string name="title_activity_property_details">Property Details</string>
     <string name="title_activity_upload_iamge">UploadIamge</string>
     <string name="title_activity_gallery">Gallery</string>

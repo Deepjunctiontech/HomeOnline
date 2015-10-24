@@ -215,7 +215,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_amphithreater"
-                            android:text="Amphithreater" />
+                            android:text="Amphitheater" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -280,7 +280,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_golf_cource"
-                            android:text="Golf Cource" />
+                            android:text="Golf Course" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -299,7 +299,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_indoor_bedminton_court"
-                            android:text="Indoor Squash / Bedminton Court" />
+                            android:text="Indoor Squash / Badminton Court" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -338,7 +338,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_paved_comound"
-                            android:text="Paved Comound" />
+                            android:text="Paved Compound" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -378,7 +378,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_reserverd_parking"
-                            android:text="Reserverd Parking" />
+                            android:text="Reserved Parking" />
 
 
 
@@ -399,14 +399,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_sevage_treatment_plan"
-                            android:text="Sevage Treatment Plan" />
+                            android:text="Sewage Treatment Plan" />
 
 
                         <CheckBox
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_shooping_retail"
-                            android:text="Shooping center / Retail shop" />
+                            android:text="Shopping Center / Retail Shop" />
 
                         <CheckBox
                             android:layout_width="match_parent"

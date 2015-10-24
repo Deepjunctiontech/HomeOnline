@@ -25,7 +25,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="50"
             android:padding="10dp"
-            android:text="Select Room No."
+            android:text="Bath Room"
             android:textColor="@color/highlight"
             android:gravity="center"
             android:textSize="15sp" />
@@ -233,7 +233,7 @@
 
                         <CheckBox
                             android:id="@+id/bathroom_ck_cabinets"
-                            android:text="Cabinate" />
+                            android:text="Cabinet" />
                     </TableRow>
 
                     <TableRow>
