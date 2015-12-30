@@ -50,22 +50,25 @@ public class STEP2 extends AppCompatActivity {
         else if(status_basic_advertiser.equalsIgnoreCase("true"))
             detail_btn_advertiser.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
-        String status_living=db.getButtonStatus("LivingRoom","status_living");
+        String status_living=db.getRoomButtonStatus("LivingRoom", "livingRoom_ID", "no_of_livingroom", "status_living");
+       // String status_living=db.getButtonStatus("LivingRoom","status_living");
         if(status_living==null);
         else if(status_living.equalsIgnoreCase("true"))
             detail_btn_living.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
-        String status_bed=db.getButtonStatus("BedRoom","status_bed");
+        String status_bed= db.getRoomButtonStatus("BedRoom", "bedroom_ID", "no_of_bedroom", "status_bed");
         if(status_bed==null);
         else if(status_bed.equalsIgnoreCase("true"))
             detail_btn_bed.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
-        String status_bath=db.getButtonStatus("BathRoom","status_bath");
+
+        String status_bath= db.getRoomButtonStatus("BathRoom", "toilet_ID", "no_of_bathroom", "status_bath");
         if(status_bath==null);
         else if(status_bath.equalsIgnoreCase("true"))
             detail_btn_bath.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
 
-        String status_kitchen=db.getButtonStatus("Kitchen","status_kitchen");
+
+        String status_kitchen=db.getRoomButtonStatus("Kitchen", "kitchen_ID", "no_of_kitchen", "status_kitchen");
         if(status_kitchen==null);
         else if(status_kitchen.equalsIgnoreCase("true"))
             detail_btn_kitchen.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);

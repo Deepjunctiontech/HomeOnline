@@ -1,5 +1,6 @@
 package in.junctiontech.homeonline;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -453,6 +454,10 @@ public class SocietyData1 extends AppCompatActivity {
                 (society_ck_waiting_lounge.isChecked() ? "Y" : "N"),
                 (society_ck_waste_disposal.isChecked() ? "Y" : "N"),
                 "true");
+
+        ContentValues cv= new ContentValues();
+        cv.put("update_from_server","true");
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);
 
     }
     public void myClick(View v){

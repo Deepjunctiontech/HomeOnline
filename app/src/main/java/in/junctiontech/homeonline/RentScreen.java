@@ -2,6 +2,7 @@ package in.junctiontech.homeonline;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
@@ -107,10 +108,12 @@ public class RentScreen extends AppCompatActivity {
         else {
             int i=0;
             for(;i<lease_type_array.length;i++){
-                if(lease_type_array[i].equalsIgnoreCase(s3))
+                if(lease_type_array[i].equalsIgnoreCase(s3)) {
+                    rentscreen_spinner_lease_type.setSelection(i);
                     break;
+                }
             }
-            rentscreen_spinner_lease_type.setSelection(i);
+
 
         }
 
@@ -131,8 +134,8 @@ public class RentScreen extends AppCompatActivity {
         if (b.getString("pets_allowed") == null) ;
         else if ((b.getString("pets_allowed")).equalsIgnoreCase("Yes")) {
             pets_yes.setChecked(true);
-        } else
-            pets_yes.setChecked(true);
+        } else if ((b.getString("pets_allowed")).equalsIgnoreCase("No"))
+            pets_no.setChecked(true);
 
         if (b.getString("rent_negotiable") == null) ;
         else if ((b.getString("rent_negotiable")).equalsIgnoreCase("Y"))
@@ -211,7 +214,9 @@ public class RentScreen extends AppCompatActivity {
             pet="Yes";
 
         db.setRentScreen(brokeragefee, maintanancefee, food, lease_type, pet, rent_, security_, deposite_,availability_date, "true");
-
+        ContentValues cv= new ContentValues();
+        cv.put("update_from_server","true");
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);
     }
 
     public void myClick(View v) {

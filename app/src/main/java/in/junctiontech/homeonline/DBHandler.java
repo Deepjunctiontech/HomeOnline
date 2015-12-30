@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
@@ -39,6 +40,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -66,6 +68,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "id TEXT PRIMARY KEY," +
                 "description TEXT," +
                 "status TEXT," +
+                "update_from_server TEXT," +
 
                 // RentScreen Fileds
                 "brokerage_fee REAL," +
@@ -77,7 +80,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "security_deposit TEXT," +
                 "security_negotiable TEXT," +
                 "status_rentscreen TEXT," +
-                "availability_date,"+   //newly added    // end of Rent Field
+                "availability_date," +   //newly added    // end of Rent Field
 
                 // Property Fields
                 "bhk_type TEXT," +
@@ -274,6 +277,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "room_id TEXT," +
                 "image_location TEXT," +
                 "image_location_thumbnail TEXT," +
+                "image_location_medium TEXT," +
                 "status TEXT," +
                 "FOREIGN KEY(id) REFERENCES Appointments(id))");
 
@@ -667,7 +671,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void setPricing(String built_up_area, String carpet_area, String rent_ammount,
                            String no_of_floors,
-                           String age_of_building, String no_of_lift, String plot_area, String sale_status,String units, String status) {
+                           String age_of_building, String no_of_lift, String plot_area, String sale_status, String units, String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
 
@@ -694,7 +698,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         Cursor cq = db.rawQuery("Select * from Appointments where id=?", new String[]{Appointment.clicked});
         Bundle b = new Bundle();
-        if(cq.moveToNext()) {
+        if (cq.moveToNext()) {
             b.putString("units", cq.getString(cq.getColumnIndex("units")));
             b.putString("builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
             b.putString("carpet_area", cq.getString(cq.getColumnIndex("carpet_area")));
@@ -714,7 +718,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void sendDataForParticularId(String s) {
         SQLiteDatabase db = super.getReadableDatabase();
         final Cursor cq = db.rawQuery("Select * from Appointments where id=?", new String[]{s});
-
+        final String currentAppointment=Appointment.clicked;
         final ProgressDialog pDialog = new ProgressDialog(c);
         pDialog.setMessage("Sync...");
         pDialog.setCancelable(false);
@@ -1071,8 +1075,8 @@ public class DBHandler extends SQLiteOpenHelper {
             }
 
 
-            Log.d("JSONDATA", new JSONObject(params).toString());
-         //   longInfo( new JSONObject(params).toString());
+            //   Log.d("JSONDATA", new JSONObject(params).toString());
+            longInfo(new JSONObject(params).toString());
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/vhosts/mobile/update.php",
                     new Response.Listener<String>() {
@@ -1083,6 +1087,22 @@ public class DBHandler extends SQLiteOpenHelper {
                             for (int i = 0; i < 2; i++)
                                 Toast.makeText(c, response, Toast.LENGTH_LONG).show();
                             pDialog.dismiss();
+
+                            try {
+                                JSONObject js=new JSONObject(response);
+                                String status=js.getString("status");
+                                if("success".equalsIgnoreCase(status)){
+
+                                        ContentValues cv = new ContentValues();
+                                        cv.put("update_from_server", "false");
+                                        setUpdateFromServerStatus(cv,currentAppointment);
+
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -1124,7 +1144,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public static void longInfo(String str) {
-        if(str.length() > 4000) {
+        if (str.length() > 4000) {
             Log.i("JSON_Format", str.substring(0, 4000));
             longInfo(str.substring(4000));
         } else
@@ -1156,6 +1176,53 @@ public class DBHandler extends SQLiteOpenHelper {
         File f = new File(db.getPath());
         return db.deleteDatabase(f);
 
+
+    }
+
+    public boolean checkSpinnerNo(final String table_name, final String room_id_name, final String s) {
+        SQLiteDatabase db = super.getReadableDatabase();
+
+        long total = DatabaseUtils.queryNumEntries(db,
+                table_name,
+                "id=? AND " + room_id_name + "=?",
+                new String[]{Appointment.clicked, s});
+        db.close();
+
+        return total > 0 ? true : false;
+    }
+
+    public void setBedRoomData(ContentValues[] contentValues) {
+
+        SQLiteDatabase db = super.getWritableDatabase();
+        for (int i = 0; i < contentValues.length; i++) {
+            if (db.insert("BedRoom", null, contentValues[i]) != -1)
+                Toast.makeText(c, "Inserted=" + i, Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(c, "Not Inserted=" + i, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    public void saveAppointmentOtherDetails(ContentValues contentValuesAppointment) {
+        //    ContentValues obj=new ContentValues(new BaseContentValuesClass(5));
+        SQLiteDatabase db = super.getWritableDatabase();
+        if (db.update("Appointments", contentValuesAppointment, "id=?", new String[]{contentValuesAppointment.getAsString("id")}) != -1);
+            //Toast.makeText(c, "Inserted", Toast.LENGTH_LONG).show();
+
+        db.close();
+
+    }
+
+    public void setDataFromServer(ContentValues[] contentValues, final String table_name) {
+        SQLiteDatabase db = super.getWritableDatabase();
+        for (int i = 0; i < contentValues.length; i++) {
+            if (db.insert(table_name, null, contentValues[i]) != -1) ;
+                //        Toast.makeText(c,table_name+" Inserted="+i,Toast.LENGTH_LONG).show();
+           /* else
+                Toast.makeText(c, table_name + " Not Inserted=" + i, Toast.LENGTH_LONG).show();*/
+        }
+
+        db.close();
 
     }
 
@@ -1252,7 +1319,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 SQLiteDatabase db = DBHandler.super.getReadableDatabase();
                 ContentValues cv = new ContentValues();
                 cv.put("status", "success");
-                long i = db.update("ImageSelection", cv, "image_location=?", new String[]{image_location});
+                long i = db.update("ImageSelection", cv, "image_location_medium=?", new String[]{image_location});
                 // Toast.makeText(c,i+"",Toast.LENGTH_LONG).show();
                 db.close();
             }
@@ -1330,7 +1397,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     new UploadFileToServer((cq.getString(cq.getColumnIndex("id"))),
                             (cq.getString(cq.getColumnIndex("type"))),
                             (cq.getString(cq.getColumnIndex("room_id"))),
-                            (cq.getString(cq.getColumnIndex("image_location")))).execute();
+                            (cq.getString(cq.getColumnIndex("image_location_medium")))).execute();
                 }
                 cq.close();
                 db.close();
@@ -1338,7 +1405,7 @@ public class DBHandler extends SQLiteOpenHelper {
         });
     }
 
-
+    /*        this method is not use in any where  */
     public void setBasicDetail(String name, String phone, String email,
                                String mobile, String building_no, String building_name,
                                String flate_number, String wing, String street, String locality,
@@ -1707,13 +1774,17 @@ public class DBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = super.getReadableDatabase();
         Cursor cur = db.rawQuery("Select * from " + tablename + " where id=?", new String[]{Appointment.clicked});
-        String ret = "false";
-        if (cur.moveToNext()) {
-            ret = (cur.getString(cur.getColumnIndex(status)));
+        String check = null;
+        while (cur.moveToNext()) {
+            if (!"true".equalsIgnoreCase(cur.getString(cur.getColumnIndex(status)))) {
+                check = "false";
+                break;
+            } else
+                check = "true";
         }
         cur.close();
         db.close();
-        return ret;
+        return check;
 
     }
 
@@ -1723,13 +1794,19 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         String local = path;
+        String local_medium = path;
         cv.put("id", Appointment.clicked);
         cv.put("type", selected);
         cv.put("room_id", room_id);
         cv.put("image_location", local);
+        Log.d("db", local);
         cv.put("status", "pending");
         String s = path.replace("DB", "thumbnail");
         cv.put("image_location_thumbnail", s);
+        Log.d("thumbnail", s);
+        String medium = local_medium.replace("DB", "medium");
+        cv.put("image_location_medium", medium);
+        Log.d("medium", medium);
         //  db.update("ImageSelection", cv, "id=?", new String[]{Appointment.clicked});
         long i = db.insert("ImageSelection", null, cv);
         db.close();
@@ -1929,7 +2006,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return (new ArrayList[]{arr, brr});
     }
 
-    public void setRentScreen(String brokeragefee, String maintanancefee, String food, String lease_type, String pet, String rent_, String security_, String deposite_,String availability_date, String aTrue) {
+    public void setRentScreen(String brokeragefee, String maintanancefee, String food, String lease_type, String pet, String rent_, String security_, String deposite_, String availability_date, String aTrue) {
 
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
@@ -1952,8 +2029,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-    public Bundle getRentScreen()
-    {
+    public Bundle getRentScreen() {
         SQLiteDatabase db = super.getReadableDatabase();
         Cursor cq = db.rawQuery("Select * from Appointments where id=?", new String[]{Appointment.clicked});
         Bundle b = new Bundle();
@@ -1975,4 +2051,362 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
+    public String getRoomButtonStatus(final String table_name, final String room_field_name, final String no_of_room_key, final String table_status) {
+        String no_of_room = getNoOfRoom(no_of_room_key);
+
+        if (no_of_room == null)
+            return no_of_room;
+        int rooms = Integer.parseInt(no_of_room);
+        Cursor cur = null;
+        no_of_room = null;
+        SQLiteDatabase db = super.getReadableDatabase();
+        for (int i = 1; i <= rooms; i++) {
+
+            /*long total = DatabaseUtils.queryNumEntries(db,
+                    table_name,
+                    "id=? AND " + room_field_name + "=?  AND " + table_status + "=?",
+                    new String[]{Appointment.clicked, i + "", "false"});
+            if (total == 0) {
+                no_of_room = "false";
+                break;
+            }*/
+
+            cur = db.rawQuery("Select " + table_status + " from " + table_name + " where id=? AND " + room_field_name + "=?", new String[]{Appointment.clicked, i + ""});
+            if (!cur.moveToNext() || !"true".equalsIgnoreCase(cur.getString(cur.getColumnIndex(table_status)))) {
+                no_of_room = "false";
+                break;
+            } else
+                no_of_room = "true";
+
+        }
+        if (cur != null)
+            cur.close();
+        db.close();
+        return no_of_room;
+    }
+
+
+    public void setUpdateFromServerStatus(final ContentValues cv, final String appointment_clicked) {
+        SQLiteDatabase db = super.getWritableDatabase();
+
+        if (db.update("Appointments", cv, "id=?", new String[]{appointment_clicked}) != 0);
+           /* Toast.makeText(c, "Status Update", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(c, "Status Fail To Update", Toast.LENGTH_LONG).show();*/
+        db.close();
+
+    }
+
+    public boolean checkStatusUpdateFromServer(String appointmentID) {
+        SQLiteDatabase db = super.getReadableDatabase();
+
+        long total = DatabaseUtils.queryNumEntries(db,
+                "Appointments",
+                "id=? AND update_from_server=?",
+                new String[]{appointmentID, "true"});
+        db.close();
+
+        return total > 0 ? true : false;
+
+    }
+
+
+    /*  End of methods rest is useless  */
+
+
+    public void saveDetails(
+            String ap_id,
+            String ap_property_type,
+            String ap_bhk_type,
+            String ap_possesion_compilation_date,
+            String ap_availability_date,
+            String ap_pets_allowed, String ap_food,
+            String ap_preferred_visit_time,
+            String ap_advertiser_type,
+            String ap_name,
+            String ap_phone,
+            String ap_alternate_phone_no,
+            String ap_email,
+            String ap_ownership_type,
+            String ap_developer_type,
+            String ap_building_no_name,
+            String ap_flate_number,
+            String ap_floor_no,
+            String ap_wing,
+            String ap_street,
+            String ap_locality,
+            String ap_sub_locality,
+            String ap_pincode,
+            String ap_landmark,
+            String ap_security_deposit,
+            String ap_brokerage_fee,
+            String ap_rent_negotiable,
+            String ap_security_negotiable,
+            String ap_maintainance,
+            String ap_rent_ammount,
+            String ap_no_of_floor,
+            String ap_no_of_lift,
+            String ap_age_of_building,
+            String ap_builtup_area,
+            String ap_carpet_area,
+            String ap_no_of_storys,
+            String ap_servant_room,
+            String ap_prayer_room,
+            String ap_total_balcony,
+            String ap_terrace,
+            String ap_private_terrace,
+            String ap_main_entrance_facing,
+            String ap_power_backup,
+            String ap_wifi,
+            String ap_water_supply_municipal,
+            String ap_water_supply_borewell,
+            String ap_solar_heater,
+            String ap_societydata_gated_community,
+            String ap_society_name,
+            String ap_no_of_building,
+            String ap_societydata_society_overheadtank,
+            String ap_boundary_wall,
+            String ap_societydata_cctv_servillance,
+            String ap_societydata_smoke_detector,
+            String ap_societydata_fire_hydrant_system,
+            String ap_societydata_security,
+            String ap_societydata_club_house,
+            String ap_societydata_swiming_pool,
+            String ap_societydata_gym,
+            String ap_societydata_multi_purpose,
+            String ap_garden_lawn,
+            String ap_no_of_toilet,
+            String ap_total_kitchen,
+            String ap_total_livingroom,
+            String ap_total_bedroom,
+            String ap_pricing_plot_area,
+            String ap_pricing_sale_status,
+            String ap_waterbackup_grounded_tank,
+            String ap_waterbackup_terrace_tank,
+            String ap_society_ck_24HWS,
+            String ap_society_ck_aerobic_room,
+            String ap_society_ck_amphithreater,
+            String ap_society_ck_atm_bank,
+            String ap_society_ck_banquet_hall,
+            String ap_society_ck_barbeque_pit,
+            String ap_society_ck_basketball_tennis_court,
+            String ap_society_ck_centralized_ac,
+            String ap_society_ck_conference_room,
+            String ap_society_ck_day_care_center,
+            String ap_society_ck_dth_tv_facility,
+            String ap_society_ck_early_learning_play_group,
+            String ap_society_ck_golf_cource,
+            String ap_society_ck_guest_accomadation,
+            String ap_society_ck_indoor_games_room,
+            String ap_society_ck_indoor_bedminton_court,
+            String ap_society_ck_intercom,
+            String ap_society_ck_kids_club,
+            String ap_society_ck_kids_play_area,
+            String ap_society_ck_laundry_service,
+            String ap_society_ck_meditation_center,
+            String ap_society_ck_paved_comound,
+            String ap_society_ck_property_maintenace_staff,
+            String ap_society_ck_rain_water_harvesting,
+            String ap_society_ck_recreational_facilities,
+            String ap_society_ck_rentable_community_space,
+            String ap_society_ck_reserverd_parking,
+            String ap_society_ck_school,
+            String ap_society_ck_service_goods_lift,
+            String ap_society_ck_sevage_treatment_plan,
+            String ap_society_ck_shooping_retail,
+            String ap_society_ck_skating_court,
+            String ap_society_ck_strolling_cycling_jogging,
+            String ap_society_ck_vaastu_complaint,
+            String ap_society_ck_visitor_parking,
+            String ap_society_ck_waiting_lounge,
+            String ap_society_ck_waste_disposal,
+            String ap_lease_type,
+            String ap_societydata_reg_society) {
+
+        SQLiteDatabase db = super.getWritableDatabase();
+        ContentValues c1 = new ContentValues();
+
+          /* Property Data*/
+
+        c1.put("property_type", ap_property_type);
+        c1.put("bhk_type", ap_bhk_type);
+        c1.put("no_of_livingroom", ap_total_livingroom);
+        c1.put("no_of_bedroom", ap_total_bedroom);
+        c1.put("no_of_kitchen", ap_total_kitchen);
+        c1.put("no_of_bathroom", ap_no_of_toilet);
+        c1.put("no_of_balcony", ap_total_balcony);
+        //    c1.put("status_property_detail", status);
+        c1.put("preferred_visit_time", ap_preferred_visit_time);
+        c1.put("possesion_date", ap_possesion_compilation_date);
+
+
+        /*  Residential Data*/
+
+        c1.put("no_of_building", ap_no_of_building);
+        c1.put("no_of_storys", ap_no_of_storys);
+        c1.put("servant_room", ap_servant_room);
+        c1.put("prayer_room", ap_prayer_room);
+        c1.put("terrace_access", ap_terrace);
+        c1.put("private_access", ap_private_terrace);
+        c1.put("main_entrance_facing", ap_main_entrance_facing);
+        c1.put("power_backup", ap_power_backup);
+        c1.put("water_supply_municipal", ap_water_supply_municipal);
+        c1.put("water_supply_borewell", ap_water_supply_borewell);
+        c1.put("waterbackup_grounded_tanks", ap_waterbackup_grounded_tank);
+        c1.put("waterbackup_terrace_tanks", ap_waterbackup_terrace_tank);
+        c1.put("wifi", ap_wifi);
+        c1.put("solar_heater", ap_solar_heater);
+
+       /* Appointment main details*/
+
+        c1.put("id", ap_id);
+        c1.put("name", ap_name);
+        c1.put("phone", ap_phone);
+        c1.put("mobile", ap_alternate_phone_no);
+        c1.put("email", ap_email);
+        c1.put("owner_broker", ap_advertiser_type);
+        c1.put("developer_type", ap_developer_type);
+        c1.put("owner_type", ap_ownership_type);
+        c1.put("building_no", ap_building_no_name);
+        c1.put("society_name", ap_society_name);
+        c1.put("flate_number", ap_flate_number);
+        c1.put("wing", ap_wing);
+        c1.put("street", ap_street);
+        c1.put("locality", ap_locality);
+        c1.put("sub_locality", ap_sub_locality);
+        c1.put("pincode", ap_pincode);
+        c1.put("landmark", ap_landmark);
+        c1.put("floor_no", ap_floor_no);
+        //   c1.put("status_advertiser_detail", status);
+
+
+          /* Rent Screen Data*/
+
+        c1.put("brokerage_fee", ap_brokerage_fee);
+        c1.put("maintainance", ap_maintainance);
+        c1.put("food", ap_food);
+        c1.put("lease_type", ap_lease_type);
+        c1.put("pets_allowed", ap_pets_allowed);
+        c1.put("rent_negotiable", ap_rent_negotiable);
+        c1.put("security_negotiable", ap_security_negotiable);
+        c1.put("security_deposit", ap_security_deposit);
+        c1.put("availability_date", ap_availability_date);
+        //   c1.put("status_rentscreen", ap_rent_ammount);
+        //    String click = Appointment.clicked;
+
+      /*   Society Data*/
+
+        c1.put("boundary_wall", ap_boundary_wall);
+        c1.put("societydata_gated_community", ap_societydata_gated_community);
+        c1.put("societydata_reg_society", ap_societydata_reg_society);
+        c1.put("societydata_society_overheadtank", ap_societydata_society_overheadtank);
+        c1.put("societydata_cctv_servillance", ap_societydata_cctv_servillance);
+        c1.put("societydata_fire_hydrant_system", ap_societydata_fire_hydrant_system);
+        c1.put("societydata_swiming_pool", ap_societydata_swiming_pool);
+        c1.put("societydata_multi_purpose", ap_societydata_multi_purpose);
+        c1.put("societydata_security", ap_societydata_security);
+        c1.put("societydata_smoke_detector", ap_societydata_smoke_detector);
+        c1.put("societydata_club_house", ap_societydata_club_house);
+        c1.put("societydata_zym", ap_societydata_gym);
+        c1.put("garden_lawn", ap_garden_lawn);
+
+        c1.put("society_ck_24HWS", ap_society_ck_24HWS);
+        c1.put("society_ck_aerobic_room", ap_society_ck_aerobic_room);
+        c1.put("society_ck_amphithreater", ap_society_ck_amphithreater);
+        c1.put("society_ck_atm_bank", ap_society_ck_atm_bank);
+        c1.put("society_ck_banquet_hall", ap_society_ck_banquet_hall);
+        c1.put("society_ck_barbeque_pit", ap_society_ck_barbeque_pit);
+        c1.put("society_ck_basketball_tennis_court", ap_society_ck_basketball_tennis_court);
+        c1.put("society_ck_centralized_ac", ap_society_ck_centralized_ac);
+        c1.put("society_ck_conference_room", ap_society_ck_conference_room);
+        c1.put("society_ck_day_care_center", ap_society_ck_day_care_center);
+        c1.put("society_ck_dth_tv_facility", ap_society_ck_dth_tv_facility);
+        c1.put("society_ck_early_learning_play_group", ap_society_ck_early_learning_play_group);
+        c1.put("society_ck_golf_cource", ap_society_ck_golf_cource);
+        c1.put("society_ck_guest_accomadation", ap_society_ck_guest_accomadation);
+        c1.put("society_ck_indoor_games_room", ap_society_ck_indoor_games_room);
+        c1.put("society_ck_indoor_bedminton_court", ap_society_ck_indoor_bedminton_court);
+        c1.put("society_ck_intercom", ap_society_ck_intercom);
+        c1.put("society_ck_kids_club", ap_society_ck_kids_club);
+        c1.put("society_ck_kids_play_area", ap_society_ck_kids_play_area);
+        c1.put("society_ck_laundry_service", ap_society_ck_laundry_service);
+        c1.put("society_ck_meditation_center", ap_society_ck_meditation_center);
+        c1.put("society_ck_paved_comound", ap_society_ck_paved_comound);
+        c1.put("society_ck_power_backup", ap_power_backup);
+        c1.put("society_ck_property_maintenace_staff", ap_society_ck_property_maintenace_staff);
+        c1.put("society_ck_rain_water_harvesting", ap_society_ck_rain_water_harvesting);
+        c1.put("society_ck_recreational_facilities", ap_society_ck_recreational_facilities);
+        c1.put("society_ck_rentable_community_space", ap_society_ck_rentable_community_space);
+        c1.put("society_ck_reserverd_parking", ap_society_ck_reserverd_parking);
+        c1.put("society_ck_school", ap_society_ck_school);
+        c1.put("society_ck_service_goods_lift", ap_society_ck_service_goods_lift);
+        c1.put("society_ck_sevage_treatment_plan", ap_society_ck_sevage_treatment_plan);
+        c1.put("society_ck_shooping_retail", ap_society_ck_shooping_retail);
+        c1.put("society_ck_skating_court", ap_society_ck_skating_court);
+        c1.put("society_ck_strolling_cycling_jogging", ap_society_ck_strolling_cycling_jogging);
+        c1.put("society_ck_vaastu_complaint", ap_society_ck_vaastu_complaint);
+        c1.put("society_ck_visitor_parking", ap_society_ck_visitor_parking);
+        c1.put("society_ck_waiting_lounge", ap_society_ck_waiting_lounge);
+        c1.put("society_ck_waste_disposal", ap_society_ck_waste_disposal);
+
+
+        /*Pricing Data*/
+
+        c1.put("builtup_area", ap_builtup_area);
+        c1.put("carpet_area", ap_carpet_area);
+        c1.put("rent_ammount", ap_rent_ammount);
+        c1.put("no_of_floor", ap_no_of_floor);
+        c1.put("age_of_building", ap_age_of_building);
+        c1.put("no_of_lift", ap_no_of_lift);
+        c1.put("pricing_plot_area", ap_pricing_plot_area);
+        c1.put("pricing_sale_status", ap_pricing_sale_status);
+
+      /* // missing
+        c1.put("units", un);
+
+
+        c1.put("status_pricing", status);
+        c1.put("status_society", status);
+        */
+
+        if (db.insert("Appointments", null, c1) == -1) {
+            Toast.makeText(c, "Error: while inserting appointment data id=1", Toast.LENGTH_LONG).show();
+        }
+
+        db.close();
+
+
+    }
+
+    public void testingMethod(String i) {
+        SQLiteDatabase db = super.getWritableDatabase();
+        ContentValues c1 = new ContentValues();
+        c1.put("builtup_area", "hello");
+        c1.put("carpet_area", "hi");
+        c1.put("rent_ammount", "tata");
+        c1.put("no_of_floor", "bye");
+        c1.put("age_of_building", "hello");
+        //  c1.put("no_of_lift", "hi");
+        c1.put("pricing_plot_area", "tata");
+        //  c1.put("pricing_sale_status", "bye");*/
+
+        if (db.update("Appointments", c1, "id=?", new String[]{i}) == 0) {
+            Toast.makeText(c, "Error: while updating appointment data id=" + i, Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(c, "Success: updating appointment data id=" + i, Toast.LENGTH_LONG).show();
+        db.close();
+    }
+
+    public void setStatusForTypeOfRoom(final ContentValues cv) {
+
+        SQLiteDatabase db = super.getWritableDatabase();
+        db.update("Appointments", cv, "id=?", new String[]{Appointment.clicked});
+        db.close();
+    }
+
+
 }
+
+
+
+

@@ -2,10 +2,9 @@ package in.junctiontech.homeonline;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -15,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -24,14 +22,14 @@ public class PropertyDetails extends AppCompatActivity {
 
     private Spinner property_spiner_bhk_type, property_spiner_property_type;
     private DBHandler db;
-    private String property_type = "Flat", bhk_type = "1 BHK", preferred_visit_time = "By Appointment";
-    private Spinner property_spinner_livingroom,  property_spinner_bedroom,
-            property_spinner_kitchen, property_spinner_bathroom, property_spinner_balcony,property_spiner_preferred_visit_time;
+    private String property_type = "Flat", bhk_type = "1 RK", preferred_visit_time = "By Appointment";
+    private Spinner property_spinner_livingroom, property_spinner_bedroom,
+            property_spinner_kitchen, property_spinner_bathroom, property_spinner_balcony, property_spiner_preferred_visit_time;
     public static String total_livingroom = "1", total_bedroom = "1", total_bathroom = "1", total_kitchen = "1", total_balcony = "1";
-    private String property_array[],preferred_visit_time_array[],bhk_type_array[],property_type_array[];
+    private String property_array[], preferred_visit_time_array[], bhk_type_array[], property_type_array[], property_id[];
     private Button property_et_possesion_date;
     private Calendar calendar;
-    private int year,month,day;
+    private int year, month, day;
     private boolean check;
 
 
@@ -50,35 +48,32 @@ public class PropertyDetails extends AppCompatActivity {
         getSupportActionBar().setSubtitle(b.getString("description"));
 
 
-        calendar=Calendar.getInstance();
-        year=calendar.get(Calendar.YEAR);
-        month=calendar.get(Calendar.MONTH);
-        day=calendar.get(Calendar.DAY_OF_MONTH);
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        property_spinner_livingroom=(Spinner)this.findViewById(R.id.property_spinner_livingroom);
-        property_spinner_bedroom=(Spinner)this.findViewById(R.id.property_spinner_bedroom);
-        property_spinner_kitchen=(Spinner)this.findViewById(R.id.property_spinner_kitchen);
-        property_spinner_bathroom=(Spinner)this.findViewById(R.id.property_spinner_bathroom);
-        property_spinner_balcony=(Spinner)this.findViewById(R.id.property_spinner_balcony);
+        property_spinner_livingroom = (Spinner) this.findViewById(R.id.property_spinner_livingroom);
+        property_spinner_bedroom = (Spinner) this.findViewById(R.id.property_spinner_bedroom);
+        property_spinner_kitchen = (Spinner) this.findViewById(R.id.property_spinner_kitchen);
+        property_spinner_bathroom = (Spinner) this.findViewById(R.id.property_spinner_bathroom);
+        property_spinner_balcony = (Spinner) this.findViewById(R.id.property_spinner_balcony);
 
         property_spiner_bhk_type = (Spinner) findViewById(R.id.property_spiner_bhk_type);
         property_spiner_property_type = (Spinner) findViewById(R.id.property_spiner_property_type);
 
         property_spiner_preferred_visit_time = (Spinner) findViewById(R.id.property_spiner_preferred_visit_time);
         property_et_possesion_date = (Button) findViewById(R.id.property_et_possesion_date);
-        String curr=day+"/"+(month+1)+"/"+year+"";
+        String curr = day + "/" + (month + 1) + "/" + year + "";
         property_et_possesion_date.setText(curr);
-
 
 
         Resources r = this.getResources();
         property_type_array = r.getStringArray(R.array.property_type);
         property_array = r.getStringArray(R.array.property);
-
-        preferred_visit_time_array=r.getStringArray(R.array.preferred_visit_time);
-        bhk_type_array=r.getStringArray(R.array.bhk_type);
-
-
+        property_id = r.getStringArray(R.array.property_id);
+        preferred_visit_time_array = r.getStringArray(R.array.preferred_visit_time);
+        bhk_type_array = r.getStringArray(R.array.bhk_type);
 
 
         property_spiner_preferred_visit_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -100,11 +95,11 @@ public class PropertyDetails extends AppCompatActivity {
                 bhk_type = bhk_type_array[position];
 
 
-                    char c=bhk_type.charAt(0);
-             //   Toast.makeText(PropertyDetails.this,c+"",Toast.LENGTH_LONG).show();
-                if(check==true)
-                property_spinner_bedroom.setSelection(c-49);
-                check=true;
+                char c = bhk_type.charAt(0);
+                //   Toast.makeText(PropertyDetails.this,c+"",Toast.LENGTH_LONG).show();
+               // if (check == true)
+                    property_spinner_bedroom.setSelection(c - 49);
+               // check = true;
 
             }
 
@@ -117,8 +112,8 @@ public class PropertyDetails extends AppCompatActivity {
         property_spiner_property_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                property_type=property_type_array[position];
-
+             //   property_type = property_type_array[position];
+                property_type = property_id[position];
 
             }
 
@@ -129,13 +124,11 @@ public class PropertyDetails extends AppCompatActivity {
         });
 
 
-
-
         property_spinner_livingroom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 total_livingroom = property_array[position];
-              //  Toast.makeText(PropertyDetails.this, total_livingroom, Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(PropertyDetails.this, total_livingroom, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -148,7 +141,7 @@ public class PropertyDetails extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 total_bedroom = property_array[position];
-              //  Toast.makeText(PropertyDetails.this, total_bedroom, Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(PropertyDetails.this, total_bedroom, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -160,7 +153,7 @@ public class PropertyDetails extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 total_kitchen = property_array[position];
-             //   Toast.makeText(PropertyDetails.this, total_kitchen, Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(PropertyDetails.this, total_kitchen, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -184,7 +177,7 @@ public class PropertyDetails extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 total_balcony = property_array[position];
-              //  Toast.makeText(PropertyDetails.this, total_washdry, Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(PropertyDetails.this, total_washdry, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -221,9 +214,9 @@ public class PropertyDetails extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
 
 
-         if (id == R.id.action_my_next) {
+        if (id == R.id.action_my_next) {
             Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
-             item.setEnabled(false);
+            item.setEnabled(false);
             savePropertyDetail();
             startActivity(new Intent(this, AdvertiserDetail.class));
             finish();
@@ -236,7 +229,7 @@ public class PropertyDetails extends AppCompatActivity {
 
     public void send() {
 
-      //  Toast.makeText(STEP1.this, "SAVE", Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(STEP1.this, "SAVE", Toast.LENGTH_SHORT).show();
 
 
 //        RequestQueue queue = Volley.newRequestQueue(this);
@@ -279,9 +272,12 @@ public class PropertyDetails extends AppCompatActivity {
 
     private void savePropertyDetail() {
 
-        String possession_date =property_et_possesion_date.getText().toString();
-        db.setPropertyDetail(bhk_type,property_type,total_livingroom, total_bedroom, total_kitchen, total_bathroom, total_balcony,
-                preferred_visit_time,possession_date,"true");
+        String possession_date = property_et_possesion_date.getText().toString();
+        db.setPropertyDetail(bhk_type, property_type, total_livingroom, total_bedroom, total_kitchen, total_bathroom, total_balcony,
+                preferred_visit_time, possession_date, "true");
+        ContentValues cv= new ContentValues();
+        cv.put("update_from_server","true");
+        db.setUpdateFromServerStatus(cv,Appointment.clicked);
 
     }
 
@@ -291,9 +287,9 @@ public class PropertyDetails extends AppCompatActivity {
 
         Bundle b = db.getPropertyDetail();
 
-        if(b.getString("possesion_date")==null);
+        if (b.getString("possesion_date") == null) ;
         else
-        property_et_possesion_date.setText(b.getString("possesion_date"));
+            property_et_possesion_date.setText(b.getString("possesion_date"));
 
         String s = b.getString("property_type");
 
@@ -301,12 +297,13 @@ public class PropertyDetails extends AppCompatActivity {
         else {
             int i = 0;
             for (; i < property_type_array.length; i++) {
-                if (property_type_array[i].equalsIgnoreCase(s))
+                if (property_id[i].equalsIgnoreCase(s)) {
+                    property_spiner_property_type.setSelection(i);
                     break;
+                }
             }
-            property_spiner_property_type.setSelection(i);
-        }
 
+        }
 
 
         String s1 = b.getString("bhk_type");
@@ -314,94 +311,106 @@ public class PropertyDetails extends AppCompatActivity {
         else {
             int j = 0;
             for (; j < bhk_type_array.length; j++) {
-                if (bhk_type_array[j].equalsIgnoreCase(s1))
+                if (bhk_type_array[j].equalsIgnoreCase(s1)) {
+                    property_spiner_bhk_type.setSelection(j);
                     break;
+                }
             }
-            property_spiner_bhk_type.setSelection(j);
+
         }
 
-        String s2=b.getString("preferred_visit_time");
+        String s2 = b.getString("preferred_visit_time");
 
-        if(s2==null);
+        if (s2 == null) ;
         else {
-            int i=0;
-            for(;i<preferred_visit_time_array.length;i++){
-                if(preferred_visit_time_array[i].equalsIgnoreCase(s2))
+            int i = 0;
+            for (; i < preferred_visit_time_array.length; i++) {
+                if (preferred_visit_time_array[i].equalsIgnoreCase(s2)) {
+                    property_spiner_preferred_visit_time.setSelection(i);
                     break;
+                }
             }
-            property_spiner_preferred_visit_time.setSelection(i);
+
         }
 
 
+        String livingroom = b.getString("total_livingroom");
 
-        String livingroom=b.getString("total_livingroom");
-
-        if(livingroom==null);
+        if (livingroom == null) ;
         else {
-            int i=0;
-            for(;i<property_array.length;i++){
+            int i = 0;
+            for (; i < property_array.length; i++) {
 
-                if(property_array[i].equalsIgnoreCase(livingroom))
+                if (property_array[i].equalsIgnoreCase(livingroom)) {
+                    property_spinner_livingroom.setSelection(i);
                     break;
+                }
             }
-            property_spinner_livingroom.setSelection(i);
+
         }
 
-        String bedroom=b.getString("total_bedroom");
+        String bedroom = b.getString("total_bedroom");
 
-        if(bedroom==null);
+        if (bedroom == null) ;
         else {
-            int i=0;
-            for(;i<property_array.length;i++){
+            int i = 0;
+            for (; i < property_array.length; i++) {
 
-                if(property_array[i].equalsIgnoreCase(bedroom))
+                if (property_array[i].equalsIgnoreCase(bedroom)) {
+                    property_spinner_bedroom.setSelection(i);
                     break;
+                }
             }
-            property_spinner_bedroom.setSelection(i);
+
         }
 
-        String kitchen=b.getString("total_kitchen");
+        String kitchen = b.getString("total_kitchen");
 
-        if(kitchen==null);
+        if (kitchen == null) ;
         else {
-            int i=0;
-            for(;i<property_array.length;i++){
+            int i = 0;
+            for (; i < property_array.length; i++) {
 
-                if(property_array[i].equalsIgnoreCase(kitchen))
+                if (property_array[i].equalsIgnoreCase(kitchen)) {
+                    property_spinner_kitchen.setSelection(i);
                     break;
+                }
             }
-            property_spinner_kitchen.setSelection(i);
+
         }
 
-        String bathroom=b.getString("total_bathroom");
+        String bathroom = b.getString("total_bathroom");
 
-        if(bathroom==null);
+        if (bathroom == null) ;
         else {
-            int i=0;
-            for(;i<property_array.length;i++){
+            int i = 0;
+            for (; i < property_array.length; i++) {
 
-                if(property_array[i].equalsIgnoreCase(bathroom))
+                if (property_array[i].equalsIgnoreCase(bathroom)) {
+                    property_spinner_bathroom.setSelection(i);
                     break;
+                }
             }
-            property_spinner_bathroom.setSelection(i);
+
         }
 
-        String balcony=b.getString("total_balcony");
+        String balcony = b.getString("total_balcony");
 
-        if(balcony==null);
+        if (balcony == null) ;
         else {
-            int i=0;
-            for(;i<property_array.length;i++){
+            int i = 0;
+            for (; i < property_array.length; i++) {
 
-                if(property_array[i].equalsIgnoreCase(balcony))
+                if (property_array[i].equalsIgnoreCase(balcony)) {
+                    property_spinner_balcony.setSelection(i);
                     break;
+                }
             }
-            property_spinner_balcony.setSelection(i);
+
         }
 
 
     }
-
 
 
     public void myClick(View v) {
@@ -411,10 +420,9 @@ public class PropertyDetails extends AppCompatActivity {
         finish();
     }
 
-    public void selectPossessionDate(View v)
-    {
+    public void selectPossessionDate(View v) {
         showDialog(999);
-        Toast.makeText(this,"Date Selection",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Date Selection", Toast.LENGTH_LONG).show();
     }
 
 
@@ -427,10 +435,10 @@ public class PropertyDetails extends AppCompatActivity {
         return null;
     }
 
-    private DatePickerDialog.OnDateSetListener myDateListener= new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            property_et_possesion_date.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+            property_et_possesion_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 
         }
     };

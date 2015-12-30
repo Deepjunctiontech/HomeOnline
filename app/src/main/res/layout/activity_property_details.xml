@@ -146,6 +146,7 @@
                     android:background="@color/divide"></View>
 
                 <Spinner
+                    android:clickable="false"
                     android:id="@+id/property_spinner_bedroom"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -314,7 +315,7 @@
                     android:layout_weight="50"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Possession / Compilation Date"
+                    android:text="Possession / Completion Date"
                     android:textColor="@color/highlight"
                     android:textSize="15sp" />
 

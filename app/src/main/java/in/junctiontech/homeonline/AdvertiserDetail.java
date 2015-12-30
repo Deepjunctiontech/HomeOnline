@@ -1,5 +1,6 @@
 package in.junctiontech.homeonline;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Paint;
@@ -159,6 +160,9 @@ public class AdvertiserDetail extends AppCompatActivity {
         db.setAdvertiserDetail(owner_name, owner_number, owner_alternate_number, owner_email, owner_broker,
                  developer_type, owner_type, building_no, society_name, flate_number, wing, street, locality,
                 sub_locality, pincode, landmark, floor_no, "true");
+        ContentValues cv= new ContentValues();
+        cv.put("update_from_server","true");
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);
     }
 
     public void getAdvertiser() {
@@ -191,7 +195,7 @@ public class AdvertiserDetail extends AppCompatActivity {
         else if ((b.getString("developer_type")).equalsIgnoreCase("Private"))
             developer_private.setChecked(true);
         else if ((b.getString("developer_type")).equalsIgnoreCase("Govt"))
-            developer_private.setChecked(true);
+            developer_govt.setChecked(true);
 
 
         String s = b.getString("owner_type");
@@ -201,10 +205,12 @@ public class AdvertiserDetail extends AppCompatActivity {
         else {
             int i = 0;
             for (; i < owner_type_array.length; i++) {
-                if (owner_type_array[i].equalsIgnoreCase(s))
+                if (owner_type_array[i].equalsIgnoreCase(s)) {
+                    advertiser_spinner_owner_type.setSelection(i);
                     break;
+                }
             }
-            advertiser_spinner_owner_type.setSelection(i);
+
         }
 
     }

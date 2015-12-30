@@ -1,5 +1,6 @@
 package in.junctiontech.homeonline;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Paint;
@@ -120,10 +121,12 @@ public class ResidentialD1 extends AppCompatActivity {
         else {
             int i = 0;
             for (; i < no_of_storey.length; i++) {
-                if (no_of_storey[i].equalsIgnoreCase(s))
+                if (no_of_storey[i].equalsIgnoreCase(s)) {
+                    no_of_storeys.setSelection(i);
                     break;
+                }
             }
-            no_of_storeys.setSelection(i);
+
         }
 
         String s1 = b.getString("residential_main_enterance_facing");
@@ -131,10 +134,12 @@ public class ResidentialD1 extends AppCompatActivity {
         else {
             int j = 0;
             for (j = 0; j < mainenterancefacing1.length; j++) {
-                if (mainenterancefacing1[j].equalsIgnoreCase(s1))
+                if (mainenterancefacing1[j].equalsIgnoreCase(s1)) {
+                    main_enterance_facing.setSelection(j);
                     break;
+                }
             }
-            main_enterance_facing.setSelection(j);
+
         }
 
         if (b.getString("water_supply_municipal") == null) ;
@@ -244,6 +249,9 @@ public class ResidentialD1 extends AppCompatActivity {
         db.setResidential(no_of_building,storeys, serventroom1, prayerroom, terraceaccess, privateaccess,
                 enterance, powersupply, water_supply_municipal,water_supply_borewell,grounded_tanks, terrace_tanks, wifi_internet, solarwater_heater1,  "true"
         );
+        ContentValues cv= new ContentValues();
+        cv.put("update_from_server","true");
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);
     }
 
 

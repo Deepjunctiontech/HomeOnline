@@ -1,8 +1,9 @@
 package in.junctiontech.homeonline;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Paint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -24,9 +25,9 @@ public class Kitchen extends AppCompatActivity {
     private RadioButton modular;
     private RadioButton na;
     private DBHandler db;
-    private String plateform_material="Simple";
+    private String plateform_material = "Simple";
     private Spinner kitchen_spinner_total;
-    private String kitchen_id="1";
+    private String kitchen_id = "1";
     private String[] plateform;
     private boolean status;
 
@@ -35,7 +36,7 @@ public class Kitchen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen);
         db = new DBHandler(this, "DB", null, 1);
-      //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
         getSupportActionBar().setTitle(
                 getSupportActionBar().getTitle() + " - " + b.getString("name"));
@@ -52,8 +53,8 @@ public class Kitchen extends AppCompatActivity {
         na = (RadioButton) findViewById(R.id.kitchen_rb_cabinates_na);
         kitchen_spinner_plateform = (Spinner) findViewById(R.id.kitchen_spiner_plteform);
 
-        Resources r= this.getResources();
-       plateform=r.getStringArray(R.array.plateform);
+        Resources r = this.getResources();
+        plateform = r.getStringArray(R.array.plateform);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -68,29 +69,28 @@ public class Kitchen extends AppCompatActivity {
 
             }
         });
-        kitchen_spinner_total=(Spinner)findViewById(R.id.kitchen_spinner_total);
-        String check=db.getNoOfRoom("no_of_kitchen");
+        kitchen_spinner_total = (Spinner) findViewById(R.id.kitchen_spinner_total);
+        String check = db.getNoOfRoom("no_of_kitchen");
 
-        if(check==null)
-            check="1";
-        int c= Integer.parseInt(check);
-        String []total=new String[c];
+        if (check == null)
+            check = "1";
+        int c = Integer.parseInt(check);
+        String[] total = new String[c];
 
-        for(int i=0;i<c;i++)
-            total[i]=i+1+"";
+        for (int i = 0; i < c; i++)
+            total[i] = i + 1 + "";
 
 
-        ArrayAdapter<String> obj=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,total);
+        ArrayAdapter<String> obj = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
         kitchen_spinner_total.setAdapter(obj);
-
 
 
         kitchen_spinner_total.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(status==true)
-                setKitchen();
-                status=true;
+                if (status == true)
+                    setKitchen();
+                status = true;
                 kitchen_id = ((TextView) view).getText().toString();
                 //            Toast.makeText(BedRoom.this, bedroom_id, Toast.LENGTH_SHORT).show();
                 getKitchen(kitchen_id);
@@ -109,73 +109,72 @@ public class Kitchen extends AppCompatActivity {
         Bundle b = db.getkitchen(kitchen_id);
 
 
-
-        if(b.getString("kitchen_refridgerator")==null)
+        if (b.getString("kitchen_refridgerator") == null)
             fridge.setChecked(false);
-        else if((b.getString("kitchen_refridgerator")).equalsIgnoreCase("Y"))
+        else if ((b.getString("kitchen_refridgerator")).equalsIgnoreCase("Y"))
             fridge.setChecked(true);
-        else if((b.getString("kitchen_refridgerator")).equalsIgnoreCase("N"))
+        else if ((b.getString("kitchen_refridgerator")).equalsIgnoreCase("N"))
             fridge.setChecked(false);
 
-        if(b.getString("kitchen_water_purifier")==null)
+        if (b.getString("kitchen_water_purifier") == null)
             waterpurifier.setChecked(false);
-        else if((b.getString("kitchen_water_purifier")).equalsIgnoreCase("Y"))
+        else if ((b.getString("kitchen_water_purifier")).equalsIgnoreCase("Y"))
             waterpurifier.setChecked(true);
-        else if((b.getString("kitchen_water_purifier")).equalsIgnoreCase("N"))
+        else if ((b.getString("kitchen_water_purifier")).equalsIgnoreCase("N"))
             waterpurifier.setChecked(false);
 
 
-        if(b.getString("kitchen_loft")==null)
+        if (b.getString("kitchen_loft") == null)
             loft.setChecked(false);
-        else if((b.getString("kitchen_loft")).equalsIgnoreCase("Y"))
+        else if ((b.getString("kitchen_loft")).equalsIgnoreCase("Y"))
             loft.setChecked(true);
-        else if((b.getString("kitchen_loft")).equalsIgnoreCase("N"))
+        else if ((b.getString("kitchen_loft")).equalsIgnoreCase("N"))
             loft.setChecked(false);
 
-        if(b.getString("kitchen_gas_pipeline")==null)
+        if (b.getString("kitchen_gas_pipeline") == null)
             gaspipeline.setChecked(false);
-        else if((b.getString("kitchen_gas_pipeline")).equalsIgnoreCase("Y"))
+        else if ((b.getString("kitchen_gas_pipeline")).equalsIgnoreCase("Y"))
             gaspipeline.setChecked(true);
-        else if((b.getString("kitchen_gas_pipeline")).equalsIgnoreCase("N"))
+        else if ((b.getString("kitchen_gas_pipeline")).equalsIgnoreCase("N"))
             gaspipeline.setChecked(false);
 
-        if(b.getString("kitchen_microwave")==null)
+        if (b.getString("kitchen_microwave") == null)
             microwave.setChecked(false);
-        else if((b.getString("kitchen_microwave")).equalsIgnoreCase("Y"))
+        else if ((b.getString("kitchen_microwave")).equalsIgnoreCase("Y"))
             microwave.setChecked(true);
-        else if((b.getString("kitchen_microwave")).equalsIgnoreCase("N"))
+        else if ((b.getString("kitchen_microwave")).equalsIgnoreCase("N"))
             microwave.setChecked(false);
 
 
-        if(b.getString("kitchen_chimney")==null)
+        if (b.getString("kitchen_chimney") == null)
             chimney.setChecked(false);
-        else if((b.getString("kitchen_chimney")).equalsIgnoreCase("Y"))
+        else if ((b.getString("kitchen_chimney")).equalsIgnoreCase("Y"))
             chimney.setChecked(true);
-        else if((b.getString("kitchen_chimney")).equalsIgnoreCase("N"))
+        else if ((b.getString("kitchen_chimney")).equalsIgnoreCase("N"))
             chimney.setChecked(false);
 
 
-
-
-        if(b.getString("kitchen_cabinetes")==null)
+        if (b.getString("kitchen_cabinetes") == null)
             na.setChecked(true);
-        else if((b.getString("kitchen_cabinetes")).equalsIgnoreCase("Modular"))
+        else if ((b.getString("kitchen_cabinetes")).equalsIgnoreCase("Modular"))
             modular.setChecked(true);
-        else if((b.getString("kitchen_cabinetes")).equalsIgnoreCase("NA"))
+        else if ((b.getString("kitchen_cabinetes")).equalsIgnoreCase("NA"))
             na.setChecked(true);
 
 
-        String s=b.getString("kitchen_plateform_material");
+        String s = b.getString("kitchen_plateform_material");
 
-        if(s==null)
+        if (s == null)
             kitchen_spinner_plateform.setSelection(0);
         else {
-            int i=0;
-            for(;i<plateform.length;i++){
-                if(plateform[i].equalsIgnoreCase(s))
+            int i = 0;
+            for (; i < plateform.length; i++) {
+                if (plateform[i].equalsIgnoreCase(s)) {
+                    kitchen_spinner_plateform.setSelection(i);
                     break;
+                }
             }
-            kitchen_spinner_plateform.setSelection(i);
+
         }
     }
 
@@ -208,12 +207,16 @@ public class Kitchen extends AppCompatActivity {
         int id = item.getItemId();
 
 
-       if(id==R.id.action_my_next){
-           item.setEnabled(false);
+        if (id == R.id.action_my_next) {
+            // item.setEnabled(false);
             setKitchen();
-            Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this,RentScreen.class));
-            finish();
+
+            boolean ch = checkRemainingSpinnerValue();
+            if (ch) {
+                Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, RentScreen.class));
+                finish();
+            }
         }
 
 
@@ -221,7 +224,7 @@ public class Kitchen extends AppCompatActivity {
     }
 
     private void setKitchen() {
-        String  cabinate_modular = (modular.isChecked() ? "Modular" : "NA");
+        String cabinate_modular = (modular.isChecked() ? "Modular" : "NA");
         String refridge = (fridge.isChecked() ? "Y" : "N");
         String gas_pipeline = (gaspipeline.isChecked() ? "Y" : "N");
         String water_purifier = (waterpurifier.isChecked() ? "Y" : "N");
@@ -229,13 +232,48 @@ public class Kitchen extends AppCompatActivity {
         String loft1 = (loft.isChecked() ? "Y" : "N");
         String chimney1 = (chimney.isChecked() ? "Y" : "N");
 
-        db.setKitchen(kitchen_id,cabinate_modular,refridge,water_purifier,loft1,gas_pipeline,microwave1,chimney1,plateform_material,"true");
+        db.setKitchen(kitchen_id, cabinate_modular, refridge, water_purifier, loft1, gas_pipeline, microwave1, chimney1, plateform_material, "true");
+        ContentValues cv= new ContentValues();
+        cv.put("update_from_server","true");
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+    }
+
+    public void myClick(View v) {
+        //  v.setEnabled(false);
+        setKitchen();
+
+
+        boolean ch = checkRemainingSpinnerValue();
+        if (ch) {
+            startActivity(new Intent(this, RentScreen.class));
+            finish();
+        }
+    }
+
+
+    private boolean checkRemainingSpinnerValue() {
+        String check = db.getNoOfRoom("no_of_kitchen");
+        if (check == null)
+            check = "1";
+        int c = Integer.parseInt(check);
+        for (int i = 1; i <= c; i++) {
+            if (!db.checkSpinnerNo("Kitchen", "kitchen_ID", i + "")) {
+                TextView errorText = (TextView) kitchen_spinner_total.getSelectedView();
+                errorText.setError("Please fill data");
+                kitchen_spinner_total.setFocusableInTouchMode(true);
+                kitchen_spinner_total.requestFocus();
+                errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                // errorText.setText("my actual error text");//changes the selected item text to this
+                Toast.makeText(this, "Please fill data for room = " + i, Toast.LENGTH_LONG).show();
+                // property_spinner_total_living.setSelection(i-1,true);  for when automatic select spinner value which is nopt filled in database
+                return false;
+                //   property_spinner_total_living.setSelection(i);
+                //   property_spinner_total_living
+            }
+        }
+        return true;
 
     }
-    public void myClick(View v){
-        v.setEnabled(false);
-        setKitchen();
-        startActivity(new Intent(this,RentScreen.class));
-        finish();
-    }
+
+
 }

@@ -165,6 +165,7 @@ public class MainScreen extends AppCompatActivity implements NavigationView.OnNa
                    // Toast.makeText(this,"Database Delete",Toast.LENGTH_LONG).show();
                     deleteImage("thumbnail");
                     deleteImage("DB");
+                    deleteImage("medium");
                 }
                 getSharedPreferences("Login", MODE_PRIVATE).edit().clear().commit();
                 finish();

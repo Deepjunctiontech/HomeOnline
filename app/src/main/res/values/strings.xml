@@ -60,21 +60,12 @@
         <item>"No Restriction"</item>preferred_visit_time
     </array>
     <array name="bhk_type">
-        <item>"1 BHK"</item>
-        <item>"1 R"</item>
-        <item>"2 R"</item>
         <item>"1 RK"</item>
         <item>"2 RK"</item>
-        <item>"3 RK"</item>
-        <item>"4 RK"</item>
-
-        <item>"1.5 BHK"</item>
+        <item>"1 BHK"</item>
         <item>"2 BHK"</item>
-        <item>"2.5 BHK"</item>
         <item>"3 BHK"</item>
-        <item>"3.5 BHK"</item>
         <item>"4 BHK"</item>
-        <item>"4.5 BHK"</item>
         <item>"5 BHK"</item>
         <item>"5+ BHK"</item>
     </array>
@@ -190,8 +181,19 @@
         <item>"Row House"</item>
         <item>"Service Apartment"</item>
         <item>"Studio Apartment"</item>
-        <item>"Residential Apartment"</item>
+        <item>"Residential Plot"</item>
 
+    </array>
+
+    <array name="property_id">
+        <item>"23"</item>
+        <item>"13"</item>
+        <item>"41"</item>
+        <item>"46"</item>
+        <item>"22"</item>
+        <item>"54"</item>
+        <item>"53"</item>
+        <item>"51"</item>
     </array>
     <array name="imageselection">
 

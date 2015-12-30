@@ -15,11 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.AbsSpinner;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -54,7 +51,7 @@ public class NewGallery extends AppCompatActivity {
     private static String path;
 
     String room_name[] = {"Living Room", "Bed Room", "Bath Room", "Kitchen", "Balcony"};
-    private String[] brr={"no_of_livingroom","no_of_bedroom","no_of_bathroom","no_of_kitchen","no_of_balcony"};
+    private String[] brr = {"no_of_livingroom", "no_of_bedroom", "no_of_bathroom", "no_of_kitchen", "no_of_balcony"};
     private int itemBackground;
     int click;
     private ArrayList<File> list;
@@ -64,9 +61,9 @@ public class NewGallery extends AppCompatActivity {
     private DBHandler db;
     private myGridAdapter obj;
     private Spinner image_spinner_particular;
-    private String selected_particular="1";
+    private String selected_particular = "1";
     private ArrayAdapter<String> obj1;
-    private String[] spinnerArray={};
+    private String[] spinnerArray = {};
     private TextView textGallery;
     private static Context c;
 
@@ -83,13 +80,13 @@ public class NewGallery extends AppCompatActivity {
         android.widget.Gallery gl = (android.widget.Gallery) findViewById(R.id.my_gallery_new);
 
 
-                image_spinner_particular = (Spinner) findViewById(R.id.spinnerGallery);
+        image_spinner_particular = (Spinner) findViewById(R.id.spinnerGallery);
         gl.setAdapter(new ImageAdapter(this));
-        textGallery= (TextView) findViewById(R.id.textGallery);
-        textGallery.setPaintFlags(textGallery.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        textGallery = (TextView) findViewById(R.id.textGallery);
+        textGallery.setPaintFlags(textGallery.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         //list = imageReader(getOutputMediaFile());
         db = new DBHandler(this, "DB", null, 1);
-       //  updateGridView();
+        //  updateGridView();
         checkSpinner();
         textGallery.setText(room_name[click]);
         gl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,8 +102,6 @@ public class NewGallery extends AppCompatActivity {
                 // Toast.makeText(NewGallery.this, room_name[position], Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
         image_spinner_particular.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -144,8 +139,7 @@ public class NewGallery extends AppCompatActivity {
 
     }
 
-    public void checkSpinner()
-    {
+    public void checkSpinner() {
         String check = db.getNoOfRoom(brr[click]);
         if (check == null)
             check = "1";
@@ -155,11 +149,12 @@ public class NewGallery extends AppCompatActivity {
         for (int i = 0; i < spinnerArray.length; i++)
             spinnerArray[i] = i + 1 + "";
 
-        obj1=null;
-       obj1 = new ArrayAdapter<String>(NewGallery.this, android.R.layout.simple_list_item_1, spinnerArray);
+        obj1 = null;
+        obj1 = new ArrayAdapter<String>(NewGallery.this, android.R.layout.simple_list_item_1, spinnerArray);
 
         image_spinner_particular.setAdapter(obj1);
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         startActivity(new Intent(this, STEP2.class));
@@ -167,23 +162,6 @@ public class NewGallery extends AppCompatActivity {
         return true;
     }
 
-    private File getOutputMediaFile() {
-
-        // External sdcard location
-        File mediaStorageDir = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "thumbnail");
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-
-                return null;
-            }
-        }
-        return mediaStorageDir;
-    }
 
     private ArrayList<File> imageReader(File externalStorageDirectory) {
 
@@ -194,10 +172,10 @@ public class NewGallery extends AppCompatActivity {
         for (int i = 0; i < f.length; i++) {
 
             if (f[i].isDirectory()) {
-            } else if (f[i].getName().endsWith(".jpg") && f[i].getName().contains(Appointment.clicked)&&f[i].getName().contains(room_name[click])) {
+            } else if (f[i].getName().endsWith(".jpg") && f[i].getName().contains(Appointment.clicked) && f[i].getName().contains(room_name[click])) {
 
-                String s[]=f[i].getName().split("_");
-                if(s[0].equalsIgnoreCase("ID="+Appointment.clicked)) {
+                String s[] = f[i].getName().split("_");
+                if (s[0].equalsIgnoreCase("ID=" + Appointment.clicked)) {
                     arr.add(f[i]);
                     check = 1;
                 }
@@ -212,13 +190,10 @@ public class NewGallery extends AppCompatActivity {
     }
 
 
-
-
-
     class ImageAdapter extends BaseAdapter {
         private Context context;
         private int itemBackground;
-        private View v=null;
+        private View v = null;
 
         public ImageAdapter(Context c) {
             context = c;
@@ -249,8 +224,6 @@ public class NewGallery extends AppCompatActivity {
             imageView.setImageResource(imageIDs[position]);
             imageView.setLayoutParams(new android.widget.Gallery.LayoutParams(180, 180));
             imageView.setBackgroundResource(itemBackground);
-
-
 
 
             return imageView;
@@ -292,9 +265,9 @@ public class NewGallery extends AppCompatActivity {
 
 
     }
-    public void fabClick(View v)
-    {
-      //  Toast.makeText(this,"camera",Toast.LENGTH_LONG).show();
+
+    public void fabClick(View v) {
+        //  Toast.makeText(this,"camera",Toast.LENGTH_LONG).show();
         captureImage();
 
 
@@ -303,8 +276,8 @@ public class NewGallery extends AppCompatActivity {
     private void captureImage() {
         if (!getApplicationContext().getPackageManager().hasSystemFeature(
                 PackageManager.FEATURE_CAMERA)) {
-            Toast.makeText(this, "Sorry! Your device doesn't support camera",Toast.LENGTH_LONG).show();
-            return ;
+            Toast.makeText(this, "Sorry! Your device doesn't support camera", Toast.LENGTH_LONG).show();
+            return;
 
         }
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -338,7 +311,7 @@ public class NewGallery extends AppCompatActivity {
 
         // get the file url
         fileUri = savedInstanceState.getParcelable("file_uri");
-        click=savedInstanceState.getInt("CLICK");
+        click = savedInstanceState.getInt("CLICK");
 
     }
 
@@ -355,32 +328,17 @@ public class NewGallery extends AppCompatActivity {
                 // images
                 options.inSampleSize = 8;
 
-                final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),  options);
+                Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
 
 
-                File mediaStorageDir = new File(
-                        Environment
-                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                        "thumbnail");
-                if (!mediaStorageDir.exists()) {
-                    if (!mediaStorageDir.mkdirs()) {
-                        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
+                //  bitmap=shrinkBitmap(fileUri.getPath(),1098,732);
+                compressImage("thumbnail", bitmap, 50);
 
-                File abc = new File(mediaStorageDir + path);
-                FileOutputStream out = null;
-                try {
-                    out = new FileOutputStream(abc);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 70, out);
-                    out.flush();
-                    out.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+              //  options=  shrink(1098,732);
+                options.inSampleSize = 4;
+                bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
+                compressImage("medium", bitmap, 75);
+
 
                 updateGridView();
 
@@ -401,6 +359,55 @@ public class NewGallery extends AppCompatActivity {
         }
     }
 
+    private void compressImage(String folder, Bitmap bitmap, int number) {
+
+        // External sdcard location
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                folder);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return;
+            }
+        }
+
+        File abc = new File(mediaStorageDir + path);
+
+
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(abc);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, number, out);
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private BitmapFactory.Options shrink(int width, int height) {
+
+        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+
+        int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight / (float) height);
+        int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth / (float) width);
+
+        if (heightRatio > 1 || widthRatio > 1) {
+            if (heightRatio > widthRatio) {
+                bmpFactoryOptions.inSampleSize = heightRatio;
+            } else {
+                bmpFactoryOptions.inSampleSize = widthRatio;
+            }
+        }
+        return bmpFactoryOptions;
+    }
+
     public Uri getOutputMediaFileUri(int type) {
         return Uri.fromFile(getOutputMediaFile(type));
     }
@@ -408,7 +415,7 @@ public class NewGallery extends AppCompatActivity {
     /*
      * returning image / video
      */
-    private  File getOutputMediaFile(int type) {
+    private File getOutputMediaFile(int type) {
 
         // External sdcard location
         File mediaStorageDir = new File(
@@ -431,8 +438,8 @@ public class NewGallery extends AppCompatActivity {
         //String s[]=selected.split(" ");
         File mediaFile;
         if (type == 1) {
-            path= File.separator
-                    + "ID="+Appointment.clicked+"_"+room_name[click]+"_"+selected_particular+"_" + timeStamp + ".jpg";
+            path = File.separator
+                    + "ID=" + Appointment.clicked + "_" + room_name[click] + "_" + selected_particular + "_" + timeStamp + ".jpg";
             mediaFile = new File(mediaStorageDir.getPath() + path);
 
         } else {
@@ -443,25 +450,22 @@ public class NewGallery extends AppCompatActivity {
     }
 
 
-    public void onPause()
-    {
+    public void onPause() {
         obj = null;
         super.onPause();
-      //  Toast.makeText(this,"onPause",Toast.LENGTH_LONG).show();
+        //  Toast.makeText(this,"onPause",Toast.LENGTH_LONG).show();
 
     }
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
-        this.c=this;
-     //   Toast.makeText(this,"onResume",Toast.LENGTH_LONG).show();
+        this.c = this;
+        //   Toast.makeText(this,"onResume",Toast.LENGTH_LONG).show();
         updateGridView();
 
     }
 
-    private void updateGridView()
-    {
+    private void updateGridView() {
 
         obj = null;
         //  list = imageReader(getOutputMediaFile());
@@ -490,7 +494,7 @@ public class NewGallery extends AppCompatActivity {
 
         if (id == R.id.action_HOME) {
             item.setEnabled(false);
-            Toast.makeText(this,"HOME",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "HOME", Toast.LENGTH_LONG).show();
             finish();
 
 

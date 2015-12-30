@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
 
 
-    tools:context="in.junctiontech.homeonline.Help"
-    android:background="@drawable/yyy">
+    android:background="@drawable/yyy"
+    tools:context="in.junctiontech.homeonline.Help">
 
     <ScrollView
         android:layout_width="match_parent"

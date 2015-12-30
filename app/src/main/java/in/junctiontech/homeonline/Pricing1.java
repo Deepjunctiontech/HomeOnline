@@ -1,5 +1,6 @@
 package in.junctiontech.homeonline;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Paint;
@@ -120,10 +121,12 @@ public class Pricing1 extends AppCompatActivity {
             int i = 0;
             for (; no_of_lifts_array.length > i; i++) {
 
-                if (no_of_lifts_array[i].equalsIgnoreCase(temp1))
+                if (no_of_lifts_array[i].equalsIgnoreCase(temp1)) {
+                    pricing_spinner_lifts.setSelection(i);
                     break;
+                }
             }
-            pricing_spinner_lifts.setSelection(i);
+
         }
 
         String sale_status_temp = b.getString("sale_status");
@@ -132,10 +135,12 @@ public class Pricing1 extends AppCompatActivity {
             int i = 0;
             for (; sale_status.length > i; i++) {
 
-                if (sale_status[i].equalsIgnoreCase(sale_status_temp))
+                if (sale_status[i].equalsIgnoreCase(sale_status_temp)) {
+                    pricing_spinner_salestatus.setSelection(i);
                     break;
+                }
             }
-            pricing_spinner_salestatus.setSelection(i);
+
         }
 
         String unittemp = b.getString("units");
@@ -144,10 +149,12 @@ public class Pricing1 extends AppCompatActivity {
             int i = 0;
             for (; units_array.length > i; i++) {
 
-                if (units_array[i].equalsIgnoreCase(unittemp))
+                if (units_array[i].equalsIgnoreCase(unittemp)) {
+                    pricing_spinner_units.setSelection(i);
                     break;
+                }
             }
-            pricing_spinner_units.setSelection(i);
+
         }
     }
 
@@ -189,6 +196,9 @@ public class Pricing1 extends AppCompatActivity {
 
         db.setPricing(built_up_area, carpet_area, rent_ammount, no_of_floors, age_of_building,
                 no_of_lifts, plot_area, salestatus, units,"true");
+        ContentValues cv= new ContentValues();
+        cv.put("update_from_server","true");
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);
     }
 
 
