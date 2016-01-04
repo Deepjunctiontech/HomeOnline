@@ -1,6 +1,7 @@
 package in.junctiontech.homeonline;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -69,6 +70,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
     private RelativeLayout rl;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RequestQueue rq;
+    private boolean test;
 
 
     @Override
@@ -121,7 +123,10 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
     @Override
     public void onRefresh() {
 
-
+        final ProgressDialog pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Please wait while fetching data from server...");
+        pDialog.setCancelable(false);
+        pDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/vhosts/mobile/appointment.php",
                 new Response.Listener<String>() {
                     @Override
@@ -156,16 +161,17 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                         n.getString("address"),
                                         n.getString("phone"),
                                         n.getString("appointmentStatus"),
-                                        n.getString("appointmentTime"));
+                                        n.getString("appointmentTime"),
+                                        n.getString("propertyPurpose"));
 
-                                String status=n.getString("appointmentStatus");
-                               // if("update".equalsIgnoreCase(status))
-                               {
+                             //   String status = n.getString("appointmentStatus");
+                                // if("update".equalsIgnoreCase(status))
+                                {
 
                                     boolean check = db.checkStatusUpdateFromServer(n.getString("appointmentID"));
                                     if (!check) {
 
-                                        ContentValues contentValuesAppointment=null;
+                                        ContentValues contentValuesAppointment = null;
                                         try {
 
                                             contentValuesAppointment = new ContentValues();
@@ -175,7 +181,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                             contentValuesAppointment.put("phone", n.getString("phone"));
                                             contentValuesAppointment.put("status", n.getString("appointmentStatus"));
                                             contentValuesAppointment.put("appointmentTime", n.getString("appointmentTime"));
-
+                                            contentValuesAppointment.put("update_from_server", "true");
                                             JSONObject details = n.getJSONObject("details");
 
                                   /*   Property Data*/
@@ -189,7 +195,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                             contentValuesAppointment.put("no_of_balcony", details.getString("balcony"));
                                             contentValuesAppointment.put("preferred_visit_time", details.getString("preferredVisitTime"));
                                             contentValuesAppointment.put("possesion_date", details.getString("passessionTime"));
-                                            contentValuesAppointment.put("status_property_detail", "true");
+                                            //contentValuesAppointment.put("status_property_detail", "true");
 
 
                                    /*  Appointment Advertizer details */
@@ -210,7 +216,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                             contentValuesAppointment.put("pincode", details.getString("pincode"));
                                             contentValuesAppointment.put("landmark", details.getString("landmark"));
                                             contentValuesAppointment.put("floor_no", details.getString("floorNum"));
-                                            contentValuesAppointment.put("status_advertiser_detail", "true");
+                                            //  contentValuesAppointment.put("status_advertiser_detail", "true");
 
                                      /* Rent Screen Data*/
 
@@ -223,7 +229,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                             contentValuesAppointment.put("security_negotiable", details.getString("securityNegotiable"));
                                             contentValuesAppointment.put("security_deposit", details.getString("securityDeposit"));
                                             contentValuesAppointment.put("availability_date", details.getString("ap_availability_date"));
-                                            contentValuesAppointment.put("status_rentscreen", "true");
+                                            //   contentValuesAppointment.put("status_rentscreen", "true");
 
                                     /*Pricing Data*/
 
@@ -235,7 +241,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                             contentValuesAppointment.put("no_of_lift", details.getString("numOfLifts"));
                                             contentValuesAppointment.put("pricing_plot_area", details.getString("plotArea"));
                                             contentValuesAppointment.put("pricing_sale_status", details.getString("salesStatus"));
-                                            contentValuesAppointment.put("status_pricing", "true");
+                                            //   contentValuesAppointment.put("status_pricing", "true");
 
                                     /*  Residential Data*/
 
@@ -253,7 +259,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                             contentValuesAppointment.put("waterbackup_terrace_tanks", details.getString("waterBackUp_terrace_tank"));
                                             contentValuesAppointment.put("wifi", details.getString("wifiInternet"));
                                             contentValuesAppointment.put("solar_heater", details.getString("solarWaterHeater"));
-                                            contentValuesAppointment.put("status_residential", "true");
+                                            //   contentValuesAppointment.put("status_residential", "true");
 
 
                                      /*   Society Data*/
@@ -310,18 +316,16 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                             contentValuesAppointment.put("society_ck_visitor_parking", details.getString("visitorParking"));
                                             contentValuesAppointment.put("society_ck_waiting_lounge", details.getString("waitingLounge"));
                                             contentValuesAppointment.put("society_ck_waste_disposal", details.getString("wasteDisposal"));
-                                            contentValuesAppointment.put("status_society", "true");
-
-                                            String s = details.getString("powerBackup");
-                                            s = details.getString("kidsClub");
+                                            //   contentValuesAppointment.put("status_society", "true");
 
 
                                         } catch (JSONException e) {
                                             Toast.makeText(Appointment.this, "No Details for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
                                             e.printStackTrace();
                                         } finally {
-                                            if(contentValuesAppointment!=null)
-                                                db.saveAppointmentOtherDetails(contentValuesAppointment);;
+                                            if (contentValuesAppointment != null)
+                                                db.saveAppointmentOtherDetails(contentValuesAppointment);
+                                            ;
                                         }
 
 
@@ -348,7 +352,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                                 contentValues1.put("attached_bathroom", bedroomObject.getString("attachedBathroom"));
                                                 contentValues1.put("flooring_type", bedroomObject.getString("flooringType"));
                                                 contentValues1.put("false_ceiling", bedroomObject.getString("falseCeiling"));
-                                                contentValues1.put("status_bed", "true");
+                                                //   contentValues1.put("status_bed", "true");
                                                 contentValues[j] = contentValues1;
 
                                             }
@@ -380,7 +384,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                                 contentValues1.put("shoe_rack", livingroomJSONObject.getString("shoeRack"));
                                                 contentValues1.put("flooring_type", livingroomJSONObject.getString("flooringType"));
                                                 contentValues1.put("false_ceiling", livingroomJSONObject.getString("falseCeiling"));
-                                                contentValues1.put("status_living", "true");
+                                                //   contentValues1.put("status_living", "true");
 
                                                 contentValues[j] = contentValues1;
 
@@ -415,7 +419,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                                 contentValues1.put("kitchen_microwave", kitchensJSONObject.getString("microwave"));
                                                 contentValues1.put("kitchen_chimney", kitchensJSONObject.getString("chimneyExhaust"));
                                                 contentValues1.put("kitchen_plateform_material", kitchensJSONObject.getString("plateformMaterial"));
-                                                contentValues1.put("status_kitchen", "true");
+                                                //   contentValues1.put("status_kitchen", "true");
 
                                                 contentValues[j] = contentValues1;
 
@@ -452,7 +456,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                                 contentValues1.put("bathroom_cabinets", toiletsJSONObject.getString("cabinate"));
                                                 contentValues1.put("bathromm_exhaust_fan", toiletsJSONObject.getString("exhaustFan"));
                                                 contentValues1.put("bathroom_flooring_type", toiletsJSONObject.getString("flooringType"));
-                                                contentValues1.put("status_bath", "true");
+                                                //   contentValues1.put("status_bath", "true");
 
                                                 contentValues[j] = contentValues1;
 
@@ -475,8 +479,8 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                         getDataFromDataBase();
                         // update();
                         mSwipeRefreshLayout.setRefreshing(false);
-
-
+                        pDialog.dismiss();
+                        test=true;
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -486,7 +490,8 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                 //  getDataFromDataBase();
 //                        getDataFromDataBase();
                 mSwipeRefreshLayout.setRefreshing(false);
-
+                test=true;
+                getDataFromDataBase();
 
                 String err = error.getMessage();
                 if (error instanceof NoConnectionError) {
@@ -502,7 +507,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                         // Toast.makeText(LoginScreen.this, get_user + "\n" + get_pass, Toast.LENGTH_LONG).show();
                     }
                 }).show();
-
+                pDialog.dismiss();
             }
 
 
@@ -553,10 +558,15 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
         String[][] abc = db.getAllData();
         id = abc[3];
         no = abc[2];
+
+
         //  ma=null;
+
+        if (test && abc[3].length == 0)
+            Toast.makeText(this,"Currently no appointment available\n Try to refresh the list...!",Toast.LENGTH_LONG).show();
         ma = new MyAdapter(Appointment.this, abc[0],
                 abc[1],
-                abc[2], abc[4], abc[5]);
+                abc[2], abc[4], abc[5], abc[6]);
 
         lv.setAdapter(ma);
     }
@@ -747,10 +757,10 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
     class MyAdapter extends ArrayAdapter<String> {
         private final Context context;
 
-        String[] title = {}, address = {}, phone = {}, status = {}, datetime = {};
+        String[] title = {}, address = {}, phone = {}, status = {}, datetime = {}, rent_sale_status = {};
         private LayoutInflater inflater;
 
-        public MyAdapter(Context context, String[] title, String[] address, String[] phone, String[] status, String[] datetime) {
+        public MyAdapter(Context context, String[] title, String[] address, String[] phone, String[] status, String[] datetime, String[] rent_sale_status) {
             super(context, R.layout.mylist, title);
             this.context = context;
             this.title = title;
@@ -758,6 +768,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
             this.phone = phone;
             this.status = status;
             this.datetime = datetime;
+            this.rent_sale_status = rent_sale_status;
 
 
         }
@@ -794,6 +805,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
             holder.phone = (ImageButton) convertView.findViewById(R.id.childbutton);
             holder.status = (TextView) convertView.findViewById(R.id.status);
             holder.datetime = (TextView) convertView.findViewById(R.id.datetime);
+            holder.rent_sale_status = (TextView) convertView.findViewById(R.id.rent_sale_status);
 
 
             holder.title.setText(title[position]);
@@ -801,6 +813,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
             //  holder.phone.setText(phone[position]);
             holder.status.setText(status[position]);
             holder.datetime.setText(datetime[position]);
+            holder.rent_sale_status.setText(rent_sale_status[position]);
 
 
             final String temp = (phone[position]);
@@ -829,7 +842,8 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
         public class ViewHolder {
             TextView title, address, status;
             ImageButton phone;
-            TextView datetime;
+            TextView datetime, rent_sale_status;
+
         }
     }
 

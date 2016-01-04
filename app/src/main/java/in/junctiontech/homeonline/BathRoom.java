@@ -121,8 +121,8 @@ public class BathRoom extends AppCompatActivity {
             common.setChecked(true);
 
 
-        if (b.getString("bathroom_hot_water_supply") == null)
-            gas.setChecked(true);
+        if (b.getString("bathroom_hot_water_supply") == null);
+           // gas.setChecked(true);
         else if ((b.getString("bathroom_hot_water_supply")).equalsIgnoreCase("Geyser"))
             geyser.setChecked(true);
         else if ((b.getString("bathroom_hot_water_supply")).equalsIgnoreCase("Gas"))
@@ -253,7 +253,7 @@ public class BathRoom extends AppCompatActivity {
                 bathtub, cabinate, windows, exhaust_fan;
 
         bathroom_type = (attached.isChecked() ? "Attached" : "Common");
-        hot_water_supply = (geyser.isChecked() ? "Geyser" : "gas");
+        hot_water_supply = (geyser.isChecked() ? "Geyser" :(gas.isChecked() ? "gas": null));
         toilet = (indian.isChecked() ? "Indian" : "Western");
 
         glass_partition = (glasspartion.isChecked() ? "Y" : "N");
@@ -264,10 +264,10 @@ public class BathRoom extends AppCompatActivity {
         exhaust_fan = (exhaust.isChecked() ? "Y" : "N");
 
         db.setBathRoom(bathroom_id, bathroom_type, hot_water_supply, toilet, glass_partition, shower_curtain, bathtub, windows, cabinate, exhaust_fan, flooringtype, "true");
-        ContentValues cv= new ContentValues();
+        /*ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
         db.setUpdateFromServerStatus(cv, Appointment.clicked);
-
+*/
     }
 
 
@@ -287,7 +287,7 @@ public class BathRoom extends AppCompatActivity {
             check = "1";
         int c = Integer.parseInt(check);
         for (int i = 1; i <= c; i++) {
-            if (!db.checkSpinnerNo("BathRoom", "toilet_ID", i + "")) {
+            if (!db.checkSpinnerNo("BathRoom", "toilet_ID", i + "","status_bath")) {
                 TextView errorText = (TextView) bath_spinner_total.getSelectedView();
                 errorText.setError("Please fill data");
                 bath_spinner_total.setFocusableInTouchMode(true);

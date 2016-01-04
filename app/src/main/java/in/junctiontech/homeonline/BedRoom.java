@@ -238,9 +238,9 @@ public class BedRoom extends AppCompatActivity {
         String attached_bathroom = (bathroom.isChecked() ? "Y" : "N");
         String false_ceiling = (ceiling.isChecked() ? "Y" : "N");
         db.setBedRoom(bedroom_id, tv1, ac1, bed1, wardrobe1, attached_balcony, dressing_table, false_ceiling, attached_bathroom, windows, bedroom_flooringtype, "true");
-        ContentValues cv= new ContentValues();
+        /*ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
 
     }
 
@@ -267,7 +267,7 @@ public class BedRoom extends AppCompatActivity {
             check = "1";
         int c = Integer.parseInt(check);
         for (int i = 1; i <= c; i++) {
-            if (!db.checkSpinnerNo("BedRoom", "bedroom_ID", i + "")) {
+            if (!db.checkSpinnerNo("BedRoom", "bedroom_ID", i + "","status_bed")) {
                 TextView errorText = (TextView) bed_spinner_total.getSelectedView();
                 errorText.setError("Please fill data");
                 bed_spinner_total.setFocusableInTouchMode(true);

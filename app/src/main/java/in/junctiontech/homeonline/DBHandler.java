@@ -69,6 +69,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "description TEXT," +
                 "status TEXT," +
                 "update_from_server TEXT," +
+                "rent_sale_status TEXT," +
 
                 // RentScreen Fileds
                 "brokerage_fee REAL," +
@@ -589,7 +590,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public void saveData(String id, String name, String description, String phone, String status, String appointmentTime) {
+    public void saveData(String id, String name, String description, String phone, String status, String appointmentTime, String rent_sale_status) {
         SQLiteDatabase db = super.getReadableDatabase();
 
         Cursor cq = db.rawQuery("Select * from Appointments where id=?", new String[]{id + ""});
@@ -606,6 +607,7 @@ public class DBHandler extends SQLiteOpenHelper {
             c1.put("phone", phone);
             c1.put("status", status);
             c1.put("appointmentTime", appointmentTime);
+            c1.put("rent_sale_status", rent_sale_status);
 
             if (db.insert("Appointments", null, c1) == -1) {
                 //      Toast.makeText(c, "Problem", Toast.LENGTH_LONG).show();
@@ -652,6 +654,7 @@ public class DBHandler extends SQLiteOpenHelper {
         String id[] = new String[cq.getCount()];
         String status[] = new String[cq.getCount()];
         String datetime[] = new String[cq.getCount()];
+        String rent_sale_status[] = new String[cq.getCount()];
         for (int i = 0; cq.moveToNext(); i++) {
 
             name[i] = cq.getString(cq.getColumnIndex("name"));
@@ -661,9 +664,17 @@ public class DBHandler extends SQLiteOpenHelper {
             status[i] = cq.getString(cq.getColumnIndex("status"));
             datetime[i] = cq.getString(cq.getColumnIndex("appointmentTime"));
 
+            String local = cq.getString(cq.getColumnIndex("rent_sale_status"));
+            if ("1".equalsIgnoreCase(local))
+                rent_sale_status[i] = "Rent";
+            else if ("2".equalsIgnoreCase(local))
+                rent_sale_status[i] = "Sale";
+            else
+                rent_sale_status[i] = local;
+
         }
 
-        String[][] abc = {name, desc, phone, id, status, datetime};
+        String[][] abc = {name, desc, phone, id, status, datetime, rent_sale_status};
         cq.close();
         db.close();
         return abc;
@@ -718,7 +729,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void sendDataForParticularId(String s) {
         SQLiteDatabase db = super.getReadableDatabase();
         final Cursor cq = db.rawQuery("Select * from Appointments where id=?", new String[]{s});
-        final String currentAppointment=Appointment.clicked;
+        final String currentAppointment = Appointment.clicked;
         final ProgressDialog pDialog = new ProgressDialog(c);
         pDialog.setMessage("Sync...");
         pDialog.setCancelable(false);
@@ -739,6 +750,7 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_phone", cq.getString(cq.getColumnIndex("phone")));*/
             params.put("ap_address", cq.getString(cq.getColumnIndex("description")));
             params.put("ap_status", cq.getString(cq.getColumnIndex("status")));
+            params.put("propertyPurpose", cq.getString(cq.getColumnIndex("rent_sale_status")));
 
             //Advetiser Details
             params.put("ap_advertiser_type", cq.getString(cq.getColumnIndex("owner_broker")));  // Change owner_broker to ap_Advertiser_type
@@ -1089,13 +1101,13 @@ public class DBHandler extends SQLiteOpenHelper {
                             pDialog.dismiss();
 
                             try {
-                                JSONObject js=new JSONObject(response);
-                                String status=js.getString("status");
-                                if("success".equalsIgnoreCase(status)){
+                                JSONObject js = new JSONObject(response);
+                                String status = js.getString("status");
+                                if ("success".equalsIgnoreCase(status)) {
 
-                                        ContentValues cv = new ContentValues();
-                                        cv.put("update_from_server", "false");
-                                        setUpdateFromServerStatus(cv,currentAppointment);
+                                    ContentValues cv = new ContentValues();
+                                    cv.put("update_from_server", "false");
+                                    setUpdateFromServerStatus(cv, currentAppointment);
 
                                 }
 
@@ -1179,13 +1191,13 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-    public boolean checkSpinnerNo(final String table_name, final String room_id_name, final String s) {
+    public boolean checkSpinnerNo(final String table_name, final String room_id_name, final String s, final String status) {
         SQLiteDatabase db = super.getReadableDatabase();
 
         long total = DatabaseUtils.queryNumEntries(db,
                 table_name,
-                "id=? AND " + room_id_name + "=?",
-                new String[]{Appointment.clicked, s});
+                "id=? AND " + room_id_name + "=? AND " + status + "=?",
+                new String[]{Appointment.clicked, s, "true"});
         db.close();
 
         return total > 0 ? true : false;
@@ -1206,8 +1218,9 @@ public class DBHandler extends SQLiteOpenHelper {
     public void saveAppointmentOtherDetails(ContentValues contentValuesAppointment) {
         //    ContentValues obj=new ContentValues(new BaseContentValuesClass(5));
         SQLiteDatabase db = super.getWritableDatabase();
-        if (db.update("Appointments", contentValuesAppointment, "id=?", new String[]{contentValuesAppointment.getAsString("id")}) != -1);
-            //Toast.makeText(c, "Inserted", Toast.LENGTH_LONG).show();
+        if (db.update("Appointments", contentValuesAppointment, "id=?", new String[]{contentValuesAppointment.getAsString("id")}) != -1)
+            ;
+        //Toast.makeText(c, "Inserted", Toast.LENGTH_LONG).show();
 
         db.close();
 
@@ -1217,13 +1230,46 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = super.getWritableDatabase();
         for (int i = 0; i < contentValues.length; i++) {
             if (db.insert(table_name, null, contentValues[i]) != -1) ;
-                //        Toast.makeText(c,table_name+" Inserted="+i,Toast.LENGTH_LONG).show();
+            //        Toast.makeText(c,table_name+" Inserted="+i,Toast.LENGTH_LONG).show();
            /* else
                 Toast.makeText(c, table_name + " Not Inserted=" + i, Toast.LENGTH_LONG).show();*/
         }
 
         db.close();
 
+    }
+
+    public Bundle checkImageAvailable(String type, String no_of_room_key) {
+        String no_of_room = getNoOfRoom(no_of_room_key);
+        Bundle b=new Bundle();
+        if (no_of_room == null);
+         //   return no_of_room;
+        int rooms = Integer.parseInt(no_of_room);
+        Cursor cur = null;
+        SQLiteDatabase db = super.getReadableDatabase();
+        for (int i = 1; i <= rooms; i++) {
+
+            /*long total = DatabaseUtils.queryNumEntries(db,
+                    table_name,
+                    "id=? AND " + room_field_name + "=?  AND " + table_status + "=?",
+                    new String[]{Appointment.clicked, i + "", "false"});
+            if (total == 0) {
+                no_of_room = "false";
+                break;
+            }*/
+
+            cur = db.rawQuery("Select * from ImageSelection where id=? AND type=? AND room_id=?", new String[]{Appointment.clicked, type, i+""});
+            if (!cur.moveToNext() ) {
+                b.putString("value",i+"");
+                break;
+            } else;
+
+
+        }
+        if (cur != null)
+            cur.close();
+        db.close();
+        return b;
     }
 
 
@@ -2089,7 +2135,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void setUpdateFromServerStatus(final ContentValues cv, final String appointment_clicked) {
         SQLiteDatabase db = super.getWritableDatabase();
 
-        if (db.update("Appointments", cv, "id=?", new String[]{appointment_clicked}) != 0);
+        if (db.update("Appointments", cv, "id=?", new String[]{appointment_clicked}) != 0) ;
            /* Toast.makeText(c, "Status Update", Toast.LENGTH_LONG).show();
         else
             Toast.makeText(c, "Status Fail To Update", Toast.LENGTH_LONG).show();*/

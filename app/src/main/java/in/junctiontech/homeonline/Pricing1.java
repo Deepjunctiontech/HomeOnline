@@ -196,9 +196,9 @@ public class Pricing1 extends AppCompatActivity {
 
         db.setPricing(built_up_area, carpet_area, rent_ammount, no_of_floors, age_of_building,
                 no_of_lifts, plot_area, salestatus, units,"true");
-        ContentValues cv= new ContentValues();
+        /*ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
     }
 
 

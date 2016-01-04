@@ -25,18 +25,22 @@
             app:title="DashBoard"></android.support.v7.widget.Toolbar>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp"
+
             android:background="@drawable/yyy">
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="10dp"
+
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -179,17 +183,23 @@
                         ></ListView>
 
 
+
+
                 </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+
+
+              </LinearLayout>
+
+
+
+
+        </RelativeLayout>
 
 
         <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"></android.support.v4.view.ViewPager>
-
-    </LinearLayout>
+            android:layout_weight="1"/></LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navi"
@@ -202,7 +212,35 @@
         app:itemTextColor="#993225"
         app:menu="@menu/menu_drawer">
 
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+        <RelativeLayout
+            android:id="@+id/ratafeia"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="start" >
+
+
+            <include
+                layout="@layout/footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                />
+        </RelativeLayout>
+
+       <!-- <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1111111111111111111111"/>-->
+
     </android.support.design.widget.NavigationView>
+
 
 
 </android.support.v4.widget.DrawerLayout>

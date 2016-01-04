@@ -160,9 +160,9 @@ public class AdvertiserDetail extends AppCompatActivity {
         db.setAdvertiserDetail(owner_name, owner_number, owner_alternate_number, owner_email, owner_broker,
                  developer_type, owner_type, building_no, society_name, flate_number, wing, street, locality,
                 sub_locality, pincode, landmark, floor_no, "true");
-        ContentValues cv= new ContentValues();
+       /* ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
     }
 
     public void getAdvertiser() {

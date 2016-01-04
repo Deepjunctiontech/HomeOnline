@@ -455,9 +455,9 @@ public class SocietyData1 extends AppCompatActivity {
                 (society_ck_waste_disposal.isChecked() ? "Y" : "N"),
                 "true");
 
-        ContentValues cv= new ContentValues();
+        /*ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
 
     }
     public void myClick(View v){

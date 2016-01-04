@@ -275,9 +275,9 @@ public class PropertyDetails extends AppCompatActivity {
         String possession_date = property_et_possesion_date.getText().toString();
         db.setPropertyDetail(bhk_type, property_type, total_livingroom, total_bedroom, total_kitchen, total_bathroom, total_balcony,
                 preferred_visit_time, possession_date, "true");
-        ContentValues cv= new ContentValues();
+        /*ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv,Appointment.clicked);
+        db.setUpdateFromServerStatus(cv,Appointment.clicked);*/
 
     }
 

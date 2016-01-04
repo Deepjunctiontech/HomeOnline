@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Home Online</string>
+    <string name="app_name">homeonline</string>
     <string name="btname"><u>Bath Room</u></string>
     <string name="bdname"><u>Bed Room</u></string>
     <string name="lvname"><u>Living Room</u></string>

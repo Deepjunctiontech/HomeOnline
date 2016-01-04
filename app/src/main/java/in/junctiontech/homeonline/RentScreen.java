@@ -214,9 +214,9 @@ public class RentScreen extends AppCompatActivity {
             pet="Yes";
 
         db.setRentScreen(brokeragefee, maintanancefee, food, lease_type, pet, rent_, security_, deposite_,availability_date, "true");
-        ContentValues cv= new ContentValues();
+       /* ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
     }
 
     public void myClick(View v) {

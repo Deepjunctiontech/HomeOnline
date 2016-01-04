@@ -177,7 +177,10 @@
         <activity
             android:name=".RentScreen"
             android:label="@string/title_activity_rent_screen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name=".AboutJunctionTech"
+            android:label="Junction Tech">
         </activity>
     </application>
 

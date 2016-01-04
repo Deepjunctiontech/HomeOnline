@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -66,6 +67,7 @@ public class NewGallery extends AppCompatActivity {
     private String[] spinnerArray = {};
     private TextView textGallery;
     private static Context c;
+    private android.widget.Gallery gl;
 
     public static Context getContext() {
         return c;
@@ -77,7 +79,7 @@ public class NewGallery extends AppCompatActivity {
         setContentView(R.layout.activity_new_gallery);
 
         gv = (GridView) findViewById(R.id.new_open_gridView);
-        android.widget.Gallery gl = (android.widget.Gallery) findViewById(R.id.my_gallery_new);
+        gl = (android.widget.Gallery) findViewById(R.id.my_gallery_new);
 
 
         image_spinner_particular = (Spinner) findViewById(R.id.spinnerGallery);
@@ -92,11 +94,24 @@ public class NewGallery extends AppCompatActivity {
         gl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                click = position;
-                updateGridView();
-                checkSpinner();
 
-                textGallery.setText(room_name[click]);
+              //  Toast.makeText(NewGallery.this, position+"", Toast.LENGTH_SHORT).show();
+
+                if(checkSpinner(previous)) {
+
+                    click = position;
+                    updateGridView();
+                    checkSpinner();
+                    textGallery.setText(room_name[click]);
+                }
+                else
+                    position=previous;
+
+
+
+                previous=position;
+
+              //  Toast.makeText(NewGallery.this, previous+"", Toast.LENGTH_SHORT).show();  previous=position;
 
 
                 // Toast.makeText(NewGallery.this, room_name[position], Toast.LENGTH_SHORT).show();
@@ -139,6 +154,8 @@ public class NewGallery extends AppCompatActivity {
 
     }
 
+    private int previous=0;
+
     public void checkSpinner() {
         String check = db.getNoOfRoom(brr[click]);
         if (check == null)
@@ -153,6 +170,39 @@ public class NewGallery extends AppCompatActivity {
         obj1 = new ArrayAdapter<String>(NewGallery.this, android.R.layout.simple_list_item_1, spinnerArray);
 
         image_spinner_particular.setAdapter(obj1);
+    }
+
+
+    public boolean checkSpinner(int qwerty) {
+        Bundle imageData=db.checkImageAvailable(room_name[qwerty], brr[qwerty]);
+        String s=imageData.getString("value");
+        if(s!=null) {
+            gl.setSelection(qwerty);
+            Toast.makeText(this,room_name[qwerty]+"-\nPlease Capture Image For Room No-="+s,Toast.LENGTH_LONG).show();
+            TextView errorText = (TextView) image_spinner_particular.getSelectedView();
+            errorText.setError("Please Capture Image");
+            image_spinner_particular.setFocusableInTouchMode(true);
+            image_spinner_particular.requestFocus();
+            errorText.setTextColor(Color.RED);
+
+            return false;
+        }
+        else
+            return true;
+
+        /*String check = db.getNoOfRoom(brr[click]);
+        if (check == null)
+            check = "1";
+        int c = Integer.parseInt(check);
+        spinnerArray = new String[c];
+
+        for (int i = 0; i < spinnerArray.length; i++)
+            spinnerArray[i] = i + 1 + "";
+
+        obj1 = null;
+        obj1 = new ArrayAdapter<String>(NewGallery.this, android.R.layout.simple_list_item_1, spinnerArray);
+
+        image_spinner_particular.setAdapter(obj1);*/
     }
 
     @Override
@@ -502,6 +552,31 @@ public class NewGallery extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+/*
+    private boolean checkRemainingSpinnerValue() {
+        String check = db.getNoOfRoom("no_of_kitchen");
+        if (check == null)
+            check = "1";
+        int c = Integer.parseInt(check);
+        for (int i = 1; i <= c; i++) {
+            if (!db.checkSpinnerNo("Kitchen", "kitchen_ID", i + "")) {
+                TextView errorText = (TextView) kitchen_spinner_total.getSelectedView();
+                errorText.setError("Please fill data");
+                kitchen_spinner_total.setFocusableInTouchMode(true);
+                kitchen_spinner_total.requestFocus();
+                errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                // errorText.setText("my actual error text");//changes the selected item text to this
+                Toast.makeText(this, "Please fill data for room = " + i, Toast.LENGTH_LONG).show();
+                // property_spinner_total_living.setSelection(i-1,true);  for when automatic select spinner value which is nopt filled in database
+                return false;
+                //   property_spinner_total_living.setSelection(i);
+                //   property_spinner_total_living
+            }
+        }
+        return true;
+
+    }*/
 
 }
 

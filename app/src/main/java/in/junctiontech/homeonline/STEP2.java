@@ -16,6 +16,10 @@ public class STEP2 extends AppCompatActivity {
     private Button detail_btn_residential,detail_btn_society;
     private Button detail_btn_property,detail_btn_advertiser;
 
+    private String room_name[] = {"Living Room", "Bed Room", "Bath Room", "Kitchen", "Balcony"};
+    private String[] brr = {"no_of_livingroom", "no_of_bedroom", "no_of_bathroom", "no_of_kitchen", "no_of_balcony"};
+    private Button detail_btn_image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class STEP2 extends AppCompatActivity {
         detail_btn_society= (Button) findViewById(R.id.detail_btn_society);
         detail_btn_property= (Button) findViewById(R.id.detail_btn_property);
         detail_btn_advertiser= (Button) findViewById(R.id.detail_btn_advertiser);
+        detail_btn_image= (Button) findViewById(R.id.detail_btn_image);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db=new DBHandler(this,"DB",null,1);
         Bundle b = db.getIdName();
@@ -92,6 +97,20 @@ public class STEP2 extends AppCompatActivity {
         if(status_society==null);
         else if(status_society.equalsIgnoreCase("true"))
             detail_btn_society.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
+
+        String s=null;
+        for(int i=0;i<room_name.length;i++) {
+            Bundle imageData = db.checkImageAvailable(room_name[i], brr[i]);
+            s = imageData.getString("value");
+            if (s != null) {
+                break;
+            }
+        }
+        if(s==null)
+            detail_btn_image.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
+
+
+
     }
     @Override
     public boolean onSupportNavigateUp() {

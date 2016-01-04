@@ -233,9 +233,9 @@ public class Kitchen extends AppCompatActivity {
         String chimney1 = (chimney.isChecked() ? "Y" : "N");
 
         db.setKitchen(kitchen_id, cabinate_modular, refridge, water_purifier, loft1, gas_pipeline, microwave1, chimney1, plateform_material, "true");
-        ContentValues cv= new ContentValues();
+        /*ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
     }
 
     public void myClick(View v) {
@@ -257,7 +257,7 @@ public class Kitchen extends AppCompatActivity {
             check = "1";
         int c = Integer.parseInt(check);
         for (int i = 1; i <= c; i++) {
-            if (!db.checkSpinnerNo("Kitchen", "kitchen_ID", i + "")) {
+            if (!db.checkSpinnerNo("Kitchen", "kitchen_ID", i + "","status_kitchen")) {
                 TextView errorText = (TextView) kitchen_spinner_total.getSelectedView();
                 errorText.setError("Please fill data");
                 kitchen_spinner_total.setFocusableInTouchMode(true);

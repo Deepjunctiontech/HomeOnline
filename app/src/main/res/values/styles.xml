@@ -5,10 +5,10 @@
         <item name="textAppearanceListItem">@style/list_item_appearance</item>
         <item name="colorPrimary">#f77c14</item>
         <item name="actionBarStyle">@style/themeActionBar</item>
-      <!--  <item name="colorAccent">#f77c14</item>
-        <item name="android:textColorPrimary">#212121</item>
-        <item name="android:textColorSecondary">#727272</item>
-         <item name="android:textColorHint">@color/texthintcolor</item>-->
+        <item name="colorAccent">#f77c14</item>
+        <!--  <item name="android:textColorPrimary">#212121</item>
+         <item name="android:textColorSecondary">#727272</item>
+          <item name="android:textColorHint">@color/texthintcolor</item>-->
 
     </style>
 
@@ -70,6 +70,14 @@
         parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
         <item name="android:textSize">13sp</item>
         <!-- The textColor property is backward compatible with the Support Library -->
+    </style>
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:orientation">vertical</item>
     </style>
 
 </resources>

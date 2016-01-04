@@ -116,6 +116,11 @@ public class MainScreen extends AppCompatActivity implements NavigationView.OnNa
             //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
            startActivity(new Intent(this, AboutUs.class));
         }
+
+        else if(id==R.id.main_screen_junctiontech) {
+            //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AboutJunctionTech.class));
+        }
         else {
             // Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
 

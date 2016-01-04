@@ -148,8 +148,9 @@ public class LivingRoom extends AppCompatActivity {
         if (check == null)
             check = "1";
         int c = Integer.parseInt(check);
+
         for (int i = 1; i <= c; i++) {
-            if (!db.checkSpinnerNo("LivingRoom", "livingRoom_ID", i + "")) {
+            if (!db.checkSpinnerNo("LivingRoom", "livingRoom_ID", i + "","status_living")) {
                 TextView errorText = (TextView) property_spinner_total_living.getSelectedView();
                 errorText.setError("Please fill data");
                 property_spinner_total_living.setFocusableInTouchMode(true);
@@ -179,9 +180,9 @@ public class LivingRoom extends AppCompatActivity {
 
 
         db.setLivingRoom(livingroom_id, sofa1, diningtable1, ac1a, tv1, shoerack1, livingroom_flooringtype, false_ceiling1, "true");
-        ContentValues cv= new ContentValues();
+       /* ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
 
     }
 

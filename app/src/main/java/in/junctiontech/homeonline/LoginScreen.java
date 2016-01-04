@@ -40,7 +40,7 @@ import java.util.Map;
 public class LoginScreen extends Activity {
 
     TextInputLayout user_text, pass_text;
-  LinearLayout rl;
+    RelativeLayout rl;
     EditText username, password;
     private SharedPreferences sp;
     private boolean checkButtonClick;
@@ -59,7 +59,7 @@ public class LoginScreen extends Activity {
 
         username = (EditText) this.findViewById(R.id.user_edit);
         password = (EditText) this.findViewById(R.id.pass_edit);
-        rl= (LinearLayout) this.findViewById(R.id.rl);
+        rl= (RelativeLayout) this.findViewById(R.id.rl);
         btn_text= (Button) findViewById(R.id.btn_text);
     }
 

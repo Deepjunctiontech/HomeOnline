@@ -249,9 +249,9 @@ public class ResidentialD1 extends AppCompatActivity {
         db.setResidential(no_of_building,storeys, serventroom1, prayerroom, terraceaccess, privateaccess,
                 enterance, powersupply, water_supply_municipal,water_supply_borewell,grounded_tanks, terrace_tanks, wifi_internet, solarwater_heater1,  "true"
         );
-        ContentValues cv= new ContentValues();
+        /*ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
-        db.setUpdateFromServerStatus(cv, Appointment.clicked);
+        db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
     }
 
 
