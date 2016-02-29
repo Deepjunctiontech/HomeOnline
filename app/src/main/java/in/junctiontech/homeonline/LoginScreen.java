@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -139,7 +138,7 @@ public class LoginScreen extends Activity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             StringRequest strReq = new StringRequest(Request.Method.POST,
-                    "http://dbproperties.ooo/vhosts/mobile/login.php", new Response.Listener<String>() {
+                    "http://staging.homeonline.com/dbho/Api/login", new Response.Listener<String>() {
 
                 @Override
                 public void onResponse(String response) {
@@ -222,10 +221,23 @@ public class LoginScreen extends Activity {
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String,String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type","application/x-www-form-urlencoded");
-                    headers.put("abc", "value");
-                    return headers;
+                   /* Map<String,String> headers = new HashMap<String, String>();
+
+                    headers.put("abc", "value");*/
+                    return createBasicAuthHeader("homeonline", "helloworld2016");
+                //      return headers;
+                }
+
+                Map<String, String> createBasicAuthHeader(String username, String password) {
+                    Map<String, String> headerMap = new HashMap<String, String>();
+
+                    String credentials = username + ":" + password;
+                    String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+                    headerMap.put("Authorization", "Basic " + encodedCredentials);
+                    headerMap.put("Content-Type","application/x-www-form-urlencoded");
+                    headerMap.put("abc", "value");
+
+                    return headerMap;
                 }
             };
             strReq.setRetryPolicy(new DefaultRetryPolicy(3000,2,2));

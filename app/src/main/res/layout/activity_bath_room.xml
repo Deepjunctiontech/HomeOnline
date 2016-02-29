@@ -107,7 +107,7 @@
                 </RadioGroup>
             </LinearLayout>
 
-            <LinearLayout
+           <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
@@ -152,7 +152,7 @@
                         android:text="Gas" />
 
                 </RadioGroup>
-            </LinearLayout>
+            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -247,6 +247,17 @@
                             android:id="@+id/bathroom_ck_exhaustfan"
                             android:text="Exhaust Fan" />
                     </TableRow>
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/bathroom_ck_geyser"
+                            android:text="Geyser" />
+                        <CheckBox
+                            android:id="@+id/bathroom_ck_washing_machine"
+                            android:text="Washing Machine" />
+
+
+                    </TableRow>
                 </TableLayout>
             </LinearLayout>
 
@@ -279,7 +290,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-                    android:entries="@array/flooring"
+                    android:entries="@array/bathroom_flooring"
                     android:gravity="center"
                     android:padding="13dp"/>
 

@@ -1,8 +1,6 @@
 package in.junctiontech.homeonline;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -11,12 +9,12 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class SocietyData1 extends AppCompatActivity {
     private RadioButton glass,grill,barbed_wire,electric_wiring,boundarywall_na,society_rb_brickwall,society_rb_cementedwall;
-    private CheckBox community,reg,overhead,security,cctv,smoke,fire,club,swiming,zym,multipurpose,society_garden_lawn;
+    private CheckBox community,reg,/*overhead,*/security,cctv,smoke,fire,club,swiming,zym,multipurpose,society_garden_lawn;
+    private EditText society_notes;
 
 
     private DBHandler db;
@@ -36,6 +34,7 @@ public class SocietyData1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         db = new DBHandler(this, "DB", null, 1);
         setContentView(R.layout.activity_society_d1);
+        society_notes= (EditText)findViewById(R.id.society_notes);
 
       //  name.setPaintFlags(name.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         Bundle b = db.getIdName();
@@ -46,7 +45,7 @@ public class SocietyData1 extends AppCompatActivity {
 
         community= (CheckBox) findViewById(R.id.society_ck_gc);
         reg= (CheckBox) findViewById(R.id.society_ck_rs);
-        overhead= (CheckBox) findViewById(R.id.society_ck_sot);
+      //  overhead= (CheckBox) findViewById(R.id.society_ck_sot);
         cctv= (CheckBox) findViewById(R.id.society_ck_cctv);
         smoke= (CheckBox) findViewById(R.id.society_ck_smoke);
         fire= (CheckBox) findViewById(R.id.society_ck_fire);
@@ -120,7 +119,7 @@ public class SocietyData1 extends AppCompatActivity {
 
 
         Bundle b = db.getSocietyData();
-
+        society_notes.setText(b.getString("society_notes")+"");
 
         if(b.getString("societydata_boundary_wall")==null)
         {
@@ -144,9 +143,9 @@ public class SocietyData1 extends AppCompatActivity {
         else if((b.getString("societydata_gated_community")).equalsIgnoreCase("Y"))
             community.setChecked(true);
 
-        if(b.getString("societydata_society_overheadtank")==null);
+       /* if(b.getString("societydata_society_overheadtank")==null);
         else if((b.getString("societydata_society_overheadtank")).equalsIgnoreCase("Y"))
-            overhead.setChecked(true);
+            overhead.setChecked(true);*/
 
         if(b.getString("societydata_cctv_servillance")==null);
         else if((b.getString("societydata_cctv_servillance")).equalsIgnoreCase("Y"))
@@ -394,7 +393,7 @@ public class SocietyData1 extends AppCompatActivity {
 
         String gated_comunity = (community.isChecked() ? "Y" : "N");
         String reg_society = (reg.isChecked() ? "Y" : "N");
-        String overhead_tank = (overhead.isChecked() ? "Y" : "N");
+        //String overhead_tank = (overhead.isChecked() ? "Y" : "N");
         String security1 = (security.isChecked() ? "Y" : "N");
         String cctv_servillance = (cctv.isChecked() ? "Y" : "N");
         String smoke_detector = (smoke.isChecked() ? "Y" : "N");
@@ -412,7 +411,7 @@ public class SocietyData1 extends AppCompatActivity {
 
 
         db.setSocietyData(boundarywall,gated_comunity,
-                overhead_tank,cctv_servillance,fire_hydrant_system,
+                /*overhead_tank,*/cctv_servillance,fire_hydrant_system,
                 swimming_pool,multipurpose1,reg_society,security1,smoke_detector,club_house,zym1
                 ,garden_lawn,
                 (society_ck_24HWS.isChecked() ? "Y" : "N"),
@@ -453,6 +452,7 @@ public class SocietyData1 extends AppCompatActivity {
                 (society_ck_visitor_parking.isChecked() ? "Y" : "N"),
                 (society_ck_waiting_lounge.isChecked() ? "Y" : "N"),
                 (society_ck_waste_disposal.isChecked() ? "Y" : "N"),
+                society_notes.getText().toString(),
                 "true");
 
         /*ContentValues cv= new ContentValues();

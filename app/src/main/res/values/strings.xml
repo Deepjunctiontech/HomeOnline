@@ -18,12 +18,22 @@
 
 
     <array name="units">
+        <item>"square ft"</item>
         <item>"square inch"</item>
-        <item>"square foot"</item>
         <item>"square yard"</item>
         <item>"square meter"</item>
 
 
+    </array>
+    
+
+    <array name="frequency">
+        <item>"Monthly"</item>
+        <item>"Quaterly"</item>
+        <item>"Half-Yearly"</item>
+        <item>"Yearly"</item>
+        <item>"One Time"</item>
+        <item>"Per Sq. Unit Monthly"</item>
     </array>
 
     <array name="no_of_lift">
@@ -57,8 +67,40 @@
         <item>"Family"</item>
         <item>"Bachelors"</item>
         <item>"Company"</item>
-        <item>"No Restriction"</item>preferred_visit_time
+        <item>"No Restriction"</item>
     </array>
+
+    <array name="security_deposit">
+        <item>"No Security Deposit"</item>
+        <item>"1 Month"</item>
+        <item>"2 Months"</item>
+        <item>"6 Months"</item>
+        <item>"10 Months"</item>
+        <item>"Others"</item>
+    </array>
+
+
+    <array name="brokerage_days">
+        <item>"15Days"</item>
+        <item>"30Days"</item>
+        <item>"45Days"</item>
+        <item>"60Days"</item>
+    </array>
+
+
+
+    <array name="balcony">
+        <item>"Marble Flooring"</item>
+        <item>"Granite Flooring"</item>
+        <item>"Laminated Flooring"</item>
+        <item>"Wooden Flooring"</item>
+        <item>"Stone Flooring"</item>
+        <item>"Ceramic - Vitrified Tiles"</item>
+        <item>"Anti Skid Tiles"</item>
+    </array>
+
+
+
     <array name="bhk_type">
         <item>"1 RK"</item>
         <item>"2 RK"</item>
@@ -69,15 +111,47 @@
         <item>"5 BHK"</item>
         <item>"5+ BHK"</item>
     </array>
-    <array name="plateform">
-        <item>"Simple"</item>
-        <item>"Granite"</item>
+
+    <array name="kitchen_flooring">
         <item>"Marble"</item>
-        <item>"Wooden"</item>
+        <item>"Wood"</item>
         <item>"Ceramic"</item>
-        <item>"Kota Sin"</item>
+        <item>"Stone"</item>
+        <item>"Anti-skid Tiles"</item>
+        <item>"Laminate"</item>
+    </array>
+
+    <array name="plateform">
+        <item>Granite Platform</item>
+        <item>Marble Platform</item>
+        <item>Kota-Stone Platform</item>
+        <item>Wooden Platform</item>
+        <item>Ceramic Tile Platform</item>
+        <item>Other Material Platform</item>
 
     </array>
+
+
+    <array name="furnishing_status">
+        <item>"Unfurnished"</item>
+        <item>"Semi furnished"</item>
+        <item>"Fully furnished"</item>
+
+    </array>
+
+    <array name="parking_type">
+        <item>"No Parking"</item>
+        <item>"Two Wheeler Open Air"</item>
+        <item>"Two Wheeler Covered"</item>
+        <item>"Four Wheeler Open Air"</item>
+        <item>"Four Wheeler Covered"</item>
+        <item>"Two - Four Wheeler Open Air"</item>
+        <item>"Two - Four Wheeler Covered"</item>
+        <item>"Two Wheeler Open Air - Four Wheeler Covered"</item>
+        <item>"Four Wheeler Open Air - Two Wheeler Covered"</item>
+
+    </array>
+
     <array name="enterance">
         <item>"North"</item>
         <item>"East"</item>
@@ -102,6 +176,11 @@
         <item>"10"</item>
     </string-array>
 
+    <string-array name="static_room">
+        <item>"1"</item>
+    </string-array>
+
+
     <array name="garden">
         <item>"0"</item>
         <item>"1"</item>
@@ -109,6 +188,13 @@
         <item>"3"</item>
         <item>"4"</item>
         <item>"5"</item>
+    </array>
+
+
+    <array name="property_status">
+        <item>"Upcoming"</item>
+        <item>"Under Construction"</item>
+        <item>"Ready to Move"</item>
     </array>
     <array name="no_of_storey">
         <item>"1"</item>
@@ -152,6 +238,125 @@
         <item>"39"</item>
         <item>"40"</item>
     </array>
+
+    <array name="no_of_floors">
+        <item>"Lower Basement"</item>
+        <item>"Upper Basement"</item>
+        <item>"Ground"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+        <item>"10"</item>
+        <item>"11"</item>
+        <item>"12"</item>
+        <item>"13"</item>
+        <item>"14"</item>
+        <item>"15"</item>
+        <item>"16"</item>
+        <item>"17"</item>
+        <item>"18"</item>
+        <item>"19"</item>
+        <item>"20"</item>
+        <item>"21"</item>
+        <item>"22"</item>
+        <item>"23"</item>
+        <item>"24"</item>
+        <item>"25"</item>
+        <item>"26"</item>
+        <item>"27"</item>
+        <item>"28"</item>
+        <item>"29"</item>
+        <item>"30"</item>
+        <item>"31"</item>
+        <item>"32"</item>
+        <item>"33"</item>
+        <item>"34"</item>
+        <item>"35"</item>
+        <item>"36"</item>
+        <item>"37"</item>
+        <item>"38"</item>
+        <item>"39"</item>
+        <item>"40"</item>
+        <item>"41"</item>
+        <item>"42"</item>
+        <item>"43"</item>
+        <item>"44"</item>
+        <item>"45"</item>
+        <item>"46"</item>
+        <item>"47"</item>
+        <item>"48"</item>
+        <item>"49"</item>
+        <item>"50"</item>
+    </array>
+
+    <array name="number_of_floors">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+        <item>"10"</item>
+        <item>"11"</item>
+        <item>"12"</item>
+        <item>"13"</item>
+        <item>"14"</item>
+        <item>"15"</item>
+        <item>"16"</item>
+        <item>"17"</item>
+        <item>"18"</item>
+        <item>"19"</item>
+        <item>"20"</item>
+        <item>"21"</item>
+        <item>"22"</item>
+        <item>"23"</item>
+        <item>"24"</item>
+        <item>"25"</item>
+        <item>"26"</item>
+        <item>"27"</item>
+        <item>"28"</item>
+        <item>"29"</item>
+        <item>"30"</item>
+        <item>"31"</item>
+        <item>"32"</item>
+        <item>"33"</item>
+        <item>"34"</item>
+        <item>"35"</item>
+        <item>"36"</item>
+        <item>"37"</item>
+        <item>"38"</item>
+        <item>"39"</item>
+        <item>"40"</item>
+        <item>"41"</item>
+        <item>"42"</item>
+        <item>"43"</item>
+        <item>"44"</item>
+        <item>"45"</item>
+        <item>"46"</item>
+        <item>"47"</item>
+        <item>"48"</item>
+        <item>"49"</item>
+        <item>"50"</item>
+    </array>
+
+    <array name="age_of_construction">
+   <item>"New Construction"</item>
+    <item>"Less than 5 Years"</item>
+    <item>"5-10 Years"</item>
+    <item>"10-15 Years"</item>
+    <item>"15-20 Years"</item>
+    <item>"Above 20 Years"</item>
+    </array>
+
     <array name="flooring">
         <item>"Marble"</item>
         <item>"Wood"</item>
@@ -160,6 +365,13 @@
         <item>"Laminate"</item>
         <item>"Anti Skid Tiles"</item>
     </array>
+<array name="bathroom_flooring">
+    <item>"Marble Flooring"</item>
+    <item>"Granite Flooring"</item>
+    <item>"Stone Flooring"</item>
+    <item>"Ceramic - Vitrified Tiles"</item>
+    <item>"Anti Skid Tiles"</item>
+</array>
     <string name="title_activity_step1">Basic Details</string>
     <string name="title_activity_step2">Details</string>
     <string name="title_activity_living_room">Living Room</string>
@@ -186,14 +398,14 @@
     </array>
 
     <array name="property_id">
-        <item>"23"</item>
-        <item>"13"</item>
-        <item>"41"</item>
-        <item>"46"</item>
-        <item>"22"</item>
-        <item>"54"</item>
-        <item>"53"</item>
-        <item>"51"</item>
+        <item>"57"</item>
+        <item>"59"</item>
+        <item>"58"</item>
+        <item>"61"</item>
+        <item>"60"</item>
+        <item>"62"</item>
+        <item>"63"</item>
+        <item>"64"</item>
     </array>
     <array name="imageselection">
 

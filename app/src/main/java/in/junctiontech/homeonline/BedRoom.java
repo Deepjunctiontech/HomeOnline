@@ -1,11 +1,11 @@
 package in.junctiontech.homeonline;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class BedRoom extends AppCompatActivity {
 
-    private String bedroom_flooringtype = "Marble";
+    private String bedroom_flooringtype = "Marble Flooring";
     private CheckBox bed, dresing, ac, tv, wardrobe, ceiling, balcony, bathroom, window;
     private Spinner bedroom_spinner_floring;
     private DBHandler db;
@@ -62,9 +62,17 @@ public class BedRoom extends AppCompatActivity {
             }
         });
         String check = db.getNoOfRoom("no_of_bedroom");
-        if (check == null)
-            check = "1";
-        int c = Integer.parseInt(check);
+
+        int c=1;  // SET DEFAULT VALUE
+      //   check="helllo";  //For testing
+        if (check != null) {
+            try {
+                c = Integer.parseInt(check);
+
+            } catch (NumberFormatException e) {
+                Log.d("EXCEPTION", e.getMessage());
+            }
+        }
         String[] total = new String[c];
 
         for (int i = 0; i < c; i++)
@@ -165,7 +173,7 @@ public class BedRoom extends AppCompatActivity {
 
 
         Resources r = this.getResources();
-        String flooringtype[] = r.getStringArray(R.array.flooring);
+        String flooringtype[] = r.getStringArray(R.array.balcony);
 
         String s = b.getString("flooring_type");
 
@@ -263,9 +271,18 @@ public class BedRoom extends AppCompatActivity {
 
     private boolean checkRemainingSpinnerValue() {
         String check = db.getNoOfRoom("no_of_bedroom");
-        if (check == null)
-            check = "1";
-        int c = Integer.parseInt(check);
+
+        int c=1;  // SET DEFAULT VALUE
+        //   check="helllo";  //For testing
+        if (check != null) {
+            try {
+                c = Integer.parseInt(check);
+
+            } catch (NumberFormatException e) {
+                Log.d("EXCEPTION", e.getMessage());
+            }
+        }
+
         for (int i = 1; i <= c; i++) {
             if (!db.checkSpinnerNo("BedRoom", "bedroom_ID", i + "","status_bed")) {
                 TextView errorText = (TextView) bed_spinner_total.getSelectedView();

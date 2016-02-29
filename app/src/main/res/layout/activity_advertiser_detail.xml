@@ -22,7 +22,7 @@
 
             >
 
-            <LinearLayout
+           <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
@@ -57,7 +57,6 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        android:checked="true"
                         android:text="Owner" />
 
                     <RadioButton
@@ -67,7 +66,7 @@
                         android:layout_weight="50"
                         android:text="Broker" />
                 </RadioGroup>
-            </LinearLayout>
+            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,7 +98,8 @@
                     android:layout_weight="50"
                     android:entries="@array/owner_type"
                     android:gravity="center"
-                    android:padding="13dp" />
+                    android:padding="13dp"
+                    />
 
 
             </LinearLayout>
@@ -122,7 +122,8 @@
                         android:layout_margin="16dp"
                         android:ems="10"
                         android:hint="Name"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:focusable="false"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -138,7 +139,8 @@
                         android:ems="10"
                         android:maxLength="10"
                         android:hint="Phone Number"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:focusable="false"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -168,11 +170,12 @@
                         android:layout_margin="16dp"
                         android:ems="10"
                         android:hint="Email Id"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:focusable="false"/>
                 </android.support.design.widget.TextInputLayout>
 
 
-                <android.support.design.widget.TextInputLayout
+              <!--  <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_building_no_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -202,9 +205,44 @@
                         android:ems="10"
                         android:hint="Flat No"
                         android:inputType="number" />
-                </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>-->
 
-                <android.support.design.widget.TextInputLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="50"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Floor No"
+                        android:textColor="@color/highlight"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@color/divide"></View>
+
+                    <Spinner
+                        android:id="@+id/advertise_spinner_floor_no_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:entries="@array/no_of_floors"
+                        android:gravity="center"
+                        android:padding="13dp" />
+
+
+                </LinearLayout>
+
+                <!--<android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_floor_no_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -216,8 +254,8 @@
                         android:layout_margin="16dp"
                         android:ems="10"
                         android:hint="Floor No"
-                        android:inputType="number" />
-                </android.support.design.widget.TextInputLayout>
+                        />
+                </android.support.design.widget.TextInputLayout>-->
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_society_name_text"
@@ -234,7 +272,7 @@
                 </android.support.design.widget.TextInputLayout>
 
 
-                <android.support.design.widget.TextInputLayout
+                <!--<android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_wing_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -289,7 +327,35 @@
                         android:ems="10"
                         android:hint="Sub Locality" />
                 </android.support.design.widget.TextInputLayout>
+-->
 
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/advertise_et_address1_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/advertise_et_address1_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:ems="10"
+                        android:hint="Address 1" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/advertise_et_address2_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/advertise_et_address2_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:ems="10"
+                        android:hint="Address 2" />
+                </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_pincode_text"
                     android:layout_width="match_parent"
@@ -305,7 +371,7 @@
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <!--<android.support.design.widget.TextInputLayout
                     android:id="@+id/advertise_et_landmark_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -317,12 +383,12 @@
                         android:layout_margin="16dp"
                         android:ems="10"
                         android:hint="Landmark" />
-                </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>-->
 
 
             </LinearLayout>
 
-            <LinearLayout
+           <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -382,7 +448,7 @@
 
 
 
-            </LinearLayout>
+            </LinearLayout>-->
         </LinearLayout>
 
 

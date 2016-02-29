@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -127,7 +128,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
         pDialog.setMessage("Please wait while fetching data from server...");
         pDialog.setCancelable(false);
         pDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/vhosts/mobile/appointment.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://staging.homeonline.com/dbho/Api/appointment",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -178,149 +179,172 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                             contentValuesAppointment.put("id", n.getString("appointmentID"));
                                             contentValuesAppointment.put("name", n.getString("name"));
                                             contentValuesAppointment.put("description", n.getString("address"));
+                                            contentValuesAppointment.put("address2", n.getString("address2"));// TODO
                                             contentValuesAppointment.put("phone", n.getString("phone"));
                                             contentValuesAppointment.put("status", n.getString("appointmentStatus"));
                                             contentValuesAppointment.put("appointmentTime", n.getString("appointmentTime"));
                                             contentValuesAppointment.put("update_from_server", "true");
+                                            contentValuesAppointment.put("property_status", n.optString("property_current_status",""));
                                             JSONObject details = n.getJSONObject("details");
 
                                   /*   Property Data*/
 
-                                            contentValuesAppointment.put("property_type", details.optString("propertyType"));  //  TODO
-                                            contentValuesAppointment.put("bhk_type", details.getString("bhkType"));
-                                            contentValuesAppointment.put("no_of_livingroom", details.getString("numOfLivingRooms"));
-                                            contentValuesAppointment.put("no_of_bedroom", details.getString("numOfBedrooms"));
-                                            contentValuesAppointment.put("no_of_kitchen", details.getString("numofKitchens"));
-                                            contentValuesAppointment.put("no_of_bathroom", details.getString("numOfToilet"));
-                                            contentValuesAppointment.put("no_of_balcony", details.getString("balcony"));
-                                            contentValuesAppointment.put("preferred_visit_time", details.getString("preferredVisitTime"));
-                                            contentValuesAppointment.put("possesion_date", details.getString("passessionTime"));
+                                            contentValuesAppointment.put("property_type", details.optString("propertyType","57"));  //  TODO
+                                         //   contentValuesAppointment.put("bhk_type", details.getString("bhkType"));
+                                            contentValuesAppointment.put("no_of_livingroom", details.optString("numOfLivingRooms", "1"));
+                                            contentValuesAppointment.put("no_of_bedroom", details.optString("numOfBedrooms", "1"));
+                                            contentValuesAppointment.put("no_of_kitchen", details.optString("numofKitchens", "1"));
+                                            contentValuesAppointment.put("no_of_bathroom", details.optString("numOfToilet", "1"));
+                                            contentValuesAppointment.put("no_of_balcony", details.optString("balcony", "1"));
+                                            contentValuesAppointment.put("preferred_visit_time", details.optString("preferredVisitTime", ""));
+                                            contentValuesAppointment.put("possesion_date", details.optString("passessionTime","0000"));
+                                          //  contentValuesAppointment.put("property_status", details.optString("property_current_status",""));
+
                                             //contentValuesAppointment.put("status_property_detail", "true");
 
 
                                    /*  Appointment Advertizer details */
 
-                                            contentValuesAppointment.put("id", n.getString("appointmentID"));
-                                            contentValuesAppointment.put("mobile", details.getString("appointmentAlterPhone"));
-                                            contentValuesAppointment.put("email", details.getString("appointmentEmail"));
-                                            contentValuesAppointment.put("owner_broker", details.getString("advertiserType"));
-                                            contentValuesAppointment.put("developer_type", details.getString("developerType"));
-                                            contentValuesAppointment.put("owner_type", details.getString("ownerType"));
-                                            contentValuesAppointment.put("building_no", details.getString("building_no_or_name"));
-                                            contentValuesAppointment.put("society_name", details.getString("SocietyName"));
-                                            contentValuesAppointment.put("flate_number", details.getString("flatNO"));
-                                            contentValuesAppointment.put("wing", details.getString("apointmentWing"));
-                                            contentValuesAppointment.put("street", details.getString("apponitmentStreet"));
-                                            contentValuesAppointment.put("locality", details.getString("locality"));
-                                            contentValuesAppointment.put("sub_locality", details.getString("subLocality"));
-                                            contentValuesAppointment.put("pincode", details.getString("pincode"));
-                                            contentValuesAppointment.put("landmark", details.getString("landmark"));
-                                            contentValuesAppointment.put("floor_no", details.getString("floorNum"));
+                                //            contentValuesAppointment.put("id", n.getString("appointmentID"));
+                                            contentValuesAppointment.put("mobile", details.optString("appointmentAlterPhone",""));
+                                            contentValuesAppointment.put("email", details.optString("appointmentEmail",""));
+                                //            contentValuesAppointment.put("owner_broker", details.optString("advertiserType",""));
+                                 //           contentValuesAppointment.put("developer_type", details.getString("developerType"));
+                                            contentValuesAppointment.put("owner_type", details.optString("ownerType","Freehold"));
+                                  //          contentValuesAppointment.put("building_no", details.getString("building_no_or_name"));
+                                            contentValuesAppointment.put("society_name", details.optString("SocietyName",""));
+                                   //         contentValuesAppointment.put("flate_number", details.getString("flatNO"));
+                                   //         contentValuesAppointment.put("wing", details.getString("apointmentWing"));
+                                  //          contentValuesAppointment.put("address1", details.getString("address1"));
+
+                                  //          contentValuesAppointment.put("sub_locality", details.getString("subLocality"));
+                                            contentValuesAppointment.put("pincode", details.optString("pincode",""));
+                                 //           contentValuesAppointment.put("landmark", details.getString("landmark"));
+                                            contentValuesAppointment.put("floor_no", details.optString("floorNum", ""));
                                             //  contentValuesAppointment.put("status_advertiser_detail", "true");
 
                                      /* Rent Screen Data*/
 
-                                            contentValuesAppointment.put("brokerage_fee", details.getString("brokarageFee"));
-                                            contentValuesAppointment.put("maintainance", details.getString("maintainenceFee"));
-                                            contentValuesAppointment.put("food", details.getString("apointmentFood"));
-                                            contentValuesAppointment.put("lease_type", details.getString("leaseType"));
-                                            contentValuesAppointment.put("pets_allowed", details.getString("petsAllowed"));
-                                            contentValuesAppointment.put("rent_negotiable", details.getString("rentNegotiable"));
-                                            contentValuesAppointment.put("security_negotiable", details.getString("securityNegotiable"));
-                                            contentValuesAppointment.put("security_deposit", details.getString("securityDeposit"));
-                                            contentValuesAppointment.put("availability_date", details.getString("ap_availability_date"));
+                                            contentValuesAppointment.put("brokerage_fee", details.optString("brokarageFee", ""));
+
+                                            contentValuesAppointment.put("food", details.optString("apointmentFood","No Preferences"));
+                                            contentValuesAppointment.put("lease_type", details.optString("leaseType","Family"));
+                                            contentValuesAppointment.put("pets_allowed", details.optString("petsAllowed","No"));
+                                            contentValuesAppointment.put("rent_negotiable", details.optString("rentNegotiable","n"));
+                                            contentValuesAppointment.put("security_negotiable", details.optString("securityNegotiable","n"));
+                                            contentValuesAppointment.put("security_deposit", details.optString("securityDeposit",""));
+                                          //  contentValuesAppointment.put("availability_date", details.optString("ap_availability_date","0000"));
                                             //   contentValuesAppointment.put("status_rentscreen", "true");
 
                                     /*Pricing Data*/
 
-                                            contentValuesAppointment.put("builtup_area", details.getString("builtupArea"));
-                                            contentValuesAppointment.put("carpet_area", details.getString("carpetArea"));
-                                            contentValuesAppointment.put("rent_ammount", details.getString("rentAmount"));
-                                            contentValuesAppointment.put("no_of_floor", details.getString("noOfFloors"));
-                                            contentValuesAppointment.put("age_of_building", details.getString("buildingAge"));
-                                            contentValuesAppointment.put("no_of_lift", details.getString("numOfLifts"));
-                                            contentValuesAppointment.put("pricing_plot_area", details.getString("plotArea"));
-                                            contentValuesAppointment.put("pricing_sale_status", details.getString("salesStatus"));
+                                            contentValuesAppointment.put("builtup_area", details.optString("builtupArea", ""));
+                                            contentValuesAppointment.put("carpet_area", details.optString("carpetArea", ""));
+                                            contentValuesAppointment.put("rent_ammount", details.optString("rentAmount", ""));
+                                            contentValuesAppointment.put("no_of_floor", details.optString("noOfFloors", ""));
+                                            contentValuesAppointment.put("age_of_building", details.optString("buildingAge", ""));
+                                            contentValuesAppointment.put("no_of_lift", details.optString("numOfLifts","0"));
+                                            contentValuesAppointment.put("pricing_plot_area", details.optString("plotArea",""));
+                                            contentValuesAppointment.put("pricing_sale_status", details.optString("salesStatus",""));
+                                            contentValuesAppointment.put("maintainance", details.optString("maintainenceFee",""));
+                                            contentValuesAppointment.put("maintanancechargefrequency", details.optString("maintenance_frequency",""));
+                                            contentValuesAppointment.put("price_plc", details.optString("price_plc",""));
+                                            contentValuesAppointment.put("price_parking", details.optString("price_parking",""));
+                                            contentValuesAppointment.put("price_club", details.optString("price_club",""));
+
                                             //   contentValuesAppointment.put("status_pricing", "true");
 
                                     /*  Residential Data*/
 
-                                            contentValuesAppointment.put("no_of_building", details.getString("noOfBuilding"));
-                                            contentValuesAppointment.put("no_of_storys", details.getString("numOfStory"));
-                                            contentValuesAppointment.put("servant_room", details.getString("serventRoom"));
-                                            contentValuesAppointment.put("prayer_room", details.getString("prayerRoom"));
-                                            contentValuesAppointment.put("terrace_access", details.getString("terrace"));
-                                            contentValuesAppointment.put("private_access", details.getString("privateTerrace"));
-                                            contentValuesAppointment.put("main_entrance_facing", details.getString("mainEnterenceFacing"));
-                                            contentValuesAppointment.put("power_backup", details.getString("powerBackup"));
-                                            contentValuesAppointment.put("water_supply_municipal", details.getString("waterSupply_municipal"));
-                                            contentValuesAppointment.put("water_supply_borewell", details.getString("waterSupply_borewell"));
-                                            contentValuesAppointment.put("waterbackup_grounded_tanks", details.getString("waterBackUp_grounded_tank"));
-                                            contentValuesAppointment.put("waterbackup_terrace_tanks", details.getString("waterBackUp_terrace_tank"));
-                                            contentValuesAppointment.put("wifi", details.getString("wifiInternet"));
-                                            contentValuesAppointment.put("solar_heater", details.getString("solarWaterHeater"));
+ //                                           contentValuesAppointment.put("no_of_building", details.getString("noOfBuilding"));
+                                          //  contentValuesAppointment.put("no_of_storys", details.getString("numOfStory"));
+
+                                   //         contentValuesAppointment.put("no_of_storys", details.optString("numOfStory",null));
+                                    //        Toast.makeText(Appointment.this, details.optString("numOfStory",null), Toast.LENGTH_SHORT).show();
+
+                                            contentValuesAppointment.put("servant_room", details.optString("serventRoom","n"));
+                                            contentValuesAppointment.put("prayer_room", details.optString("prayerRoom","n"));
+                                    //        contentValuesAppointment.put("terrace_access", details.optString("terrace","n"));
+                                            contentValuesAppointment.put("private_access", details.optString("privateTerrace","n"));
+                                           contentValuesAppointment.put("main_entrance_facing", details.optString("mainEnterenceFacing","North"));
+                                            contentValuesAppointment.put("power_backup", details.optString("powerBackup","Partial"));
+                                            contentValuesAppointment.put("water_supply_municipal", details.optString("waterSupply_municipal","n"));
+                                            contentValuesAppointment.put("water_supply_borewell", details.optString("waterSupply_borewell","n"));
+                                            contentValuesAppointment.put("waterbackup_grounded_tanks", details.optString("waterBackUp_grounded_tank","n"));
+                                            contentValuesAppointment.put("waterbackup_terrace_tanks", details.optString("waterBackUp_terrace_tank","n"));
+                                            contentValuesAppointment.put("wifi", details.optString("wifiInternet","n"));
+                                            contentValuesAppointment.put("solar_heater", details.optString("solarWaterHeater","n"));
+                                            contentValuesAppointment.put("parking_type", details.optString("parking_type",""));
+                                            contentValuesAppointment.put("furnishing_status", details.optString("furnishing_status",""));
+                                            contentValuesAppointment.put("balcony", details.optString("balcony_dp",""));
+                                            contentValuesAppointment.put("common_area", details.optString("common_area",""));
+
+
                                             //   contentValuesAppointment.put("status_residential", "true");
 
 
                                      /*   Society Data*/
 
-                                            contentValuesAppointment.put("boundary_wall", details.getString("boundryWall"));
-                                            contentValuesAppointment.put("societydata_gated_community", details.getString("gatedCommunity"));
-                                            contentValuesAppointment.put("societydata_reg_society", details.getString("registeredSociety"));
-                                            contentValuesAppointment.put("societydata_society_overheadtank", details.getString("societyOverheadTank"));
-                                            contentValuesAppointment.put("societydata_cctv_servillance", details.getString("cctvSurvelance"));
-                                            contentValuesAppointment.put("societydata_fire_hydrant_system", details.getString("fireHyderantSystem"));
-                                            contentValuesAppointment.put("societydata_swiming_pool", details.getString("swimmingPool"));
-                                            contentValuesAppointment.put("societydata_multi_purpose", details.getString("multipurposHall"));
-                                            contentValuesAppointment.put("societydata_security", details.getString("security"));
-                                            contentValuesAppointment.put("societydata_smoke_detector", details.getString("smokeDetector"));
-                                            contentValuesAppointment.put("societydata_club_house", details.getString("clubHouse"));
-                                            contentValuesAppointment.put("societydata_zym", details.getString("gym"));
-                                            contentValuesAppointment.put("garden_lawn", details.getString("gardenLawn"));
+                                            contentValuesAppointment.put("boundary_wall", details.optString("boundryWall", "NA"));
+                                            contentValuesAppointment.put("societydata_gated_community", details.optString("gatedCommunity","n"));
+                                            contentValuesAppointment.put("societydata_reg_society", details.optString("registeredSociety","n"));
+                                            //          contentValuesAppointment.put("societydata_society_overheadtank", details.getString("societyOverheadTank"));
+                                            contentValuesAppointment.put("societydata_cctv_servillance", details.optString("cctvSurvelance","n"));
+                                            contentValuesAppointment.put("societydata_fire_hydrant_system", details.optString("fireHyderantSystem","n"));
+                                            contentValuesAppointment.put("societydata_swiming_pool", details.optString("swimmingPool","n"));
+                                            contentValuesAppointment.put("societydata_multi_purpose", details.optString("multipurposHall","n"));
+                                            contentValuesAppointment.put("societydata_security", details.optString("security","n"));
+                                            contentValuesAppointment.put("societydata_smoke_detector", details.optString("smokeDetector","n"));
+                                            contentValuesAppointment.put("societydata_club_house", details.optString("clubHouse","n"));
+                                            contentValuesAppointment.put("societydata_zym", details.optString("gym","n"));
+                                            contentValuesAppointment.put("garden_lawn", details.optString("gardenLawn","n"));
 
-                                            contentValuesAppointment.put("society_ck_24HWS", details.getString("24hourswatersupply"));
-                                            contentValuesAppointment.put("society_ck_aerobic_room", details.getString("aerobicRoom"));
-                                            contentValuesAppointment.put("society_ck_amphithreater", details.getString("amphithreater"));
-                                            contentValuesAppointment.put("society_ck_atm_bank", details.getString("atm_or_bank"));
-                                            contentValuesAppointment.put("society_ck_banquet_hall", details.getString("banquetHall"));
-                                            contentValuesAppointment.put("society_ck_barbeque_pit", details.getString("barbequePit"));
-                                            contentValuesAppointment.put("society_ck_basketball_tennis_court", details.getString("basketBall_or_TennisCourt"));
-                                            contentValuesAppointment.put("society_ck_centralized_ac", details.getString("centralizedAC"));
-                                            contentValuesAppointment.put("society_ck_conference_room", details.getString("confrenceRoom"));
-                                            contentValuesAppointment.put("society_ck_day_care_center", details.getString("dayCareCenter"));
-                                            contentValuesAppointment.put("society_ck_dth_tv_facility", details.getString("dthTvFacilities"));
-                                            contentValuesAppointment.put("society_ck_early_learning_play_group", details.getString("earlyLearningCentre_playGroup"));
-                                            contentValuesAppointment.put("society_ck_golf_cource", details.getString("golfCource"));
-                                            contentValuesAppointment.put("society_ck_guest_accomadation", details.getString("guestAccomadation"));
-                                            contentValuesAppointment.put("society_ck_indoor_games_room", details.getString("indoorGamesRoom"));
-                                            contentValuesAppointment.put("society_ck_indoor_bedminton_court", details.getString("indoorSquash_or_bedmintonCourt"));
-                                            contentValuesAppointment.put("society_ck_intercom", details.getString("intercom"));
-                                            contentValuesAppointment.put("society_ck_kids_club", details.getString("kidsClub"));
-                                            contentValuesAppointment.put("society_ck_kids_play_area", details.getString("kidsPlayArea"));
-                                            contentValuesAppointment.put("society_ck_laundry_service", details.getString("laundryService"));
-                                            contentValuesAppointment.put("society_ck_meditation_center", details.getString("meditiationCenter"));
-                                            contentValuesAppointment.put("society_ck_paved_comound", details.getString("pavedCompound"));
-                                            contentValuesAppointment.put("society_ck_power_backup", details.getString("powerBackup"));
-                                            contentValuesAppointment.put("society_ck_property_maintenace_staff", details.getString("property_or_MaintenaceStaff"));
-                                            contentValuesAppointment.put("society_ck_rain_water_harvesting", details.getString("rainWaterHarvesting"));
-                                            contentValuesAppointment.put("society_ck_recreational_facilities", details.getString("recreationalPool_or_Facilities"));
-                                            contentValuesAppointment.put("society_ck_rentable_community_space", details.getString("rentableCommunitySpace"));
-                                            contentValuesAppointment.put("society_ck_reserverd_parking", details.getString("reserverdParking"));
-                                            contentValuesAppointment.put("society_ck_school", details.getString("school"));
-                                            contentValuesAppointment.put("society_ck_service_goods_lift", details.getString("service_or_GoodsLift"));
-                                            contentValuesAppointment.put("society_ck_sevage_treatment_plan", details.getString("sevageTreatmentPlan"));
-                                            contentValuesAppointment.put("society_ck_shooping_retail", details.getString("shoopingCenter_or_retailShop"));
-                                            contentValuesAppointment.put("society_ck_skating_court", details.getString("skatingCourt"));
-                                            contentValuesAppointment.put("society_ck_strolling_cycling_jogging", details.getString("strollingCycling_or_joggingTrack"));
-                                            contentValuesAppointment.put("society_ck_vaastu_complaint", details.getString("vaastuComplaint"));
-                                            contentValuesAppointment.put("society_ck_visitor_parking", details.getString("visitorParking"));
-                                            contentValuesAppointment.put("society_ck_waiting_lounge", details.getString("waitingLounge"));
-                                            contentValuesAppointment.put("society_ck_waste_disposal", details.getString("wasteDisposal"));
+                                            contentValuesAppointment.put("society_ck_24HWS", details.optString("24hourswatersupply","n"));
+                                            contentValuesAppointment.put("society_ck_aerobic_room", details.optString("aerobicRoom","n"));
+                                            contentValuesAppointment.put("society_ck_amphithreater", details.optString("amphithreater","n"));
+                                            contentValuesAppointment.put("society_ck_atm_bank", details.optString("atm_or_bank","n"));
+                                            contentValuesAppointment.put("society_ck_banquet_hall", details.optString("banquetHall","n"));
+                                            contentValuesAppointment.put("society_ck_barbeque_pit", details.optString("barbequePit","n"));
+                                            contentValuesAppointment.put("society_ck_basketball_tennis_court", details.optString("basketBall_or_TennisCourt","n"));
+                                            contentValuesAppointment.put("society_ck_centralized_ac", details.optString("centralizedAC","n"));
+                                            contentValuesAppointment.put("society_ck_conference_room", details.optString("confrenceRoom","n"));
+                                            contentValuesAppointment.put("society_ck_day_care_center", details.optString("dayCareCenter","n"));
+                                            contentValuesAppointment.put("society_ck_dth_tv_facility", details.optString("dthTvFacilities","n"));
+                                            contentValuesAppointment.put("society_ck_early_learning_play_group", details.optString("earlyLearningCentre_playGroup","n"));
+                                            contentValuesAppointment.put("society_ck_golf_cource", details.optString("golfCource","n"));
+                                            contentValuesAppointment.put("society_ck_guest_accomadation", details.optString("guestAccomadation","n"));
+                                            contentValuesAppointment.put("society_ck_indoor_games_room", details.optString("indoorGamesRoom","n"));
+                                            contentValuesAppointment.put("society_ck_indoor_bedminton_court", details.optString("indoorSquash_or_bedmintonCourt","n"));
+                                            contentValuesAppointment.put("society_ck_intercom", details.optString("intercom","n"));
+                                            contentValuesAppointment.put("society_ck_kids_club", details.optString("kidsClub","n"));
+                                            contentValuesAppointment.put("society_ck_kids_play_area", details.optString("kidsPlayArea","n"));
+                                            contentValuesAppointment.put("society_ck_laundry_service", details.optString("laundryService","n"));
+                                            contentValuesAppointment.put("society_ck_meditation_center", details.optString("meditiationCenter","n"));
+                                            contentValuesAppointment.put("society_ck_paved_comound", details.optString("pavedCompound","n"));
+                                            contentValuesAppointment.put("society_ck_power_backup", details.optString("powerBackupSociety","n"));
+                                            contentValuesAppointment.put("society_ck_property_maintenace_staff", details.optString("property_or_MaintenaceStaff","n"));
+                                            contentValuesAppointment.put("society_ck_rain_water_harvesting", details.optString("rainWaterHarvesting","n"));
+                                            contentValuesAppointment.put("society_ck_recreational_facilities", details.optString("recreationalPool_or_Facilities","n"));
+                                            contentValuesAppointment.put("society_ck_rentable_community_space", details.optString("rentableCommunitySpace","n"));
+                                            contentValuesAppointment.put("society_ck_reserverd_parking", details.optString("reserverdParking","n"));
+                                            contentValuesAppointment.put("society_ck_school", details.optString("school","n"));
+                                            contentValuesAppointment.put("society_ck_service_goods_lift", details.optString("service_or_GoodsLift","n"));
+                                            contentValuesAppointment.put("society_ck_sevage_treatment_plan", details.optString("sevageTreatmentPlan","n"));
+                                            contentValuesAppointment.put("society_ck_shooping_retail", details.optString("shoopingCenter_or_retailShop","n"));
+                                            contentValuesAppointment.put("society_ck_skating_court", details.optString("skatingCourt","n"));
+                                            contentValuesAppointment.put("society_ck_strolling_cycling_jogging", details.optString("strollingCycling_or_joggingTrack","n"));
+                                            contentValuesAppointment.put("society_ck_vaastu_complaint", details.optString("vaastuComplaint","n"));
+                                            contentValuesAppointment.put("society_ck_visitor_parking", details.optString("visitorParking","n"));
+                                            contentValuesAppointment.put("society_ck_waiting_lounge", details.optString("waitingLounge","n"));
+                                            contentValuesAppointment.put("society_ck_waste_disposal", details.optString("wasteDisposal","n"));
+                                            contentValuesAppointment.put("society_notes", details.optString("society_notes","HELLO WORLD"));
+
                                             //   contentValuesAppointment.put("status_society", "true");
 
 
+
                                         } catch (JSONException e) {
-                                            Toast.makeText(Appointment.this, "No Details for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
+                                          //  Toast.makeText(Appointment.this, "No Details for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
                                             e.printStackTrace();
                                         } finally {
                                             if (contentValuesAppointment != null)
@@ -342,22 +366,23 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                                 contentValues1.put("id", bedroomObject.getString("appointmentID"));
                                                 String s[] = bedroomObject.getString("bedroomID").split("m");
                                                 contentValues1.put("bedroom_ID", s[1]);
-                                                contentValues1.put("bed", bedroomObject.getString("bed"));
-                                                contentValues1.put("ac", bedroomObject.getString("ac"));
-                                                contentValues1.put("tv", bedroomObject.getString("tv"));
-                                                contentValues1.put("dressing_table", bedroomObject.getString("dressingTable"));
-                                                contentValues1.put("wardrobe", bedroomObject.getString("wardrobe"));
-                                                contentValues1.put("window", bedroomObject.getString("window"));
-                                                contentValues1.put("attached_balcony", bedroomObject.getString("attachedBalconey"));
-                                                contentValues1.put("attached_bathroom", bedroomObject.getString("attachedBathroom"));
-                                                contentValues1.put("flooring_type", bedroomObject.getString("flooringType"));
-                                                contentValues1.put("false_ceiling", bedroomObject.getString("falseCeiling"));
+                                                contentValues1.put("bed", bedroomObject.optString("bed","n"));
+                                                contentValues1.put("ac", bedroomObject.optString("ac","n"));
+                                                contentValues1.put("tv", bedroomObject.optString("tv","n"));
+                                                contentValues1.put("dressing_table", bedroomObject.optString("dressingTable","n"));
+                                                contentValues1.put("wardrobe", bedroomObject.optString("wardrobe","n"));
+                                                contentValues1.put("window", bedroomObject.optString("window","n"));
+                                                contentValues1.put("attached_balcony", bedroomObject.optString("attachedBalconey","n"));
+                                                contentValues1.put("attached_bathroom", bedroomObject.optString("attachedBathroom","n"));
+                                                contentValues1.put("flooring_type", bedroomObject.optString("flooringType",""));
+                                                contentValues1.put("false_ceiling", bedroomObject.optString("falseCeiling","n"));
                                                 //   contentValues1.put("status_bed", "true");
                                                 contentValues[j] = contentValues1;
 
                                             }
                                         } catch (JSONException e) {
-                                            Toast.makeText(Appointment.this, "No Bedroom data for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
+                                            //Log.d("Bedroom","Blank");
+                                           // Toast.makeText(Appointment.this, "No Bedroom data for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
                                             e.printStackTrace();
                                         } finally {
                                             if (contentValues != null)
@@ -377,20 +402,20 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                                 contentValues1.put("id", livingroomJSONObject.getString("appointmentID"));
                                                 String s[] = livingroomJSONObject.getString("livingRoomID").split("m");
                                                 contentValues1.put("livingRoom_ID", s[1]);
-                                                contentValues1.put("sofa", livingroomJSONObject.getString("sofa"));
-                                                contentValues1.put("dining_table", livingroomJSONObject.getString("dinningTable"));
-                                                contentValues1.put("ac", livingroomJSONObject.getString("ac"));
-                                                contentValues1.put("tv", livingroomJSONObject.getString("tv"));
-                                                contentValues1.put("shoe_rack", livingroomJSONObject.getString("shoeRack"));
-                                                contentValues1.put("flooring_type", livingroomJSONObject.getString("flooringType"));
-                                                contentValues1.put("false_ceiling", livingroomJSONObject.getString("falseCeiling"));
+                                                contentValues1.put("sofa", livingroomJSONObject.optString("sofa","n"));
+                                                contentValues1.put("dining_table", livingroomJSONObject.optString("dinningTable","n"));
+                                                contentValues1.put("ac", livingroomJSONObject.optString("ac","n"));
+                                                contentValues1.put("tv", livingroomJSONObject.optString("tv","n"));
+                                                contentValues1.put("shoe_rack", livingroomJSONObject.optString("shoeRack","n"));
+                                                contentValues1.put("flooring_type", livingroomJSONObject.optString("flooringType",""));
+                                                contentValues1.put("false_ceiling", livingroomJSONObject.optString("falseCeiling","n"));
                                                 //   contentValues1.put("status_living", "true");
 
                                                 contentValues[j] = contentValues1;
 
                                             }
                                         } catch (JSONException e) {
-                                            Toast.makeText(Appointment.this, "No LivingRoom data for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
+                                          //  Toast.makeText(Appointment.this, "No LivingRoom data for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
                                             e.printStackTrace();
                                         } finally {
                                             if (contentValues != null) {
@@ -411,21 +436,23 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                                 contentValues1.put("id", kitchensJSONObject.getString("appointmentID"));
                                                 String s[] = kitchensJSONObject.getString("kitchenID").split("n");
                                                 contentValues1.put("kitchen_ID", s[1]);
-                                                contentValues1.put("kitchen_cabinetes", kitchensJSONObject.getString("cabinet"));
-                                                contentValues1.put("kitchen_refridgerator", kitchensJSONObject.getString("refrigerator"));
-                                                contentValues1.put("kitchen_water_purifier", kitchensJSONObject.getString("waterPurifier"));
-                                                contentValues1.put("kitchen_loft", kitchensJSONObject.getString("loft"));
-                                                contentValues1.put("kitchen_gas_pipeline", kitchensJSONObject.getString("gaspipLine"));
-                                                contentValues1.put("kitchen_microwave", kitchensJSONObject.getString("microwave"));
-                                                contentValues1.put("kitchen_chimney", kitchensJSONObject.getString("chimneyExhaust"));
-                                                contentValues1.put("kitchen_plateform_material", kitchensJSONObject.getString("plateformMaterial"));
+                                                contentValues1.put("kitchen_cabinetes", kitchensJSONObject.optString("cabinet","na"));
+                                                contentValues1.put("kitchen_refridgerator", kitchensJSONObject.optString("refrigerator","n"));
+                                                contentValues1.put("kitchen_water_purifier", kitchensJSONObject.optString("waterPurifier","n"));
+                                                contentValues1.put("kitchen_loft", kitchensJSONObject.optString("loft","n"));
+                                                contentValues1.put("kitchen_gas_pipeline", kitchensJSONObject.optString("gaspipLine","n"));
+                                                contentValues1.put("kitchen_microwave", kitchensJSONObject.optString("microwave","n"));
+                                                contentValues1.put("kitchen_chimney", kitchensJSONObject.optString("chimneyExhaust","n"));
+                                                contentValues1.put("kitchen_plateform_material", kitchensJSONObject.optString("plateformMaterial",""));
+                                                contentValues1.put("kitchen_flooring", kitchensJSONObject.optString("kitchen_flooring",""));
+
                                                 //   contentValues1.put("status_kitchen", "true");
 
                                                 contentValues[j] = contentValues1;
 
                                             }
                                         } catch (JSONException e) {
-                                            Toast.makeText(Appointment.this, "No Kitchen data for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
+                                           // Toast.makeText(Appointment.this, "No Kitchen data for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
                                             e.printStackTrace();
                                         } finally {
                                             if (contentValues != null) {
@@ -444,25 +471,26 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                                                 JSONObject toiletsJSONObject = toilets.getJSONObject(j);
                                                 ContentValues contentValues1 = new ContentValues();
                                                 contentValues1.put("id", toiletsJSONObject.getString("appointmentID"));
-                                                String s[] = toiletsJSONObject.getString("toiletID").split("t");
+                                                String s[] = toiletsJSONObject.getString("toiletID").split("et");
                                                 contentValues1.put("toilet_ID", s[1]);
-                                                contentValues1.put("bathroom_bath_type", "attached");
-                                                contentValues1.put("bathroom_hot_water_supply", toiletsJSONObject.getString("hotWaterSupply"));
-                                                contentValues1.put("bathroom_toilet", toiletsJSONObject.getString("Style"));
-                                                contentValues1.put("bathroom_glass_partition", toiletsJSONObject.getString("glassPartition"));
-                                                contentValues1.put("bathroom_shower_curtain", toiletsJSONObject.getString("showerPartition"));
-                                                contentValues1.put("bathroom_bath_tub", toiletsJSONObject.getString("bathTub"));
-                                                contentValues1.put("bathroom_windows", toiletsJSONObject.getString("window"));
-                                                contentValues1.put("bathroom_cabinets", toiletsJSONObject.getString("cabinate"));
-                                                contentValues1.put("bathromm_exhaust_fan", toiletsJSONObject.getString("exhaustFan"));
-                                                contentValues1.put("bathroom_flooring_type", toiletsJSONObject.getString("flooringType"));
+                                                contentValues1.put("bathroom_bath_type",toiletsJSONObject.optString("type","attached"));
+                                                contentValues1.put("bathroom_geyser", toiletsJSONObject.optString("geyser","n"));
+                                                contentValues1.put("bathroom_toilet", toiletsJSONObject.optString("Style","indian"));
+                                                contentValues1.put("bathroom_glass_partition", toiletsJSONObject.optString("glassPartition","n"));
+                                                contentValues1.put("bathroom_shower_curtain", toiletsJSONObject.optString("showerPartition","n"));
+                                                contentValues1.put("bathroom_bath_tub", toiletsJSONObject.optString("bathTub","n"));
+                                                contentValues1.put("bathroom_windows", toiletsJSONObject.optString("window","n"));
+                                                contentValues1.put("bathroom_cabinets", toiletsJSONObject.optString("cabinate","n"));
+                                                contentValues1.put("bathromm_exhaust_fan", toiletsJSONObject.optString("exhaustFan","n"));
+                                                contentValues1.put("bathroom_flooring_type", toiletsJSONObject.optString("flooringType",""));
+                                                contentValues1.put("washing_machine", toiletsJSONObject.optString("washing_machine","n"));
                                                 //   contentValues1.put("status_bath", "true");
 
                                                 contentValues[j] = contentValues1;
 
                                             }
                                         } catch (JSONException e) {
-                                            Toast.makeText(Appointment.this, "No BathRoom data for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
+                                          //  Toast.makeText(Appointment.this, "No BathRoom data for appointment = " + n.getString("appointmentID"), Toast.LENGTH_LONG).show();
                                             e.printStackTrace();
                                         } finally {
                                             if (contentValues != null) {
@@ -524,10 +552,23 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<String, String>();
+                /*Map<String, String> headers = new HashMap<String, String>();
                 headers.put("Content-Type", "application/x-www-form-urlencoded");
                 headers.put("abc", "value");
-                return headers;
+                return headers;*/
+                return createBasicAuthHeader("homeonline", "helloworld2016");
+            }
+
+            Map<String, String> createBasicAuthHeader(String username, String password) {
+                Map<String, String> headerMap = new HashMap<String, String>();
+
+                String credentials = username + ":" + password;
+                String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+                headerMap.put("Authorization", "Basic " + encodedCredentials);
+                headerMap.put("Content-Type","application/x-www-form-urlencoded");
+                headerMap.put("abc", "value");
+
+                return headerMap;
             }
         };
 // Add the request to the RequestQueue.
@@ -748,6 +789,10 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
             // Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(this, Help.class));
+        }
+        else if(id==R.id.main_screen_junctiontech) {
+            //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AboutJunctionTech.class));
         }
 
         return super.onOptionsItemSelected(item);

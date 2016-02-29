@@ -1,7 +1,6 @@
 package in.junctiontech.homeonline;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -146,6 +145,10 @@ public class STEP2 extends AppCompatActivity {
             // Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(this,Help.class));
+        }
+        else if(id==R.id.main_screen_junctiontech) {
+            //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AboutJunctionTech.class));
         }
 
         return super.onOptionsItemSelected(item);

@@ -1,11 +1,11 @@
 package in.junctiontech.homeonline;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +25,7 @@ public class LivingRoom extends AppCompatActivity {
     private RadioButton marble, wood, ceramic, stone, latimate;
     private Spinner livingroom_spiner_flooringtype;
     private DBHandler db;
-    private String livingroom_flooringtype = "Marble";
+    private String livingroom_flooringtype = "Marble Flooring";
     private Spinner property_spinner_total_living;
     private String livingroom_id = "1";
     private Button detail_btn_living;
@@ -56,9 +56,17 @@ public class LivingRoom extends AppCompatActivity {
 
         String check = db.getNoOfRoom("no_of_livingroom");
         detail_btn_living = (Button) findViewById(R.id.detail_btn_living);
-        if (check == null)
-            check = "1";
-        int c = Integer.parseInt(check);
+
+        int c=1;  // SET DEFAULT VALUE
+        //   check="helllo";  //For testing
+        if (check != null) {
+            try {
+                c = Integer.parseInt(check);
+
+            } catch (NumberFormatException e) {
+                Log.d("EXCEPTION", e.getMessage());
+            }
+        }
         String[] total = new String[c];
 
         for (int i = 0; i < c; i++)
@@ -145,9 +153,16 @@ public class LivingRoom extends AppCompatActivity {
     private boolean checkRemainingSpinnerValue() {
         String check = db.getNoOfRoom("no_of_livingroom");
 
-        if (check == null)
-            check = "1";
-        int c = Integer.parseInt(check);
+        int c=1;  // SET DEFAULT VALUE
+        //   check="helllo";  //For testing
+        if (check != null) {
+            try {
+                c = Integer.parseInt(check);
+
+            } catch (NumberFormatException e) {
+                Log.d("EXCEPTION", e.getMessage());
+            }
+        }
 
         for (int i = 1; i <= c; i++) {
             if (!db.checkSpinnerNo("LivingRoom", "livingRoom_ID", i + "","status_living")) {
@@ -195,7 +210,7 @@ public class LivingRoom extends AppCompatActivity {
     public void getLiving(String livingroom_id) {
         Bundle b = db.getLivingRoom(livingroom_id);
         Resources r = this.getResources();
-        String flooringtype[] = r.getStringArray(R.array.flooring);
+        String flooringtype[] = r.getStringArray(R.array.balcony);
 
         String s = b.getString("flooring_type");
 

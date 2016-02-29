@@ -2,12 +2,9 @@ package in.junctiontech.homeonline;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -18,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -72,19 +70,18 @@ public class DBHandler extends SQLiteOpenHelper {
                 "rent_sale_status TEXT," +
 
                 // RentScreen Fileds
-                "brokerage_fee REAL," +
+                "brokerage_fee TEXT," +
                 "food TEXT," +
                 "lease_type TEXT," +
-                "maintainance REAL," +
                 "pets_allowed TEXT," +
                 "rent_negotiable TEXT," +
                 "security_deposit TEXT," +
                 "security_negotiable TEXT," +
                 "status_rentscreen TEXT," +
-                "availability_date," +   //newly added    // end of Rent Field
+                //    "availability_date," +   //newly added    // end of Rent Field
 
                 // Property Fields
-                "bhk_type TEXT," +
+                //    "bhk_type TEXT," +
                 "property_type TEXT," +
                 "no_of_livingroom TEXT," +
                 "no_of_bedroom TEXT," +
@@ -93,6 +90,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "no_of_balcony TEXT," +
                 "preferred_visit_time TEXT," +
                 "possesion_date TEXT," +
+                "property_status TEXT," +
                 "status_property_detail TEXT," +  // end of Property Field
 
                 // Advertiser Fields
@@ -100,18 +98,18 @@ public class DBHandler extends SQLiteOpenHelper {
                 "phone TEXT," +
                 "mobile TEXT," +
                 "email TEXT," +
-                "owner_broker TEXT," +
-                "developer_type TEXT," +
+             //   "owner_broker TEXT," +
+                //  "developer_type TEXT," +
                 "owner_type TEXT," +
-                "building_no TEXT," +
+                // "building_no TEXT," +
                 "society_name TEXT," +
-                "flate_number TEXT," +
-                "wing TEXT," +
-                "street TEXT," +
-                "locality TEXT," +
-                "sub_locality TEXT," +
+                //  "flate_number TEXT," +
+                //  "wing TEXT," +
+                //  "address1 TEXT," +
+                "address2 TEXT," +
+                //  "sub_locality TEXT," +
                 "pincode TEXT," +
-                "landmark TEXT," +
+                //   "landmark TEXT," +
                 "floor_no TEXT," +
                 "status_advertiser_detail TEXT," +
                 // end of Advertiser Field
@@ -119,14 +117,19 @@ public class DBHandler extends SQLiteOpenHelper {
                 // Pricing Fields
                 "builtup_area TEXT," +
                 "carpet_area TEXT," +
-                "rent_ammount REAL," +
+                "rent_ammount TEXT," +
                 "no_of_floor INTEGER," +
                 "age_of_building INTEGER," +
                 "no_of_lift TEXT," +
                 // newly added
                 "pricing_plot_area TEXT," +
                 "pricing_sale_status TEXT," +
+                "maintanancechargefrequency TEXT," +
+                "maintainance TEXT," +
                 "units TEXT," +
+                "price_plc TEXT," +
+                "price_parking TEXT," +
+                "price_club TEXT," +
                 "status_pricing TEXT," +  // end of Pricing Field
 
 
@@ -134,7 +137,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "boundary_wall TEXT," +
                 "societydata_gated_community TEXT," +
                 "societydata_reg_society TEXT," +
-                "societydata_society_overheadtank TEXT," +
+                //      "societydata_society_overheadtank TEXT," +
                 "societydata_security TEXT," +
                 "societydata_cctv_servillance TEXT," +
                 "societydata_smoke_detector TEXT," +
@@ -183,14 +186,17 @@ public class DBHandler extends SQLiteOpenHelper {
                 "society_ck_visitor_parking TEXT," +
                 "society_ck_waiting_lounge TEXT," +
                 "society_ck_waste_disposal TEXT," +
-                "status_society TEXT," +            // ending of Residential Field
+                "status_society TEXT," +
+                "society_notes TEXT," +
+
+                // ending of Residential Field
 
                 //  Residential Fields
-                "no_of_building TEXT," +
-                "no_of_storys INTEGER," +
+                //     "no_of_building TEXT," +
+                //     "no_of_storys INTEGER," +
                 "servant_room TEXT," +
                 "prayer_room TEXT," +
-                "terrace_access TEXT," +
+                //     "terrace_access TEXT," +
                 "private_access TEXT," +
                 "main_entrance_facing TEXT," +
                 "power_backup TEXT," +
@@ -198,6 +204,10 @@ public class DBHandler extends SQLiteOpenHelper {
                 "water_supply_borewell TEXT," +
                 "waterbackup_grounded_tanks TEXT," +
                 "waterbackup_terrace_tanks TEXT," +
+                "parking_type TEXT," +
+                "furnishing_status TEXT," +
+                "balcony TEXT," +
+                "common_area TEXT," +
                 "wifi TEXT," +
                 "solar_heater TEXT," +
                 "status_residential TEXT," +  // ending of Residential Field
@@ -252,6 +262,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "kitchen_microwave TEXT," +
                 "kitchen_chimney TEXT," +
                 "kitchen_plateform_material TEXT," +
+                "kitchen_flooring TEXT," +
                 "status_kitchen TEXT," +
                 "PRIMARY KEY (id,kitchen_ID)," +
                 "FOREIGN KEY (id) REFERENCES Appointments(id))");
@@ -260,7 +271,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE BathRoom(toilet_ID TEXT," +
                 "id TEXT," +
                 "bathroom_bath_type TEXT," +
-                "bathroom_hot_water_supply TEXT," +
+                "bathroom_geyser TEXT," +
                 "bathroom_toilet TEXT," +
                 "bathroom_glass_partition TEXT," +
                 "bathroom_shower_curtain TEXT," +
@@ -269,6 +280,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "bathroom_cabinets TEXT," +
                 "bathromm_exhaust_fan TEXT," +
                 "bathroom_flooring_type TEXT," +
+                "washing_machine TEXT," +
                 "status_bath TEXT," +
                 "PRIMARY KEY(id,toilet_ID)," +
                 "FOREIGN KEY(id) REFERENCES Appointments(id))");
@@ -437,7 +449,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void setKitchen(String kitchen_id, String kitchen_cabinetes, String kitchen_refridgerator, String kitchen_water_purifier,
                            String kitchen_loft, String kitchen_gas_pipeline, String kitchen_microwave,
-                           String kitchen_chimney, String kitchen_plateform_material, String status) {
+                           String kitchen_chimney, String kitchen_plateform_material, String kitchen_flooring, String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
         c1.put("kitchen_ID", kitchen_id);
@@ -450,6 +462,8 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("kitchen_microwave", kitchen_microwave);
         c1.put("kitchen_chimney", kitchen_chimney);
         c1.put("kitchen_plateform_material", kitchen_plateform_material);
+        c1.put("kitchen_flooring", kitchen_flooring);
+
         c1.put("status_kitchen", status);
 
 
@@ -473,17 +487,17 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public void setBathRoom(String toilet_id, String bathroom_bath_type, String bathroom_hot_water_supply, String bathroom_toilet,
+    public void setBathRoom(String toilet_id, String bathroom_bath_type, String bathroom_geyser, String bathroom_toilet,
                             String bathroom_glass_partition, String bathroom_shower_curtain, String bathroom_bath_tub,
                             String bathroom_windows, String bathroom_cabinets, String bathromm_exhaust_fan,
-                            String bathroom_flooring_type, String status) {
+                            String bathroom_flooring_type, String bathroom_washing_machine, String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
 
         c1.put("toilet_ID", toilet_id);
         c1.put("id", Appointment.clicked);
         c1.put("bathroom_bath_type", bathroom_bath_type);
-        c1.put("bathroom_hot_water_supply", bathroom_hot_water_supply);
+        c1.put("bathroom_geyser", bathroom_geyser);
         c1.put("bathroom_toilet", bathroom_toilet);
         c1.put("bathroom_glass_partition", bathroom_glass_partition);
         c1.put("bathroom_shower_curtain", bathroom_shower_curtain);
@@ -492,6 +506,8 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("bathroom_cabinets", bathroom_cabinets);
         c1.put("bathromm_exhaust_fan", bathromm_exhaust_fan);
         c1.put("bathroom_flooring_type", bathroom_flooring_type);
+        c1.put("washing_machine", bathroom_washing_machine);
+
         c1.put("status_bath", status);
 
 
@@ -533,6 +549,8 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("attached_bathroom", cq.getString(cq.getColumnIndex("attached_bathroom")));
             b.putString("window", cq.getString(cq.getColumnIndex("window")));
             b.putString("flooring_type", cq.getString(cq.getColumnIndex("flooring_type")));
+
+
         }
         cq.close();
         db.close();
@@ -551,7 +569,7 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cq.moveToNext()) {
 
             b.putString("bathroom_bath_type", cq.getString(cq.getColumnIndex("bathroom_bath_type")));
-            b.putString("bathroom_hot_water_supply", cq.getString(cq.getColumnIndex("bathroom_hot_water_supply")));
+            b.putString("bathroom_geyser", cq.getString(cq.getColumnIndex("bathroom_geyser")));
             b.putString("bathroom_toilet", cq.getString(cq.getColumnIndex("bathroom_toilet")));
             b.putString("bathroom_glass_partition", cq.getString(cq.getColumnIndex("bathroom_glass_partition")));
             b.putString("bathroom_shower_curtain", cq.getString(cq.getColumnIndex("bathroom_shower_curtain")));
@@ -560,6 +578,7 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("bathroom_cabinets", cq.getString(cq.getColumnIndex("bathroom_cabinets")));
             b.putString("bathromm_exhaust_fan", cq.getString(cq.getColumnIndex("bathromm_exhaust_fan")));
             b.putString("bathroom_flooring_type", cq.getString(cq.getColumnIndex("bathroom_flooring_type")));
+            b.putString("washing_machine", cq.getString(cq.getColumnIndex("washing_machine")));
         }
         cq.close();
         db.close();
@@ -583,6 +602,8 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("kitchen_microwave", cq.getString(cq.getColumnIndex("kitchen_microwave")));
             b.putString("kitchen_chimney", cq.getString(cq.getColumnIndex("kitchen_chimney")));
             b.putString("kitchen_plateform_material", cq.getString(cq.getColumnIndex("kitchen_plateform_material")));
+            b.putString("kitchen_flooring", cq.getString(cq.getColumnIndex("kitchen_flooring")));
+
         }
         cq.close();
         db.close();
@@ -682,10 +703,12 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void setPricing(String built_up_area, String carpet_area, String rent_ammount,
                            String no_of_floors,
-                           String age_of_building, String no_of_lift, String plot_area, String sale_status, String units, String status) {
+                           String age_of_building, String no_of_lift, String plot_area, String sale_status,
+                           String units, String maintanancefee, String maintanancechargefrequency,String rent,
+                           String price_plc, String price_parking,String price_club,String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
-
+        c1.put("rent_negotiable", rent);
         c1.put("builtup_area", built_up_area);
         c1.put("carpet_area", carpet_area);
         c1.put("rent_ammount", rent_ammount);
@@ -695,6 +718,12 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("pricing_plot_area", plot_area);
         c1.put("pricing_sale_status", sale_status);
         c1.put("units", units);
+        c1.put("maintainance", maintanancefee);
+        c1.put("maintanancechargefrequency", maintanancechargefrequency);
+        c1.put("price_plc", price_plc);
+        c1.put("price_parking", price_parking);
+        c1.put("price_club", price_club);
+
         c1.put("status_pricing", status);
         String click = Appointment.clicked;
         int i = db.update("Appointments", c1, "id=?", new String[]{click});
@@ -710,7 +739,9 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor cq = db.rawQuery("Select * from Appointments where id=?", new String[]{Appointment.clicked});
         Bundle b = new Bundle();
         if (cq.moveToNext()) {
+            b.putString("rent_negotiable", cq.getString(cq.getColumnIndex("rent_negotiable")));
             b.putString("units", cq.getString(cq.getColumnIndex("units")));
+            b.putString("maintainance", cq.getString(cq.getColumnIndex("maintainance")));
             b.putString("builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
             b.putString("carpet_area", cq.getString(cq.getColumnIndex("carpet_area")));
             b.putString("rent_ammount", cq.getString(cq.getColumnIndex("rent_ammount")));
@@ -719,6 +750,10 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("no_of_lift", cq.getString(cq.getColumnIndex("no_of_lift")));
             b.putString("plot_area", cq.getString(cq.getColumnIndex("pricing_plot_area")));
             b.putString("sale_status", cq.getString(cq.getColumnIndex("pricing_sale_status")));
+            b.putString("pricing_spinner_maintenance_charge_frequency", cq.getString(cq.getColumnIndex("maintanancechargefrequency")));
+            b.putString("price_plc", cq.getString(cq.getColumnIndex("price_plc")));
+            b.putString("price_parking", cq.getString(cq.getColumnIndex("price_parking")));
+            b.putString("price_club", cq.getString(cq.getColumnIndex("price_club")));
         }
         cq.close();
         db.close();
@@ -753,26 +788,26 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("propertyPurpose", cq.getString(cq.getColumnIndex("rent_sale_status")));
 
             //Advetiser Details
-            params.put("ap_advertiser_type", cq.getString(cq.getColumnIndex("owner_broker")));  // Change owner_broker to ap_Advertiser_type
+           // params.put("ap_advertiser_type", cq.getString(cq.getColumnIndex("owner_broker")));  // Change owner_broker to ap_Advertiser_type
             params.put("ap_ownership_type", cq.getString(cq.getColumnIndex("owner_type")));   // Change ap_owner_type to ap_ownership_type
             params.put("ap_name", cq.getString(cq.getColumnIndex("name")));
             params.put("ap_phone", cq.getString(cq.getColumnIndex("phone")));
             params.put("ap_alternate_phone_no", cq.getString(cq.getColumnIndex("mobile")));
             params.put("ap_email", cq.getString(cq.getColumnIndex("email")));
-            params.put("ap_building_no_name", cq.getString(cq.getColumnIndex("building_no")));  // Change ap_building_no to ap_building_no_name
-            params.put("ap_flate_number", cq.getString(cq.getColumnIndex("flate_number")));
+            //    params.put("ap_building_no_name", cq.getString(cq.getColumnIndex("building_no")));  // Change ap_building_no to ap_building_no_name
+            //    params.put("ap_flate_number", cq.getString(cq.getColumnIndex("flate_number")));
             params.put("ap_floor_no", cq.getString(cq.getColumnIndex("floor_no")));
             params.put("ap_society_name", cq.getString(cq.getColumnIndex("society_name")));  // newly added
-            params.put("ap_wing", cq.getString(cq.getColumnIndex("wing")));
-            params.put("ap_street", cq.getString(cq.getColumnIndex("street")));
-            params.put("ap_locality", cq.getString(cq.getColumnIndex("locality")));
-            params.put("ap_sub_locality", cq.getString(cq.getColumnIndex("sub_locality")));
+            //    params.put("ap_wing", cq.getString(cq.getColumnIndex("wing")));
+            //    params.put("ap_address_1", cq.getString(cq.getColumnIndex("address1")));
+            params.put("ap_address_2", cq.getString(cq.getColumnIndex("address2")));
+            //     params.put("ap_sub_locality", cq.getString(cq.getColumnIndex("sub_locality")));
             params.put("ap_pincode", cq.getString(cq.getColumnIndex("pincode")));
-            params.put("ap_landmark", cq.getString(cq.getColumnIndex("landmark")));
-            params.put("ap_developer_type", cq.getString(cq.getColumnIndex("developer_type")));
+            //     params.put("ap_landmark", cq.getString(cq.getColumnIndex("landmark")));
+            //    params.put("ap_developer_type", cq.getString(cq.getColumnIndex("developer_type")));
 
             //Property Details
-            params.put("ap_bhk_type", cq.getString(cq.getColumnIndex("bhk_type")));
+            //    params.put("ap_bhk_type", cq.getString(cq.getColumnIndex("bhk_type")));
             params.put("ap_property_type", cq.getString(cq.getColumnIndex("property_type")));
             params.put("ap_total_livingroom", cq.getString(cq.getColumnIndex("no_of_livingroom")));
             params.put("ap_total_bedroom", cq.getString(cq.getColumnIndex("no_of_bedroom")));
@@ -780,7 +815,9 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_no_of_toilet", cq.getString(cq.getColumnIndex("no_of_bathroom")));
             params.put("ap_total_balcony", cq.getString(cq.getColumnIndex("no_of_balcony")));
             params.put("ap_preferred_visit_time", cq.getString(cq.getColumnIndex("preferred_visit_time")));
-            params.put("ap_possesion_compilation_date", cq.getString(cq.getColumnIndex("possesion_date"))); // Change
+            params.put("ap_possesion_compilation_date", cq.getString(cq.getColumnIndex("possesion_date")));
+            params.put("property_current_status", cq.getString(cq.getColumnIndex("property_status")));
+            // Change
             // Change from ap_possesion_date to ap_possesion_compilation_date
 
             // Rent Screen
@@ -792,13 +829,13 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_rent_negotiable", cq.getString(cq.getColumnIndex("rent_negotiable")));
             params.put("ap_security_negotiable", cq.getString(cq.getColumnIndex("security_negotiable")));
             params.put("ap_security_deposit", cq.getString(cq.getColumnIndex("security_deposit")));
-            params.put("ap_availability_date", cq.getString(cq.getColumnIndex("availability_date")));
+            //  params.put("ap_availability_date", cq.getString(cq.getColumnIndex("availability_date")));
 
 
             //Pricing Details
             params.put("ap_builtup_area", cq.getString(cq.getColumnIndex("builtup_area")));
             params.put("ap_carpet_area", cq.getString(cq.getColumnIndex("carpet_area")));
-            params.put("ap_units", cq.getString(cq.getColumnIndex("units")));  // newly added
+            //   params.put("ap_units", cq.getString(cq.getColumnIndex("units")));  // newly added
             params.put("ap_rent_ammount", cq.getString(cq.getColumnIndex("rent_ammount")));
             params.put("ap_no_of_floor", cq.getString(cq.getColumnIndex("no_of_floor")));
             params.put("ap_age_of_building", cq.getString(cq.getColumnIndex("age_of_building")));
@@ -806,13 +843,18 @@ public class DBHandler extends SQLiteOpenHelper {
             //   Newly Added
             params.put("ap_pricing_plot_area", cq.getString(cq.getColumnIndex("pricing_plot_area")));
             params.put("ap_pricing_sale_status", cq.getString(cq.getColumnIndex("pricing_sale_status")));
+            params.put("maintenance_frequency", cq.getString(cq.getColumnIndex("maintanancechargefrequency")));
+            params.put("price_plc", cq.getString(cq.getColumnIndex("price_plc")));
+            params.put("price_parking", cq.getString(cq.getColumnIndex("price_parking")));
+            params.put("price_club", cq.getString(cq.getColumnIndex("price_club")));
+
 
             //Residential Details
-            params.put("ap_no_of_building", cq.getString(cq.getColumnIndex("no_of_building")));
-            params.put("ap_no_of_storys", cq.getString(cq.getColumnIndex("no_of_storys")));
+            //       params.put("ap_no_of_building", cq.getString(cq.getColumnIndex("no_of_building")));
+            //       params.put("ap_no_of_storys", cq.getString(cq.getColumnIndex("no_of_storys")));
             params.put("ap_servant_room", cq.getString(cq.getColumnIndex("servant_room")));
             params.put("ap_prayer_room", cq.getString(cq.getColumnIndex("prayer_room")));
-            params.put("ap_terrace", cq.getString(cq.getColumnIndex("terrace_access")));  // change
+            //       params.put("ap_terrace", cq.getString(cq.getColumnIndex("terrace_access")));  // change
             params.put("ap_private_terrace", cq.getString(cq.getColumnIndex("private_access"))); // change
             params.put("ap_main_entrance_facing", cq.getString(cq.getColumnIndex("main_entrance_facing")));
             params.put("ap_power_backup", cq.getString(cq.getColumnIndex("power_backup")));
@@ -820,6 +862,10 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_water_supply_borewell", cq.getString(cq.getColumnIndex("water_supply_borewell")));
             params.put("ap_waterbackup_grounded_tank", cq.getString(cq.getColumnIndex("waterbackup_grounded_tanks")));
             params.put("ap_waterbackup_terrace_tank", cq.getString(cq.getColumnIndex("waterbackup_terrace_tanks")));
+            params.put("parking_type", cq.getString(cq.getColumnIndex("parking_type")));
+            params.put("furnishing_status", cq.getString(cq.getColumnIndex("furnishing_status")));
+            params.put("balcony", cq.getString(cq.getColumnIndex("balcony")));
+            params.put("common_area", cq.getString(cq.getColumnIndex("common_area")));
             params.put("ap_wifi", cq.getString(cq.getColumnIndex("wifi")));
             params.put("ap_solar_heater", cq.getString(cq.getColumnIndex("solar_heater")));
 
@@ -828,7 +874,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
             params.put("ap_boundary_wall", cq.getString(cq.getColumnIndex("boundary_wall")));
             params.put("ap_societydata_gated_community", cq.getString(cq.getColumnIndex("societydata_gated_community")));
-            params.put("ap_societydata_society_overheadtank", cq.getString(cq.getColumnIndex("societydata_society_overheadtank")));
+            //         params.put("ap_societydata_society_overheadtank", cq.getString(cq.getColumnIndex("societydata_society_overheadtank")));
             params.put("ap_societydata_reg_society", cq.getString(cq.getColumnIndex("societydata_reg_society")));
             params.put("ap_societydata_security", cq.getString(cq.getColumnIndex("societydata_security")));
             params.put("ap_societydata_cctv_servillance", cq.getString(cq.getColumnIndex("societydata_cctv_servillance")));
@@ -878,46 +924,54 @@ public class DBHandler extends SQLiteOpenHelper {
             params.put("ap_society_ck_visitor_parking", cq.getString(cq.getColumnIndex("society_ck_visitor_parking")));
             params.put("ap_society_ck_waiting_lounge", cq.getString(cq.getColumnIndex("society_ck_waiting_lounge")));
             params.put("ap_society_ck_waste_disposal", cq.getString(cq.getColumnIndex("society_ck_waste_disposal")));
+            params.put("society_notes", cq.getString(cq.getColumnIndex("society_notes")));
+
+
 
             //   params.put("img", new FileBody[]{new FileBody(new File("")),new File(""),new File("")});
 
             Map<String, JSONObject> param_new = new LinkedHashMap<>();
             if (cq.getString(cq.getColumnIndex("no_of_livingroom")) != null) {
-                int livingroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_livingroom")));
+                try {
+                    int livingroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_livingroom")));
 
-                // JSONObject obj3[] = new JSONObject[livingroom];
-                for (int i = 0; i < livingroom; i++) {
+                    // JSONObject obj3[] = new JSONObject[livingroom];
+                    for (int i = 0; i < livingroom; i++) {
 
-                    final Cursor l = db.rawQuery("Select * from LivingRoom where id=? AND livingRoom_ID=?", new String[]{Appointment.clicked, (i + 1) + ""});
-
-
-                    if (l.moveToNext()) {
-
-                        Map<String, Object> param1 = new LinkedHashMap<String, Object>();
-                        param1.put("id", "LivingRoom" + (1 + i));
-                        param1.put("sofa", l.getString(l.getColumnIndex("sofa")));
-                        param1.put("dining_table", l.getString(l.getColumnIndex("dining_table")));
-                        param1.put("ac", l.getString(l.getColumnIndex("ac")));
-                        param1.put("tv", l.getString(l.getColumnIndex("tv")));
-                        param1.put("shoe_rack", l.getString(l.getColumnIndex("shoe_rack")));
-                        param1.put("flooring_type", l.getString(l.getColumnIndex("flooring_type")));
-                        param1.put("false_ceiling", l.getString(l.getColumnIndex("false_ceiling")));
+                        final Cursor l = db.rawQuery("Select * from LivingRoom where id=? AND livingRoom_ID=?", new String[]{Appointment.clicked, (i + 1) + ""});
 
 
-                        JSONObject obj1 = new JSONObject(param1);
+                        if (l.moveToNext()) {
 
-                        param_new.put("LivingRoom" + (1 + i), obj1);
+                            Map<String, Object> param1 = new LinkedHashMap<String, Object>();
+                            param1.put("id", "LivingRoom" + (1 + i));
+                            param1.put("sofa", l.getString(l.getColumnIndex("sofa")));
+                            param1.put("dining_table", l.getString(l.getColumnIndex("dining_table")));
+                            param1.put("ac", l.getString(l.getColumnIndex("ac")));
+                            param1.put("tv", l.getString(l.getColumnIndex("tv")));
+                            param1.put("shoe_rack", l.getString(l.getColumnIndex("shoe_rack")));
+                            param1.put("flooring_type", l.getString(l.getColumnIndex("flooring_type")));
+                            param1.put("false_ceiling", l.getString(l.getColumnIndex("false_ceiling")));
 
-                        //      JSONObject obj2 = new JSONObject(param_new);
 
-                        //   obj3[i] = obj2;
+                            JSONObject obj1 = new JSONObject(param1);
+
+                            param_new.put("LivingRoom" + (1 + i), obj1);
+
+                            //      JSONObject obj2 = new JSONObject(param_new);
+
+                            //   obj3[i] = obj2;
+
+                        }
+                        l.close();
+
 
                     }
-                    l.close();
-
-
+                    params.put("ap_living_room", param_new);
+                }catch(NumberFormatException e)
+                {
+                    Toast.makeText(c,"NumberFormatException",Toast.LENGTH_LONG).show();
                 }
-                params.put("ap_living_room", param_new);
             }
 
             Log.d("Vishal", new JSONObject(params).toString());
@@ -962,6 +1016,7 @@ public class DBHandler extends SQLiteOpenHelper {
             param_new = new LinkedHashMap<String, JSONObject>();
 
             if (cq.getString(cq.getColumnIndex("no_of_kitchen")) != null) {
+                try{
                 int kitchen = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_kitchen")));
 
 
@@ -982,6 +1037,7 @@ public class DBHandler extends SQLiteOpenHelper {
                         param1.put("microwave", l.getString(l.getColumnIndex("kitchen_microwave")));
                         param1.put("loft", l.getString(l.getColumnIndex("kitchen_loft")));
                         param1.put("platform_material", l.getString(l.getColumnIndex("kitchen_plateform_material")));
+                        param1.put("kitchen_flooring", l.getString(l.getColumnIndex("kitchen_flooring")));
                         param1.put("chimney_exhaust", l.getString(l.getColumnIndex("kitchen_chimney")));
 
 
@@ -999,11 +1055,16 @@ public class DBHandler extends SQLiteOpenHelper {
                 }
 
                 params.put("ap_kitchens", param_new);
+                }catch(NumberFormatException e)
+                {
+                    Toast.makeText(c,"NumberFormatException",Toast.LENGTH_LONG).show();
+                }
             }
             param_new = null;
             param_new = new LinkedHashMap<String, JSONObject>();
 
             if (cq.getString(cq.getColumnIndex("no_of_bedroom")) != null) {
+                try{
                 int bedroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_bedroom")));
 
 
@@ -1042,11 +1103,16 @@ public class DBHandler extends SQLiteOpenHelper {
 
                 }
                 params.put("ap_bedrooms", param_new);
+                }catch(NumberFormatException e)
+                {
+                    Toast.makeText(c,"NumberFormatException",Toast.LENGTH_LONG).show();
+                }
             }
             param_new = null;
             param_new = new LinkedHashMap<String, JSONObject>();
 
             if (cq.getString(cq.getColumnIndex("no_of_bathroom")) != null) {
+                try{
                 int bathroom = Integer.parseInt(cq.getString(cq.getColumnIndex("no_of_bathroom")));
 
 
@@ -1062,7 +1128,7 @@ public class DBHandler extends SQLiteOpenHelper {
                         param_living.put("id", "Toilet" + (1 + i));
                         param_living.put("type", l.getString(l.getColumnIndex("bathroom_bath_type")));
                         param_living.put("style", l.getString(l.getColumnIndex("bathroom_toilet")));
-                        param_living.put("hot_water_supply", l.getString(l.getColumnIndex("bathroom_hot_water_supply")));
+                        param_living.put("geyser", l.getString(l.getColumnIndex("bathroom_geyser")));  // Changes
                         param_living.put("glass_partition", l.getString(l.getColumnIndex("bathroom_glass_partition")));
                         param_living.put("shower_curtain", l.getString(l.getColumnIndex("bathroom_shower_curtain")));
                         param_living.put("bath_tub", l.getString(l.getColumnIndex("bathroom_bath_tub")));
@@ -1070,6 +1136,7 @@ public class DBHandler extends SQLiteOpenHelper {
                         param_living.put("window", l.getString(l.getColumnIndex("bathroom_windows")));
                         param_living.put("exhaust_fan", l.getString(l.getColumnIndex("bathromm_exhaust_fan")));
                         param_living.put("flooring_type", l.getString(l.getColumnIndex("bathroom_flooring_type")));
+                        param_living.put("washing_machine", l.getString(l.getColumnIndex("washing_machine")));
 
                         JSONObject obj1 = new JSONObject(param_living);
 
@@ -1084,27 +1151,33 @@ public class DBHandler extends SQLiteOpenHelper {
                     l.close();
                 }
                 params.put("ap_toilets", param_new);
+                }catch(NumberFormatException e)
+                {
+                    Toast.makeText(c,"NumberFormatException",Toast.LENGTH_LONG).show();
+                }
             }
 
 
             //   Log.d("JSONDATA", new JSONObject(params).toString());
             longInfo(new JSONObject(params).toString());
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://dbproperties.ooo/vhosts/mobile/update.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://staging.homeonline.com/dbho/Api/update",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            pDialog.dismiss();
+
+
                             // Display the first 500 characters of the response string.
-                            for (int i = 0; i < 2; i++)
-                                Toast.makeText(c, response, Toast.LENGTH_LONG).show();
+                           /* for (int i = 0; i < 2; i++)
+                                Toast.makeText(c, response, Toast.LENGTH_LONG).show();*/
+                            longInfo(response);
                             pDialog.dismiss();
 
                             try {
                                 JSONObject js = new JSONObject(response);
                                 String status = js.getString("status");
                                 if ("success".equalsIgnoreCase(status)) {
-
+                                    Toast.makeText(c, "Property Synced Successfully", Toast.LENGTH_LONG).show();
                                     ContentValues cv = new ContentValues();
                                     cv.put("update_from_server", "false");
                                     setUpdateFromServerStatus(cv, currentAppointment);
@@ -1112,6 +1185,7 @@ public class DBHandler extends SQLiteOpenHelper {
                                 }
 
                             } catch (JSONException e) {
+                                Toast.makeText(c, "Invalid response from server", Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
                             }
 
@@ -1119,11 +1193,12 @@ public class DBHandler extends SQLiteOpenHelper {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    String err = error.getMessage();
+                    String err = null;
                     if (error instanceof NoConnectionError) {
                         err = "No Internet Access\nCheck Your Internet Connection.";
                     }
-
+                    if (err == null)
+                        err = "Something happened wrong with server try to resync\n Error:" + error.getMessage();
                     Toast.makeText(c, err, Toast.LENGTH_LONG).show();
                     pDialog.dismiss();
                 }
@@ -1140,10 +1215,23 @@ public class DBHandler extends SQLiteOpenHelper {
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> headers = new HashMap<String, String>();
+                    /*Map<String, String> headers = new HashMap<String, String>();
                     headers.put("Content-Type", "application/x-www-form-urlencoded");
                     headers.put("abc", "value");
-                    return headers;
+                    return headers;*/
+                    return createBasicAuthHeader("homeonline", "helloworld2016");
+                }
+
+                Map<String, String> createBasicAuthHeader(String username, String password) {
+                    Map<String, String> headerMap = new HashMap<String, String>();
+
+                    String credentials = username + ":" + password;
+                    String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+                    headerMap.put("Authorization", "Basic " + encodedCredentials);
+                    headerMap.put("Content-Type", "application/x-www-form-urlencoded");
+                    headerMap.put("abc", "value");
+
+                    return headerMap;
                 }
             };
 // Add the request to the RequestQueue.
@@ -1241,13 +1329,14 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public Bundle checkImageAvailable(String type, String no_of_room_key) {
         String no_of_room = getNoOfRoom(no_of_room_key);
-        Bundle b=new Bundle();
-        if (no_of_room == null);
-         //   return no_of_room;
-        int rooms = Integer.parseInt(no_of_room);
-        Cursor cur = null;
-        SQLiteDatabase db = super.getReadableDatabase();
-        for (int i = 1; i <= rooms; i++) {
+        Bundle b = new Bundle();
+        if (no_of_room == null) ;
+        //   return no_of_room;
+        try {
+            int rooms = Integer.parseInt(no_of_room);
+            Cursor cur = null;
+            SQLiteDatabase db = super.getReadableDatabase();
+            for (int i = 1; i <= rooms; i++) {
 
             /*long total = DatabaseUtils.queryNumEntries(db,
                     table_name,
@@ -1258,17 +1347,21 @@ public class DBHandler extends SQLiteOpenHelper {
                 break;
             }*/
 
-            cur = db.rawQuery("Select * from ImageSelection where id=? AND type=? AND room_id=?", new String[]{Appointment.clicked, type, i+""});
-            if (!cur.moveToNext() ) {
-                b.putString("value",i+"");
-                break;
-            } else;
+                cur = db.rawQuery("Select * from ImageSelection where id=? AND type=? AND room_id=?", new String[]{Appointment.clicked, type, i + ""});
+                if (!cur.moveToNext()) {
+                    b.putString("value", i + "");
+                    break;
+                } else ;
 
 
+            }
+            if (cur != null)
+                cur.close();
+            db.close();
+        }catch (NumberFormatException e)
+        {
+            Toast.makeText(c,"NumberFormatException",Toast.LENGTH_LONG).show();
         }
-        if (cur != null)
-            cur.close();
-        db.close();
         return b;
     }
 
@@ -1295,7 +1388,7 @@ public class DBHandler extends SQLiteOpenHelper {
             String responseString = null;
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://dbproperties.ooo/vhosts/mobile/image.php");
+            HttpPost httppost = new HttpPost("http://staging.homeonline.com/dbho/Api/image");
 
             File sourceFile = new File(image_location);
             try {
@@ -1324,9 +1417,19 @@ public class DBHandler extends SQLiteOpenHelper {
 
                 httppost.setEntity(entity);
 
+
+                String authorizationString = "Basic " + Base64.encodeToString(("homeonline" + ":" + "helloworld2016")
+                        .getBytes(), Base64.NO_WRAP); //this line is diffe
+                httppost.setHeader("Authorization", authorizationString);
+
                 // Making server call
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity r_entity = response.getEntity();
+
+                /*response.addHeader("Authorization", "Basic " +
+                        Base64.encodeToString(("homeonline"+":"+"helloworld2016").getBytes(), Base64.DEFAULT));
+              */
+
 
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == 200) {
@@ -1361,18 +1464,23 @@ public class DBHandler extends SQLiteOpenHelper {
             super.onPostExecute(result);
             // showing the server response in an alert dialog
             //     Toast.makeText(c,result,Toast.LENGTH_LONG).show();
+            long i = 0;
             if (result.contains("Success")) {
                 SQLiteDatabase db = DBHandler.super.getReadableDatabase();
                 ContentValues cv = new ContentValues();
                 cv.put("status", "success");
-                long i = db.update("ImageSelection", cv, "image_location_medium=?", new String[]{image_location});
+                i = db.update("ImageSelection", cv, "image_location_medium=?", new String[]{image_location});
                 // Toast.makeText(c,i+"",Toast.LENGTH_LONG).show();
                 db.close();
+
             }
 
-
-            showAlert(result);
-
+            if (i > 0)
+                Toast.makeText(c, "Image Synced Successfully for " + type + " " + room_id, Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(c, "Image not synced try to resend " + type + " " + room_id, Toast.LENGTH_LONG).show();
+           /* showAlert(result);
+            Toast.makeText(c,"Image Synced Successfully for " +type+ " "+id,Toast.LENGTH_LONG).show();*/
 
             /*SQLiteDatabase db = DBHandler.super.getWritableDatabase();
             Cursor cq = db.rawQuery("Select * from ImageSelection where id=?", new String[]{Appointment.clicked});
@@ -1398,12 +1506,13 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     private void showAlert(String message) {
 
+        Toast.makeText(c, message, Toast.LENGTH_LONG).show();
 
-        Context current;
+       /* Context current;
 
 
         current = NewGallery.getContext();
-
+        if(current!=null)
         if (((Activity) current).isFinishing()) {
             if (((Activity) c).isFinishing()) {
                 //Toast
@@ -1428,7 +1537,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     }
                 });
         AlertDialog alert = builder.create();
-        alert.show();
+        alert.show();*/
 
     }
 
@@ -1513,7 +1622,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void setSocietyData(String societydata_boundary_wall, String societydata_gated_community,
-                               String societydata_society_overheadtank, String societydata_cctv_servillance,
+                               /*String societydata_society_overheadtank,*/ String societydata_cctv_servillance,
                                String societydata_fire_hydrant_system, String societydata_swiming_pool,
                                String societydata_multi_purpose, String societydata_reg_society,
                                String societydata_security, String societydata_smoke_detector,
@@ -1557,7 +1666,7 @@ public class DBHandler extends SQLiteOpenHelper {
                                String society_ck_visitor_parking,
                                String society_ck_waiting_lounge,
                                String society_ck_waste_disposal,
-
+                               String society_notes,
                                String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
@@ -1565,7 +1674,7 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("boundary_wall", societydata_boundary_wall);
         c1.put("societydata_gated_community", societydata_gated_community);
         c1.put("societydata_reg_society", societydata_reg_society);
-        c1.put("societydata_society_overheadtank", societydata_society_overheadtank);
+        // c1.put("societydata_society_overheadtank", societydata_society_overheadtank);
         c1.put("societydata_cctv_servillance", societydata_cctv_servillance);
         c1.put("societydata_fire_hydrant_system", societydata_fire_hydrant_system);
         c1.put("societydata_swiming_pool", societydata_swiming_pool);
@@ -1614,6 +1723,7 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("society_ck_visitor_parking", society_ck_visitor_parking);
         c1.put("society_ck_waiting_lounge", society_ck_waiting_lounge);
         c1.put("society_ck_waste_disposal", society_ck_waste_disposal);
+        c1.put("society_notes", society_notes);
 
 
         c1.put("status_society", status);
@@ -1638,7 +1748,7 @@ public class DBHandler extends SQLiteOpenHelper {
         b.putString("societydata_boundary_wall", cq.getString(cq.getColumnIndex("boundary_wall")));
         b.putString("societydata_gated_community", cq.getString(cq.getColumnIndex("societydata_gated_community")));
         b.putString("societydata_reg_society", cq.getString(cq.getColumnIndex("societydata_reg_society")));
-        b.putString("societydata_society_overheadtank", cq.getString(cq.getColumnIndex("societydata_society_overheadtank")));
+        //     b.putString("societydata_society_overheadtank", cq.getString(cq.getColumnIndex("societydata_society_overheadtank")));
         b.putString("societydata_security", cq.getString(cq.getColumnIndex("societydata_security")));
         b.putString("societydata_cctv_servillance", cq.getString(cq.getColumnIndex("societydata_cctv_servillance")));
         b.putString("societydata_smoke_detector", cq.getString(cq.getColumnIndex("societydata_smoke_detector")));
@@ -1687,6 +1797,7 @@ public class DBHandler extends SQLiteOpenHelper {
         b.putString("society_ck_waiting_lounge", cq.getString(cq.getColumnIndex("society_ck_waiting_lounge")));
         b.putString("society_ck_waste_disposal", cq.getString(cq.getColumnIndex("society_ck_waste_disposal")));
         b.putString("society_ck_indoor_bedminton_court", cq.getString(cq.getColumnIndex("society_ck_indoor_bedminton_court")));
+        b.putString("society_notes", cq.getString(cq.getColumnIndex("society_notes")));
 
       /*  b.putString("societydata_society_name", cq.getString(cq.getColumnIndex("society_name")));
         b.putString("societydata_no_of_building", cq.getString(cq.getColumnIndex("no_of_building")));
@@ -1706,23 +1817,23 @@ public class DBHandler extends SQLiteOpenHelper {
         return b;
     }
 
-    public void setResidential(String no_of_building, String residential_no_of_storeys, String residential_servent_room,
+    public void setResidential(/*String no_of_building, String residential_no_of_storeys,*/ String residential_servent_room,
                                String residential_prayersroom,
-                               String residential_terrace_access, String residential_private_access,
+                               /*String residential_terrace_access,*/ String residential_private_access,
                                String residential_main_enterance_facing, String residential_power_backup,
                                String residential_water_supply_municipal, String residential_water_supply_borewell,
                                String waterbackup_grounded_tanks, String waterbackup_terrace_tanks,
                                String residential_wifi_internet,
-                               String residential_solar_water_heater
+                               String residential_solar_water_heater, String parking_type, String furnishing, String balcony, String common_area
             , String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
 
-        c1.put("no_of_building", no_of_building);
-        c1.put("no_of_storys", residential_no_of_storeys);
+        //   c1.put("no_of_building", no_of_building);
+        //   c1.put("no_of_storys", residential_no_of_storeys);
         c1.put("servant_room", residential_servent_room);
         c1.put("prayer_room", residential_prayersroom);
-        c1.put("terrace_access", residential_terrace_access);
+        //    c1.put("terrace_access", residential_terrace_access);
         c1.put("private_access", residential_private_access);
         c1.put("main_entrance_facing", residential_main_enterance_facing);
         c1.put("power_backup", residential_power_backup);
@@ -1734,6 +1845,11 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("waterbackup_terrace_tanks", waterbackup_terrace_tanks);
         c1.put("wifi", residential_wifi_internet);
         c1.put("solar_heater", residential_solar_water_heater);
+        c1.put("parking_type", parking_type);
+        c1.put("furnishing_status", furnishing);
+        c1.put("balcony", balcony);
+        c1.put("common_area", common_area);
+
         c1.put("status_residential", status);
 
 
@@ -1754,11 +1870,11 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cq.moveToNext()) {
 
 
-            b.putString("no_of_building", cq.getString(cq.getColumnIndex("no_of_building")));
-            b.putString("residential_no_of_storeys", cq.getString(cq.getColumnIndex("no_of_storys")));
+            //    b.putString("no_of_building", cq.getString(cq.getColumnIndex("no_of_building")));
+            //    b.putString("residential_no_of_storeys", cq.getString(cq.getColumnIndex("no_of_storys")));
             b.putString("residential_servent_room", cq.getString(cq.getColumnIndex("servant_room")));
             b.putString("residential_prayersroom", cq.getString(cq.getColumnIndex("prayer_room")));
-            b.putString("residential_terrace_access", cq.getString(cq.getColumnIndex("terrace_access")));
+            //    b.putString("residential_terrace_access", cq.getString(cq.getColumnIndex("terrace_access")));
             b.putString("residential_private_access", cq.getString(cq.getColumnIndex("private_access")));
             b.putString("residential_main_enterance_facing", cq.getString(cq.getColumnIndex("main_entrance_facing")));
             b.putString("residential_power_backup", cq.getString(cq.getColumnIndex("power_backup")));
@@ -1768,6 +1884,10 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("residential_solar_water_heater", cq.getString(cq.getColumnIndex("solar_heater")));
             b.putString("waterbackup_grounded_tanks", cq.getString(cq.getColumnIndex("waterbackup_grounded_tanks")));
             b.putString("waterbackup_terrace_tanks", cq.getString(cq.getColumnIndex("waterbackup_terrace_tanks")));
+            b.putString("residentiel_spiner_parking_type", cq.getString(cq.getColumnIndex("parking_type")));
+            b.putString("residentiel_spiner_furnishing_status", cq.getString(cq.getColumnIndex("furnishing_status")));
+            b.putString("balcony", cq.getString(cq.getColumnIndex("balcony")));
+            b.putString("common_area", cq.getString(cq.getColumnIndex("common_area")));
 
 
         }
@@ -1874,15 +1994,15 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public void setPropertyDetail(String bhk_type, String property_type, String total_livingroom, String total_bedroom,
+    public void setPropertyDetail(/*String bhk_type,*/ String property_type, String total_livingroom, String total_bedroom,
                                   String total_kitchen, String total_bathroom, String total_balcony,
-                                  String preferred_visit_time, String possesion_date, String status) {
+                                  String preferred_visit_time, String possesion_date, String property_status, String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
 
 
         c1.put("property_type", property_type);
-        c1.put("bhk_type", bhk_type);
+        //c1.put("bhk_type", bhk_type);
         c1.put("no_of_livingroom", total_livingroom);
         c1.put("no_of_bedroom", total_bedroom);
         c1.put("no_of_kitchen", total_kitchen);
@@ -1891,6 +2011,8 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("status_property_detail", status);
         c1.put("preferred_visit_time", preferred_visit_time);
         c1.put("possesion_date", possesion_date);
+        c1.put("property_status", property_status);
+
 
         String click = Appointment.clicked;
         int i = db.update("Appointments", c1, "id=?", new String[]{click});
@@ -1909,7 +2031,7 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cq.moveToNext()) {
 
             b.putString("property_type", cq.getString(cq.getColumnIndex("property_type")));
-            b.putString("bhk_type", cq.getString(cq.getColumnIndex("bhk_type")));
+            //    b.putString("bhk_type", cq.getString(cq.getColumnIndex("bhk_type")));
             b.putString("total_livingroom", cq.getString(cq.getColumnIndex("no_of_livingroom")));
             b.putString("total_bedroom", cq.getString(cq.getColumnIndex("no_of_bedroom")));
             b.putString("total_kitchen", cq.getString(cq.getColumnIndex("no_of_kitchen")));
@@ -1917,6 +2039,7 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("total_balcony", cq.getString(cq.getColumnIndex("no_of_balcony")));
             b.putString("preferred_visit_time", cq.getString(cq.getColumnIndex("preferred_visit_time")));
             b.putString("possesion_date", cq.getString(cq.getColumnIndex("possesion_date")));
+            b.putString("property_spinner_property_status", cq.getString(cq.getColumnIndex("property_status")));
 
 
         }
@@ -1927,11 +2050,11 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void setAdvertiserDetail(String owner_name, String owner_number, String owner_alternate_number,
-                                    String owner_email, String owner_broker,
-                                    String developer_type, String owner_type,
-                                    String building_no, String society_name,
-                                    String flate_number, String wing, String street, String locality,
-                                    String sub_locality, String pincode, String landmark, String floor_no, String status) {
+                                    String owner_email, /*String owner_broker,*/
+                                    /*String developer_type,*/ String owner_type,
+                                    /*String building_no,*/ String society_name,
+                                    /*/String flate_number, String wing,*/ String address1, String address2,
+                                    /*String sub_locality,*/ String pincode, /*String landmark,*/ String floor_no, String status) {
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
 
@@ -1939,18 +2062,18 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("phone", owner_number);
         c1.put("mobile", owner_alternate_number);
         c1.put("email", owner_email);
-        c1.put("owner_broker", owner_broker);
-        c1.put("developer_type", developer_type);
+        //c1.put("owner_broker", owner_broker);
+        //  c1.put("developer_type", developer_type);
         c1.put("owner_type", owner_type);
-        c1.put("building_no", building_no);
+        //  c1.put("building_no", building_no);
         c1.put("society_name", society_name);
-        c1.put("flate_number", flate_number);
-        c1.put("wing", wing);
-        c1.put("street", street);
-        c1.put("locality", locality);
-        c1.put("sub_locality", sub_locality);
+        //   c1.put("flate_number", flate_number);
+        //   c1.put("wing", wing);
+        c1.put("description", address1);
+        c1.put("address2", address2);
+        //   c1.put("sub_locality", sub_locality);
         c1.put("pincode", pincode);
-        c1.put("landmark", landmark);
+        //    c1.put("landmark", landmark);
         c1.put("floor_no", floor_no);
         c1.put("status_advertiser_detail", status);
         String click = Appointment.clicked;
@@ -1971,18 +2094,18 @@ public class DBHandler extends SQLiteOpenHelper {
             b.putString("owner_number", cq.getString(cq.getColumnIndex("phone")));
             b.putString("owner_alternate_number", cq.getString(cq.getColumnIndex("mobile")));
             b.putString("owner_email", cq.getString(cq.getColumnIndex("email")));
-            b.putString("owner_broker", cq.getString(cq.getColumnIndex("owner_broker")));
-            b.putString("developer_type", cq.getString(cq.getColumnIndex("developer_type")));
+          //  b.putString("owner_broker", cq.getString(cq.getColumnIndex("owner_broker")));
+            //     b.putString("developer_type", cq.getString(cq.getColumnIndex("developer_type")));
             b.putString("owner_type", cq.getString(cq.getColumnIndex("owner_type")));
-            b.putString("building_no", cq.getString(cq.getColumnIndex("building_no")));
+            //     b.putString("building_no", cq.getString(cq.getColumnIndex("building_no")));
             b.putString("society_name", cq.getString(cq.getColumnIndex("society_name")));
-            b.putString("flate_number", cq.getString(cq.getColumnIndex("flate_number")));
-            b.putString("wing", cq.getString(cq.getColumnIndex("wing")));
-            b.putString("street", cq.getString(cq.getColumnIndex("street")));
-            b.putString("locality", cq.getString(cq.getColumnIndex("locality")));
-            b.putString("sub_locality", cq.getString(cq.getColumnIndex("sub_locality")));
+            //     b.putString("flate_number", cq.getString(cq.getColumnIndex("flate_number")));
+            //     b.putString("wing", cq.getString(cq.getColumnIndex("wing")));
+            b.putString("address1", cq.getString(cq.getColumnIndex("description")));
+            b.putString("address2", cq.getString(cq.getColumnIndex("address2")));
+            //     b.putString("sub_locality", cq.getString(cq.getColumnIndex("sub_locality")));
             b.putString("pincode", cq.getString(cq.getColumnIndex("pincode")));
-            b.putString("landmark", cq.getString(cq.getColumnIndex("landmark")));
+            //     b.putString("landmark", cq.getString(cq.getColumnIndex("landmark")));
             b.putString("floor_no", cq.getString(cq.getColumnIndex("floor_no")));
         }
         cq.close();
@@ -2052,21 +2175,21 @@ public class DBHandler extends SQLiteOpenHelper {
         return (new ArrayList[]{arr, brr});
     }
 
-    public void setRentScreen(String brokeragefee, String maintanancefee, String food, String lease_type, String pet, String rent_, String security_, String deposite_, String availability_date, String aTrue) {
+    public void setRentScreen(String brokeragefee, /*String maintanancefee,*/ String food, String lease_type, String pet, /*String rent_*/ String security_, String deposite_,/* String availability_date,*/ String aTrue) {
 
         SQLiteDatabase db = super.getWritableDatabase();
         ContentValues c1 = new ContentValues();
 
 
         c1.put("brokerage_fee", brokeragefee);
-        c1.put("maintainance", maintanancefee);
+
         c1.put("food", food);
         c1.put("lease_type", lease_type);
         c1.put("pets_allowed", pet);
-        c1.put("rent_negotiable", rent_);
+       /* c1.put("rent_negotiable", rent_);*/
         c1.put("security_negotiable", security_);
         c1.put("security_deposit", deposite_);
-        c1.put("availability_date", availability_date);
+        //   c1.put("availability_date", availability_date);
         c1.put("status_rentscreen", aTrue);
         String click = Appointment.clicked;
         int i = db.update("Appointments", c1, "id=?", new String[]{click});
@@ -2082,14 +2205,12 @@ public class DBHandler extends SQLiteOpenHelper {
 
         if (cq.moveToNext()) {
             b.putString("brokerage_fee", cq.getString(cq.getColumnIndex("brokerage_fee")));
-            b.putString("maintainance", cq.getString(cq.getColumnIndex("maintainance")));
             b.putString("food", cq.getString(cq.getColumnIndex("food")));
             b.putString("lease_type", cq.getString(cq.getColumnIndex("lease_type")));
             b.putString("pets_allowed", cq.getString(cq.getColumnIndex("pets_allowed")));
-            b.putString("rent_negotiable", cq.getString(cq.getColumnIndex("rent_negotiable")));
             b.putString("security_negotiable", cq.getString(cq.getColumnIndex("security_negotiable")));
             b.putString("security_deposit", cq.getString(cq.getColumnIndex("security_deposit")));
-            b.putString("availability_date", cq.getString(cq.getColumnIndex("availability_date")));
+            //   b.putString("availability_date", cq.getString(cq.getColumnIndex("availability_date")));
         }
         cq.close();
         db.close();
@@ -2102,11 +2223,12 @@ public class DBHandler extends SQLiteOpenHelper {
 
         if (no_of_room == null)
             return no_of_room;
-        int rooms = Integer.parseInt(no_of_room);
-        Cursor cur = null;
-        no_of_room = null;
-        SQLiteDatabase db = super.getReadableDatabase();
-        for (int i = 1; i <= rooms; i++) {
+        try {
+            int rooms = Integer.parseInt(no_of_room);
+            Cursor cur = null;
+            no_of_room = null;
+            SQLiteDatabase db = super.getReadableDatabase();
+            for (int i = 1; i <= rooms; i++) {
 
             /*long total = DatabaseUtils.queryNumEntries(db,
                     table_name,
@@ -2117,17 +2239,21 @@ public class DBHandler extends SQLiteOpenHelper {
                 break;
             }*/
 
-            cur = db.rawQuery("Select " + table_status + " from " + table_name + " where id=? AND " + room_field_name + "=?", new String[]{Appointment.clicked, i + ""});
-            if (!cur.moveToNext() || !"true".equalsIgnoreCase(cur.getString(cur.getColumnIndex(table_status)))) {
-                no_of_room = "false";
-                break;
-            } else
-                no_of_room = "true";
+                cur = db.rawQuery("Select " + table_status + " from " + table_name + " where id=? AND " + room_field_name + "=?", new String[]{Appointment.clicked, i + ""});
+                if (!cur.moveToNext() || !"true".equalsIgnoreCase(cur.getString(cur.getColumnIndex(table_status)))) {
+                    no_of_room = "false";
+                    break;
+                } else
+                    no_of_room = "true";
 
+            }
+            if (cur != null)
+                cur.close();
+            db.close();
+        }catch(NumberFormatException e)
+        {
+            Toast.makeText(c,"NumberFormatException",Toast.LENGTH_LONG).show();
         }
-        if (cur != null)
-            cur.close();
-        db.close();
         return no_of_room;
     }
 
@@ -2160,10 +2286,11 @@ public class DBHandler extends SQLiteOpenHelper {
     /*  End of methods rest is useless  */
 
 
+    //this is method not use in any where
     public void saveDetails(
             String ap_id,
             String ap_property_type,
-            String ap_bhk_type,
+            /*String ap_bhk_type,*/
             String ap_possesion_compilation_date,
             String ap_availability_date,
             String ap_pets_allowed, String ap_food,
@@ -2174,16 +2301,16 @@ public class DBHandler extends SQLiteOpenHelper {
             String ap_alternate_phone_no,
             String ap_email,
             String ap_ownership_type,
-            String ap_developer_type,
-            String ap_building_no_name,
-            String ap_flate_number,
+            //     String ap_developer_type,
+            //     String ap_building_no_name,
+            //     String ap_flate_number,
             String ap_floor_no,
-            String ap_wing,
-            String ap_street,
-            String ap_locality,
-            String ap_sub_locality,
+            //     String ap_wing,
+            //     String ap_street,
+            //      String ap_locality,
+            //     String ap_sub_locality,
             String ap_pincode,
-            String ap_landmark,
+            //     String ap_landmark,
             String ap_security_deposit,
             String ap_brokerage_fee,
             String ap_rent_negotiable,
@@ -2195,11 +2322,11 @@ public class DBHandler extends SQLiteOpenHelper {
             String ap_age_of_building,
             String ap_builtup_area,
             String ap_carpet_area,
-            String ap_no_of_storys,
+            // String ap_no_of_storys,
             String ap_servant_room,
             String ap_prayer_room,
             String ap_total_balcony,
-            String ap_terrace,
+            //   String ap_terrace,
             String ap_private_terrace,
             String ap_main_entrance_facing,
             String ap_power_backup,
@@ -2209,8 +2336,8 @@ public class DBHandler extends SQLiteOpenHelper {
             String ap_solar_heater,
             String ap_societydata_gated_community,
             String ap_society_name,
-            String ap_no_of_building,
-            String ap_societydata_society_overheadtank,
+            //       String ap_no_of_building,
+            /*String ap_societydata_society_overheadtank,*/
             String ap_boundary_wall,
             String ap_societydata_cctv_servillance,
             String ap_societydata_smoke_detector,
@@ -2275,7 +2402,7 @@ public class DBHandler extends SQLiteOpenHelper {
           /* Property Data*/
 
         c1.put("property_type", ap_property_type);
-        c1.put("bhk_type", ap_bhk_type);
+        //   c1.put("bhk_type", ap_bhk_type);
         c1.put("no_of_livingroom", ap_total_livingroom);
         c1.put("no_of_bedroom", ap_total_bedroom);
         c1.put("no_of_kitchen", ap_total_kitchen);
@@ -2288,11 +2415,11 @@ public class DBHandler extends SQLiteOpenHelper {
 
         /*  Residential Data*/
 
-        c1.put("no_of_building", ap_no_of_building);
-        c1.put("no_of_storys", ap_no_of_storys);
+        // c1.put("no_of_building", ap_no_of_building);
+        //  c1.put("no_of_storys", ap_no_of_storys);
         c1.put("servant_room", ap_servant_room);
         c1.put("prayer_room", ap_prayer_room);
-        c1.put("terrace_access", ap_terrace);
+        //  c1.put("terrace_access", ap_terrace);
         c1.put("private_access", ap_private_terrace);
         c1.put("main_entrance_facing", ap_main_entrance_facing);
         c1.put("power_backup", ap_power_backup);
@@ -2311,17 +2438,17 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("mobile", ap_alternate_phone_no);
         c1.put("email", ap_email);
         c1.put("owner_broker", ap_advertiser_type);
-        c1.put("developer_type", ap_developer_type);
+        //   c1.put("developer_type", ap_developer_type);
         c1.put("owner_type", ap_ownership_type);
-        c1.put("building_no", ap_building_no_name);
+        //   c1.put("building_no", ap_building_no_name);
         c1.put("society_name", ap_society_name);
-        c1.put("flate_number", ap_flate_number);
-        c1.put("wing", ap_wing);
-        c1.put("street", ap_street);
-        c1.put("locality", ap_locality);
-        c1.put("sub_locality", ap_sub_locality);
+        //   c1.put("flate_number", ap_flate_number);
+        //    c1.put("wing", ap_wing);
+        //    c1.put("street", ap_street);
+        //     c1.put("locality", ap_locality);
+        //      c1.put("sub_locality", ap_sub_locality);
         c1.put("pincode", ap_pincode);
-        c1.put("landmark", ap_landmark);
+        //      c1.put("landmark", ap_landmark);
         c1.put("floor_no", ap_floor_no);
         //   c1.put("status_advertiser_detail", status);
 
@@ -2336,7 +2463,7 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("rent_negotiable", ap_rent_negotiable);
         c1.put("security_negotiable", ap_security_negotiable);
         c1.put("security_deposit", ap_security_deposit);
-        c1.put("availability_date", ap_availability_date);
+        //  c1.put("availability_date", ap_availability_date);
         //   c1.put("status_rentscreen", ap_rent_ammount);
         //    String click = Appointment.clicked;
 
@@ -2345,7 +2472,7 @@ public class DBHandler extends SQLiteOpenHelper {
         c1.put("boundary_wall", ap_boundary_wall);
         c1.put("societydata_gated_community", ap_societydata_gated_community);
         c1.put("societydata_reg_society", ap_societydata_reg_society);
-        c1.put("societydata_society_overheadtank", ap_societydata_society_overheadtank);
+        //   c1.put("societydata_society_overheadtank", ap_societydata_society_overheadtank);
         c1.put("societydata_cctv_servillance", ap_societydata_cctv_servillance);
         c1.put("societydata_fire_hydrant_system", ap_societydata_fire_hydrant_system);
         c1.put("societydata_swiming_pool", ap_societydata_swiming_pool);

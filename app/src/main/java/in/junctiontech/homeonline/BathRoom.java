@@ -1,11 +1,11 @@
 package in.junctiontech.homeonline;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +19,13 @@ import android.widget.Toast;
 
 public class BathRoom extends AppCompatActivity {
     private static String path;
-    private CheckBox glasspartion, shower, bath, cabinates, window, exhaust;
+    private CheckBox glasspartion, shower, bath, cabinates, window, exhaust, geyser,washing_machine;
 
-    private RadioButton attached, common, geyser, gas, indian, westurn, marble, wood, ceramic, stone, latimate;
+    private RadioButton attached, common, /*geyser,*/
+            indian, westurn, marble, wood, ceramic, stone, latimate;
     private Spinner bathroom_spinner_floringtype;
     private DBHandler db;
-    private String flooringtype = "Marble";
+    private String flooringtype = "Marble Flooring";
     private Spinner bath_spinner_total;
     private static String bathroom_id = "1";
     private boolean status;
@@ -48,12 +49,15 @@ public class BathRoom extends AppCompatActivity {
         cabinates = (CheckBox) findViewById(R.id.bathroom_ck_cabinets);
         window = (CheckBox) findViewById(R.id.bathroom_ck_windows);
         exhaust = (CheckBox) findViewById(R.id.bathroom_ck_exhaustfan);
+        geyser = (CheckBox) findViewById(R.id.bathroom_ck_geyser);
+        washing_machine = (CheckBox) findViewById(R.id.bathroom_ck_washing_machine);
+
 
 
         attached = (RadioButton) findViewById(R.id.bathroom_rb_attatched);
         common = (RadioButton) findViewById(R.id.bathroom_rb_common);
-        geyser = (RadioButton) findViewById(R.id.bathroom_rb_geyser);
-        gas = (RadioButton) findViewById(R.id.bathroom_rb_gas);
+
+        //    gas = (RadioButton) findViewById(R.id.)bathroom_rb_gas;
         indian = (RadioButton) findViewById(R.id.bathroom_rb_indian);
         westurn = (RadioButton) findViewById(R.id.bathroom_rb_western);
         bathroom_spinner_floringtype = (Spinner) findViewById(R.id.bathroom_spiner_flooringtype);
@@ -74,9 +78,16 @@ public class BathRoom extends AppCompatActivity {
 
         String check = db.getNoOfRoom("no_of_bathroom");
 
-        if (check == null)
-            check = "1";
-        int c = Integer.parseInt(check);
+        int c = 1;  // SET DEFAULT VALUE
+        // check="helo";  //For testing
+        if (check != null) {
+            try {
+                c = Integer.parseInt(check);
+
+            } catch (NumberFormatException e) {
+                Log.d("EXCEPTION", e.getMessage());
+            }
+        }
         String[] total = new String[c];
 
         for (int i = 0; i < c; i++)
@@ -84,7 +95,6 @@ public class BathRoom extends AppCompatActivity {
 
         ArrayAdapter<String> obj = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, total);
         bath_spinner_total.setAdapter(obj);
-
 
         bath_spinner_total.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -121,12 +131,12 @@ public class BathRoom extends AppCompatActivity {
             common.setChecked(true);
 
 
-        if (b.getString("bathroom_hot_water_supply") == null);
+       /* if (b.getString("bathroom_hot_water_supply") == null);
            // gas.setChecked(true);
         else if ((b.getString("bathroom_hot_water_supply")).equalsIgnoreCase("Geyser"))
             geyser.setChecked(true);
         else if ((b.getString("bathroom_hot_water_supply")).equalsIgnoreCase("Gas"))
-            gas.setChecked(true);
+            gas.setChecked(true);*/
 
 
         if (b.getString("bathroom_toilet") == null)
@@ -135,6 +145,14 @@ public class BathRoom extends AppCompatActivity {
             indian.setChecked(true);
         else if ((b.getString("bathroom_toilet")).equalsIgnoreCase("Western"))
             westurn.setChecked(true);
+
+
+        if (b.getString("bathroom_geyser") == null)
+            geyser.setChecked(false);
+        else if ((b.getString("bathroom_geyser")).equalsIgnoreCase("Y"))
+            geyser.setChecked(true);
+        else if ((b.getString("bathroom_geyser")).equalsIgnoreCase("N"))
+            geyser.setChecked(false);
 
 
         if (b.getString("bathroom_glass_partition") == null)
@@ -181,7 +199,7 @@ public class BathRoom extends AppCompatActivity {
 
 
         Resources r = this.getResources();
-        String flooring[] = r.getStringArray(R.array.flooring);
+        String flooring[] = r.getStringArray(R.array.bathroom_flooring);
 
         String s = b.getString("bathroom_flooring_type");
 
@@ -197,6 +215,14 @@ public class BathRoom extends AppCompatActivity {
             }
 
         }
+
+        if (b.getString("washing_machine") == null)
+            washing_machine.setChecked(false);
+        else if ((b.getString("washing_machine")).equalsIgnoreCase("Y"))
+            washing_machine.setChecked(true);
+        else if ((b.getString("washing_machine")).equalsIgnoreCase("N"))
+            washing_machine.setChecked(false);
+
     }
 
     public void onResume() {
@@ -249,11 +275,13 @@ public class BathRoom extends AppCompatActivity {
 
     private void setbathRoom() {
 
-        String bathroom_type, hot_water_supply, toilet, glass_partition, shower_curtain,
-                bathtub, cabinate, windows, exhaust_fan;
+        String bathroom_type, geyser_string, toilet, glass_partition, shower_curtain,
+                bathtub, cabinate, windows, exhaust_fan, washing_machine_string;
 
         bathroom_type = (attached.isChecked() ? "Attached" : "Common");
-        hot_water_supply = (geyser.isChecked() ? "Geyser" :(gas.isChecked() ? "gas": null));
+        /*hot_water_supply = (geyser.isChecked() ? "Geyser" :(gas.isChecked() ? "gas": null));*/
+        geyser_string = (geyser.isChecked() ? "Y" : "N");
+
         toilet = (indian.isChecked() ? "Indian" : "Western");
 
         glass_partition = (glasspartion.isChecked() ? "Y" : "N");
@@ -262,8 +290,9 @@ public class BathRoom extends AppCompatActivity {
         cabinate = (cabinates.isChecked() ? "Y" : "N");
         windows = (window.isChecked() ? "Y" : "N");
         exhaust_fan = (exhaust.isChecked() ? "Y" : "N");
+        washing_machine_string = (washing_machine.isChecked() ? "Y" : "N");
 
-        db.setBathRoom(bathroom_id, bathroom_type, hot_water_supply, toilet, glass_partition, shower_curtain, bathtub, windows, cabinate, exhaust_fan, flooringtype, "true");
+        db.setBathRoom(bathroom_id, bathroom_type, geyser_string, toilet, glass_partition, shower_curtain, bathtub, windows, cabinate, exhaust_fan, flooringtype,washing_machine_string, "true");
         /*ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
         db.setUpdateFromServerStatus(cv, Appointment.clicked);
@@ -283,11 +312,20 @@ public class BathRoom extends AppCompatActivity {
 
     private boolean checkRemainingSpinnerValue() {
         String check = db.getNoOfRoom("no_of_bathroom");
-        if (check == null)
-            check = "1";
-        int c = Integer.parseInt(check);
+
+        int c = 1;  // SET DEFAULT VALUE
+        //   check="helllo";  //For testing
+        if (check != null) {
+            try {
+                c = Integer.parseInt(check);
+
+            } catch (NumberFormatException e) {
+                Log.d("EXCEPTION", e.getMessage());
+            }
+        }
+
         for (int i = 1; i <= c; i++) {
-            if (!db.checkSpinnerNo("BathRoom", "toilet_ID", i + "","status_bath")) {
+            if (!db.checkSpinnerNo("BathRoom", "toilet_ID", i + "", "status_bath")) {
                 TextView errorText = (TextView) bath_spinner_total.getSelectedView();
                 errorText.setError("Please fill data");
                 bath_spinner_total.setFocusableInTouchMode(true);

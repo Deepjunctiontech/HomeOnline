@@ -69,8 +69,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:padding="10dp"
-                    android:text="Cabinate                                                           "
-                     android:textColor="@color/highlight"
+                    android:text="Cabinet"
+                    android:textColor="@color/highlight"
                     android:textSize="15sp"/>
                  <!--  android:singleLine="true"
                     android:focusable="true"
@@ -160,7 +160,7 @@
                         <CheckBox
                             android:id="@+id/kitchen_ck_chimney"
 
-                            android:text="Chimney" />
+                            android:text="Electric Chimney" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -177,7 +177,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="50"
                     android:padding="10dp"
-                    android:text="Platform"
+                    android:text="Platform Material"
                     android:textColor="@color/highlight"
                     android:gravity="center"
                     android:textSize="15sp"
@@ -201,6 +201,45 @@
                     android:padding="13dp"></Spinner>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:padding="10dp"
+                    android:text="Kitchen Flooring"
+                    android:textColor="@color/highlight"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:background="@color/divide"
+                    android:layout_gravity="center"></View>
+
+
+                <Spinner
+
+                    android:id="@+id/kitchen_spiner_kitchen_flooring"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:entries="@array/balcony"
+                    android:gravity="center"
+                    android:padding="13dp"></Spinner>
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 

@@ -2,19 +2,16 @@ package in.junctiontech.homeonline;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,13 +23,19 @@ public class RentScreen extends AppCompatActivity {
     private Spinner rentscreen_spinner_lease_type;
     private String[] lease_type_array;
     private String lease_type = "No Restriction";;
-    private CheckBox rent,security,deposite;
-    private EditText brokeragefee_edit,maintanance_edit;
+   // private CheckBox rent;
+    private CheckBox security;
+    private Spinner deposite;
+    private Spinner rentscreen_brokerage_edit_spinner;
     private DBHandler db;
     private RadioButton pets_no,pets_yes,food_veg,food_nonveg,food_nopreference;
     private Calendar calendar;
     private int year,month,day;
-    private Button rentscreen_et_possesion_date;
+    private String[] brokerage_day_array;
+    private String brokerage_day = "15Days";
+    private String[] security_deposit_array;
+    private String security_deposit= "No Security Deposit";
+    //  private Button rentscreen_et_possesion_date;
 
 
     @Override
@@ -53,12 +56,12 @@ public class RentScreen extends AppCompatActivity {
         //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
         getSupportActionBar().setSubtitle(b.getString("description"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        rent = (CheckBox) findViewById(R.id.rentscreen_ck_rent);
+      //  rent = (CheckBox) findViewById(R.id.rentscreen_ck_rent);
         security = (CheckBox) findViewById(R.id.rentscreen_ck_security);
-        deposite = (CheckBox) findViewById(R.id.rentscreen_ck_deposite);
+        deposite = (Spinner) findViewById(R.id.rentscreen_ck_deposite);
 
-        brokeragefee_edit = (EditText) findViewById(R.id.rentscreen_brokerage_edit);
-        maintanance_edit = (EditText) findViewById(R.id.rentscreen_maintanance_edit);
+        rentscreen_brokerage_edit_spinner = (Spinner) findViewById(R.id.rentscreen_brokerage_edit_spinner);
+
 
         pets_no = (RadioButton) findViewById(R.id.rentscreen_rb_pets_allowed_no);
         pets_yes = (RadioButton) findViewById(R.id.rentscreen_rb_pets_allowed_yes);
@@ -71,6 +74,38 @@ public class RentScreen extends AppCompatActivity {
         rentscreen_spinner_lease_type = (Spinner) findViewById(R.id.rentscreen_spinner_lease_type);
         Resources r = this.getResources();
         lease_type_array = r.getStringArray(R.array.lease_type);
+        brokerage_day_array= r.getStringArray(R.array.brokerage_days);
+        security_deposit_array= r.getStringArray(R.array.security_deposit);
+
+
+        deposite.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                security_deposit = security_deposit_array[position];
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        rentscreen_brokerage_edit_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                brokerage_day = brokerage_day_array[position];
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         rentscreen_spinner_lease_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -86,9 +121,9 @@ public class RentScreen extends AppCompatActivity {
             }
         });
 
-        rentscreen_et_possesion_date = (Button) findViewById(R.id.rentscreen_et_possesion_date);
+       // rentscreen_et_possesion_date = (Button) findViewById(R.id.rentscreen_et_possesion_date);
         String curr=day+"/"+(month+1)+"/"+year+"";
-        rentscreen_et_possesion_date.setText(curr);
+       // rentscreen_et_possesion_date.setText(curr);
 
 
     }
@@ -98,9 +133,24 @@ public class RentScreen extends AppCompatActivity {
         super.onResume();
         Bundle b = db.getRentScreen();
 
-        if(b.getString("availability_date")==null);
+        String s12=b.getString("brokerage_fee");
+
+        if(s12==null);
+        else {
+            int i=0;
+            for(;i<brokerage_day_array.length;i++){
+                if(brokerage_day_array[i].equalsIgnoreCase(s12)) {
+                    rentscreen_brokerage_edit_spinner.setSelection(i);
+                    break;
+                }
+            }
+
+
+        }
+
+      /*  if(b.getString("availability_date")==null);
         else
-           rentscreen_et_possesion_date.setText(b.getString("availability_date"));
+           rentscreen_et_possesion_date.setText(b.getString("availability_date"));*/
 
         String s3=b.getString("lease_type");
 
@@ -118,8 +168,8 @@ public class RentScreen extends AppCompatActivity {
         }
 
 
-        brokeragefee_edit.setText(b.getString("brokerage_fee"));
-        maintanance_edit.setText(b.getString("maintainance"));
+
+
 
 
         if (b.getString("food") == null) ;
@@ -137,17 +187,29 @@ public class RentScreen extends AppCompatActivity {
         } else if ((b.getString("pets_allowed")).equalsIgnoreCase("No"))
             pets_no.setChecked(true);
 
-        if (b.getString("rent_negotiable") == null) ;
+       /* if (b.getString("rent_negotiable") == null) ;
         else if ((b.getString("rent_negotiable")).equalsIgnoreCase("Y"))
-            rent.setChecked(true);
+            rent.setChecked(true);*/
 
         if (b.getString("security_negotiable") == null) ;
         else if ((b.getString("security_negotiable")).equalsIgnoreCase("Y"))
             security.setChecked(true);
 
-        if (b.getString("security_deposit") == null) ;
-        else if ((b.getString("security_deposit")).equalsIgnoreCase("Y"))
-            deposite.setChecked(true);
+
+        String sd=b.getString("security_deposit");
+
+        if(sd==null);
+        else {
+            int i=0;
+            for(;i<security_deposit_array.length;i++){
+                if(security_deposit_array[i].equalsIgnoreCase(sd)) {
+                    deposite.setSelection(i);
+                    break;
+                }
+            }
+
+
+        }
 
 
 
@@ -189,15 +251,15 @@ public class RentScreen extends AppCompatActivity {
     }
 
     private void saveRentScreen() {
-        String availability_date =rentscreen_et_possesion_date.getText().toString();
+       // String availability_date =rentscreen_et_possesion_date.getText().toString();
         String maintanancefee, brokeragefee,food,pet;
-        brokeragefee = brokeragefee_edit.getText().toString();
-        maintanancefee = maintanance_edit.getText().toString();
+        //brokeragefee = brokeragefee_edit.getText().toString();
 
 
-        String rent_ = (rent.isChecked() ? "Y" : "N");
+
+       // String rent_ = (rent.isChecked() ? "Y" : "N");
         String security_ = (security.isChecked() ? "Y" : "N");
-        String deposite_ = (deposite.isChecked() ? "Y" : "N");
+       // String deposite_ = (deposite.isChecked() ? "Y" : "N");
 
         if (food_veg.isChecked()) {
             food = "Veg";
@@ -213,7 +275,7 @@ public class RentScreen extends AppCompatActivity {
         } else
             pet="Yes";
 
-        db.setRentScreen(brokeragefee, maintanancefee, food, lease_type, pet, rent_, security_, deposite_,availability_date, "true");
+        db.setRentScreen(brokerage_day, /*maintanancefee,*/ food, lease_type, pet, /*rent_,*/ security_, security_deposit/*,availability_date*/, "true");
        /* ContentValues cv= new ContentValues();
         cv.put("update_from_server","true");
         db.setUpdateFromServerStatus(cv, Appointment.clicked);*/
@@ -245,7 +307,7 @@ public class RentScreen extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener myDateListener= new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            rentscreen_et_possesion_date.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+            //rentscreen_et_possesion_date.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
 
         }
     };

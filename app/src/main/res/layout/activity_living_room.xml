@@ -156,7 +156,7 @@
                     android:id="@+id/livingroom_spiner_flooringtype"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/flooring"
+                    android:entries="@array/balcony"
                     android:layout_weight="50"
                     android:gravity="center"
                     android:padding="13dp"/>

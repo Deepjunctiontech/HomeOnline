@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:text="Junction Tech Software Ltd. helps enterprises build great solutions around web, mobile and cloud technologies. We intend to create tangible value for our customers by not only developing bespoke applications but also consulting them by understanding their business objectives.
 
-Junction Tech Software Ltd. is creating the best in class web and mobile solutions with its product development initiatives for some of the most exciting startups and enterprises globally." />
+\nJunction Tech Software Ltd. is creating the best in class web and mobile solutions with its product development initiatives for some of the most exciting startups and enterprises globally." />
 
                 </LinearLayout>
 
@@ -142,16 +142,14 @@ Junction Tech Software Ltd. is creating the best in class web and mobile solutio
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="532/533 Corporate Zone 5th Floor,
-Aashima Mall, Hoshangabad Road Bhopal 462026
-Telephone: +91 755 405 3276,
-+91 810 906 9226
-Email Address: info@junctiontech.in" />
+Aashima Mall, Hoshangabad Road Bhopal 462026\nTelephone: +91 755 405 3276,
++91 810 906 9226\nEmail Address: info@junctiontech.in" />
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
+           <!-- <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_margin"
@@ -178,7 +176,7 @@ Good customer service is essential for any business, Good customer service bring
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>-->
 
         </LinearLayout>
 
@@ -186,6 +184,7 @@ Good customer service is essential for any business, Good customer service bring
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
+        android:onClick="myClickToHome"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"

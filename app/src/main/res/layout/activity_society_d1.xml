@@ -118,15 +118,20 @@
                         <CheckBox
                             android:id="@+id/society_ck_rs"
 
-                            android:text="Reg Society" />
+                            android:text="Reg. Society" />
                     </TableRow>
 
                     <TableRow>
 
-                        <CheckBox
+                       <!-- <CheckBox
                             android:id="@+id/society_ck_sot"
 
-                            android:text="Society OverHead tank" />
+                            android:text="Society OverHead tank" />-->
+
+                        <CheckBox
+                            android:id="@+id/society_ck_multipurpose"
+
+                            android:text="Multipurpose" />
 
                         <CheckBox
                             android:id="@+id/society_ck_security"
@@ -180,10 +185,7 @@
 
                             android:text="Garden Lawn" />
 
-                        <CheckBox
-                            android:id="@+id/society_ck_multipurpose"
 
-                            android:text="Multi Purpose" />
                     </TableRow>
 
                 </TableLayout>
@@ -215,7 +217,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_amphithreater"
-                            android:text="Amphitheater" />
+                            android:text="Amphitheatre" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -235,7 +237,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_barbeque_pit"
-                            android:text="Barbecue Pit" />
+                            android:text="Barbeque Pit" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -256,7 +258,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_conference_room"
-                            android:text="conference Room" />
+                            android:text="Conference Room" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -274,7 +276,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_early_learning_play_group"
-                            android:text="Early Learning Centre / Play Group" />
+                            android:text="Early Learning Center / Play Group" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -286,7 +288,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_guest_accomadation"
-                            android:text="Guest Accomadation" />
+                            android:text="Guest Accommodation" />
 
 
                         <CheckBox
@@ -352,7 +354,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/society_ck_property_maintenace_staff"
-                            android:text="Property / Maintenace Staff" />
+                            android:text="Property / Maintenance Staff" />
 
                         <CheckBox
                             android:layout_width="match_parent"
@@ -448,6 +450,31 @@
 
 
             </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/society_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="Additional Notes"
+                    />
+            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
 
 
         </LinearLayout>

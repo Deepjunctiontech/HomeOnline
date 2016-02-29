@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,7 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/dialog_holo_light_frame"
@@ -42,42 +41,7 @@
                         android:hint="No of Building"
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="No. of Storey's"
-                    android:textColor="@color/highlight"
-                    android:textSize="15sp" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:background="@color/divide"></View>
-
-
-                <Spinner
-                    android:id="@+id/residentiel_spiner_storey"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:entries="@array/no_of_storey"
-                    android:padding="13dp" />
-
-
-            </LinearLayout>
+            </LinearLayout>-->
 
 
             <LinearLayout
@@ -117,11 +81,6 @@
                             android:layout_height="wrap_content"
                             android:text="Private Terrace" />
 
-                        <CheckBox
-                            android:id="@+id/residential_ck_tarraceaccess"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Terrace" />
                     </TableRow>
 
 
@@ -240,21 +199,22 @@
                     android:stretchColumns="*">
 
                     <TableRow android:layout_span="1">
-                    <CheckBox
-                        android:id="@+id/residential_rb_water_municipal_corp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Municipal Corp" />
 
-                    <CheckBox
-                        android:id="@+id/residential_rb_water_borewell"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Bore Well"
+                        <CheckBox
+                            android:id="@+id/residential_rb_water_municipal_corp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Municipal Corp" />
 
-                        />
+                        <CheckBox
+                            android:id="@+id/residential_rb_water_borewell"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bore Well"
+
+                            />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -328,6 +288,140 @@
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Parking /Parking Type"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Spinner
+                    android:id="@+id/residentiel_spiner_parking_type"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/parking_type"
+                    android:gravity="center"
+                    android:padding="13dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Furnishing Status"
+                    android:layout_weight="50"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Spinner
+                    android:id="@+id/residentiel_spiner_furnishing_status"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/furnishing_status"
+                    android:gravity="center"
+                    android:layout_weight="50"
+                    android:padding="13dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:layout_weight="50"
+                    android:text="Balcony Flooring"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Spinner
+                    android:id="@+id/residentiel_spiner_balcony"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/balcony"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="13dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:layout_weight="50"
+                    android:text="Common Area Flooring"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Spinner
+                    android:id="@+id/residentiel_spiner_common_area"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/balcony"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="13dp" />
+
+            </LinearLayout>
+
 
 
         </LinearLayout>

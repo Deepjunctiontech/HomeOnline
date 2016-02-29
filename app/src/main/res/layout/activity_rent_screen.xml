@@ -20,7 +20,7 @@
             android:orientation="vertical"
             >
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/dialog_holo_light_frame"
@@ -40,10 +40,47 @@
                     android:ems="10"
                     android:hint="Brokerage Fee"
                     android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Brokerage Fee"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Spinner
+                    android:id="@+id/rentscreen_brokerage_edit_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:entries="@array/brokerage_days"
+                    android:gravity="center"
+                    android:padding="13dp" />
+
+            </LinearLayout>
 
 
-            <android.support.design.widget.TextInputLayout
+
+
+            <!--<android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
@@ -54,10 +91,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:ems="10"
-                    android:hint="Maintenance Fee (Monthly)"
+                    android:hint="Maintenance Fee"
                     android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
+            </android.support.design.widget.TextInputLayout>-->
+        <!--</LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,48 +244,9 @@
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:orientation="vertical"
-                android:padding="20dp"
-                >
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:stretchColumns="*">
-
-                    <TableRow android:layout_span="1">
-
-                        <CheckBox
-                            android:id="@+id/rentscreen_ck_rent"
-                            android:text="Rent Negotiable" />
-                        <CheckBox
-                            android:id="@+id/rentscreen_ck_deposite"
-                            android:text="Security Deposit" />
 
 
-                    </TableRow>
-
-                    <TableRow android:layout_span="1">
-
-                        <CheckBox
-                            android:id="@+id/rentscreen_ck_security"
-                            android:text="Security Negotiable" />
-
-
-
-
-                    </TableRow>
-
-                </TableLayout>
-
-
-            </LinearLayout>
-
+<!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -284,8 +282,84 @@
                     />
 
             </LinearLayout>
+-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Security Deposit"
+                    android:textColor="@color/highlight"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/divide"></View>
+
+                <Spinner
+                    android:id="@+id/rentscreen_ck_deposite"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:entries="@array/security_deposit"
+                    android:gravity="center"
+                    android:padding="13dp" />
+
+            </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:stretchColumns="*">
+
+                    <TableRow android:layout_span="1">
+
+                        <!--<CheckBox
+                            android:id="@+id/rentscreen_ck_rent"
+                            android:text="Rent Negotiable" />-->
+
+                        <CheckBox
+                            android:id="@+id/rentscreen_ck_security"
+                            android:text="Security Negotiable" />
+
+
+                    </TableRow>
+
+                    <!--<TableRow android:layout_span="1">
+
+
+
+
+
+
+                    </TableRow>-->
+
+                </TableLayout>
+
+
+            </LinearLayout>
 
        </LinearLayout>
 </ScrollView>
