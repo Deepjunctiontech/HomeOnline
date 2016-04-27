@@ -84,7 +84,8 @@
                     android:layout_weight="50"
                     android:entries="@array/property_type"
                     android:gravity="center"
-                    android:padding="13dp" />
+                    android:padding="13dp"
+                    android:clickable="false"/>
 
             </LinearLayout>
 
@@ -118,7 +119,8 @@
                     android:layout_weight="50"
                     android:entries="@array/property"
                     android:gravity="center"
-                    android:padding="13dp" />
+                    android:padding="13dp"
+                    android:clickable="false"/>
 
 
             </LinearLayout>

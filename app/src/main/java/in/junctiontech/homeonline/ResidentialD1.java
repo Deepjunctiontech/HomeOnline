@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -28,10 +29,10 @@ public class ResidentialD1 extends AppCompatActivity {
     private RadioButton power_partial, power_full, power_nobackup;
     // private String[] no_of_storey;
     private String[] mainenterancefacing1, parking_type_array, furnishing_status;
-    private String furnishing = "Unfurnished";
+    private String furnishing = "None";
     private String[] balcony_array;
-    private String balcony="Marble Flooring";
-    private String common_area="Marble Flooring";
+    private String balcony="None";
+    private String common_area="None";
     //private EditText residential_no_of_building_edit;
 
 
@@ -79,6 +80,10 @@ public class ResidentialD1 extends AppCompatActivity {
         furnishing_status = r.getStringArray(R.array.furnishing_status);
         balcony_array = r.getStringArray(R.array.balcony);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+         ArrayAdapter adapterBusinessType = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_checked,parking_type_array);
+        residentiel_spiner_parking_type.setAdapter(adapterBusinessType);
 
      /*   no_of_storeys.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

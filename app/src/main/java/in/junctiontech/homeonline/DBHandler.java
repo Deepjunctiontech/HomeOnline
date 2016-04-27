@@ -667,7 +667,8 @@ public class DBHandler extends SQLiteOpenHelper {
     public String[][] getAllData() {
 
         SQLiteDatabase db = super.getReadableDatabase();
-
+            //ASC LIMIT 1
+        //     Select * from Appointments ORDER BY status DESC, appointmentTime ASC
         Cursor cq = db.rawQuery("Select * from Appointments ORDER BY appointmentTime ASC", null);
         String name[] = new String[cq.getCount()];
         String desc[] = new String[cq.getCount()];
@@ -820,15 +821,23 @@ public class DBHandler extends SQLiteOpenHelper {
             // Change
             // Change from ap_possesion_date to ap_possesion_compilation_date
 
+
             // Rent Screen
-            params.put("ap_brokerage_fee", cq.getString(cq.getColumnIndex("brokerage_fee")));
+           // Toast.makeText(c,cq.getString(cq.getColumnIndex("rent_sale_status")),Toast.LENGTH_LONG).show();
+            if(!"Sell".equalsIgnoreCase(cq.getString(cq.getColumnIndex("rent_sale_status")))){
+                params.put("ap_brokerage_fee", cq.getString(cq.getColumnIndex("brokerage_fee")));
+                params.put("ap_food", cq.getString(cq.getColumnIndex("food")));
+                params.put("ap_lease_type", cq.getString(cq.getColumnIndex("lease_type")));
+                params.put("ap_pets_allowed", cq.getString(cq.getColumnIndex("pets_allowed")));
+                params.put("ap_security_deposit", cq.getString(cq.getColumnIndex("security_deposit")));
+                params.put("ap_security_negotiable", cq.getString(cq.getColumnIndex("security_negotiable")));
+            }
+
             params.put("ap_maintainance", cq.getString(cq.getColumnIndex("maintainance")));
-            params.put("ap_food", cq.getString(cq.getColumnIndex("food")));
-            params.put("ap_lease_type", cq.getString(cq.getColumnIndex("lease_type")));
-            params.put("ap_pets_allowed", cq.getString(cq.getColumnIndex("pets_allowed")));
+
             params.put("ap_rent_negotiable", cq.getString(cq.getColumnIndex("rent_negotiable")));
-            params.put("ap_security_negotiable", cq.getString(cq.getColumnIndex("security_negotiable")));
-            params.put("ap_security_deposit", cq.getString(cq.getColumnIndex("security_deposit")));
+
+
             //  params.put("ap_availability_date", cq.getString(cq.getColumnIndex("availability_date")));
 
 
@@ -1161,7 +1170,7 @@ public class DBHandler extends SQLiteOpenHelper {
             //   Log.d("JSONDATA", new JSONObject(params).toString());
             longInfo(new JSONObject(params).toString());
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://staging.homeonline.com/dbho/Api/update",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://qc.homeonline.com/dbho/Api/update",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -1227,7 +1236,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
                     String credentials = username + ":" + password;
                     String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-                    headerMap.put("Authorization", "Basic " + encodedCredentials);
+                  //  headerMap.put("Authorization", "Basic " + encodedCredentials);
                     headerMap.put("Content-Type", "application/x-www-form-urlencoded");
                     headerMap.put("abc", "value");
 
@@ -1365,6 +1374,18 @@ public class DBHandler extends SQLiteOpenHelper {
         return b;
     }
 
+    public boolean getRentSaleStatus() {
+        SQLiteDatabase db = super.getReadableDatabase();
+
+        Cursor cq = db.rawQuery("Select * from Appointments where id=?", new String[]{Appointment.clicked});
+        boolean status=false;
+        if (cq.moveToNext()&& "Rent".equalsIgnoreCase(cq.getString(cq.getColumnIndex("rent_sale_status"))) )
+            status= true;
+        cq.close();
+        db.close();
+        return status;
+    }
+
 
     public class UploadFileToServer extends AsyncTask<Void, Void, String> {
 
@@ -1388,7 +1409,7 @@ public class DBHandler extends SQLiteOpenHelper {
             String responseString = null;
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://staging.homeonline.com/dbho/Api/image");
+            HttpPost httppost = new HttpPost("http://qc.homeonline.com/dbho/Api/image");
 
             File sourceFile = new File(image_location);
             try {
@@ -1420,7 +1441,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
                 String authorizationString = "Basic " + Base64.encodeToString(("homeonline" + ":" + "helloworld2016")
                         .getBytes(), Base64.NO_WRAP); //this line is diffe
-                httppost.setHeader("Authorization", authorizationString);
+              //  httppost.setHeader("Authorization", authorizationString);
 
                 // Making server call
                 HttpResponse response = httpclient.execute(httppost);

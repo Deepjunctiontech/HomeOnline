@@ -38,7 +38,8 @@
                         android:layout_margin="16dp"
                         android:ems="10"
                         android:hint="Plot Area"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:focusable="false"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -53,7 +54,8 @@
                         android:layout_margin="16dp"
                         android:ems="10"
                         android:hint="Built-Up Area"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:focusable="false"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -69,7 +71,8 @@
                         android:layout_margin="16dp"
                         android:ems="10"
                         android:hint="Carpet Area"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:focusable="false"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
@@ -264,7 +267,7 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="50"
                         android:gravity="center"
-                        android:text="Number Of Floors"
+                        android:text="Total Floor"
                         android:textColor="@color/highlight"
                         android:textSize="15sp" />
 

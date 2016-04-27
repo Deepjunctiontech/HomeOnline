@@ -251,7 +251,10 @@ public class Kitchen extends AppCompatActivity {
             boolean ch = checkRemainingSpinnerValue();
             if (ch) {
                 Toast.makeText(this, "NEXT", Toast.LENGTH_LONG).show();
+                if(db.getRentSaleStatus())
                 startActivity(new Intent(this, RentScreen.class));
+                else
+                    startActivity(new Intent(this, Pricing1.class));
                 finish();
             }
         }
@@ -282,7 +285,10 @@ public class Kitchen extends AppCompatActivity {
 
         boolean ch = checkRemainingSpinnerValue();
         if (ch) {
-            startActivity(new Intent(this, RentScreen.class));
+            if(db.getRentSaleStatus())
+                startActivity(new Intent(this, RentScreen.class));
+            else
+                startActivity(new Intent(this, Pricing1.class));
             finish();
         }
     }

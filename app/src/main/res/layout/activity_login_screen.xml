@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:ems="10"
-                    android:hint="Email Address"
+                    android:hint="User Id"
                     android:inputType="textEmailAddress|textPersonName" />
             </android.support.design.widget.TextInputLayout>
 
@@ -73,11 +73,11 @@
             <!-- android:background="#6efff5" -->
         </LinearLayout>
     </ScrollView>
-    <include
+    <!--<include
         layout="@layout/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        />
+        />-->
 
 </RelativeLayout>

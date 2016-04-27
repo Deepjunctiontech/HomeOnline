@@ -25,7 +25,7 @@ public class BathRoom extends AppCompatActivity {
             indian, westurn, marble, wood, ceramic, stone, latimate;
     private Spinner bathroom_spinner_floringtype;
     private DBHandler db;
-    private String flooringtype = "Marble Flooring";
+    private String flooringtype = "None";
     private Spinner bath_spinner_total;
     private static String bathroom_id = "1";
     private boolean status;

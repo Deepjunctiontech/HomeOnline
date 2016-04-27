@@ -28,7 +28,7 @@ public class AdvertiserDetail extends AppCompatActivity {
     String owner_type = "Freehold", owner_type_array[],floor_type_array[];
 
     private DBHandler db;
-    private String floor_type="Lower Basement";
+    private String floor_type="None";
 
 
     @Override

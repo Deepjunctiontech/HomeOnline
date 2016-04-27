@@ -22,13 +22,13 @@ public class Pricing1 extends AppCompatActivity {
     private DBHandler db;
     private String[] no_of_lifts_array, sale_status,units_array;
     private String[] frequency;
-    private String frequency_string="Monthly";
+    private String frequency_string="None";
     private EditText maintanance_edit;
     private CheckBox rent,price_plc, price_club,price_parking;
     private String[] number_of_floors;
     private String[] age_of_construction;
     private String age_of_construction_string="New Construction";
-    private String number_of_floors_string="1";
+    private String number_of_floors_string="None";
 
 
     @Override

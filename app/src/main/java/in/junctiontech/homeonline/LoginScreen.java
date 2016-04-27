@@ -138,7 +138,7 @@ public class LoginScreen extends Activity {
 
             RequestQueue queue = Volley.newRequestQueue(this);
             StringRequest strReq = new StringRequest(Request.Method.POST,
-                    "http://staging.homeonline.com/dbho/Api/login", new Response.Listener<String>() {
+                    "http://qc.homeonline.com/dbho/Api/login", new Response.Listener<String>() {
 
                 @Override
                 public void onResponse(String response) {
@@ -233,9 +233,9 @@ public class LoginScreen extends Activity {
 
                     String credentials = username + ":" + password;
                     String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-                    headerMap.put("Authorization", "Basic " + encodedCredentials);
+                  //  headerMap.put("Authorization", "Basic " + encodedCredentials);
                     headerMap.put("Content-Type","application/x-www-form-urlencoded");
-                    headerMap.put("abc", "value");
+                 //   headerMap.put("abc", "value");
 
                     return headerMap;
                 }

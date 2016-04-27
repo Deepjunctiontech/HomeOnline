@@ -65,7 +65,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
     private MyAdapter ma;
     private RadioButton rb_complete;
     private RadioButton rb_defrrred;
-    private RadioButton rb_cancelled;
+    //private RadioButton rb_cancelled;
     private RadioButton rb_reschedulled;
     private String ststus;
     private RelativeLayout rl;
@@ -128,7 +128,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
         pDialog.setMessage("Please wait while fetching data from server...");
         pDialog.setCancelable(false);
         pDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://staging.homeonline.com/dbho/Api/appointment",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://qc.homeonline.com/dbho/Api/appointment",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -564,7 +564,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
 
                 String credentials = username + ":" + password;
                 String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-                headerMap.put("Authorization", "Basic " + encodedCredentials);
+              //  headerMap.put("Authorization", "Basic " + encodedCredentials);
                 headerMap.put("Content-Type","application/x-www-form-urlencoded");
                 headerMap.put("abc", "value");
 
@@ -581,6 +581,10 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
 
     public void update() {
         String[][] abc = db.getAllData();
+        id = abc[3];
+        no = abc[2];
+        ma.setRent_sale_status(abc[6]);
+        ma.setDatetime(abc[5]);
         ma.updateTitle(abc[0]);
         ma.updateAddress(abc[1]);
         ma.updatePhone(abc[2]);
@@ -724,8 +728,8 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
         rb_complete.setText("Complete");
         rb_defrrred = new RadioButton(Appointment.this);
         rb_defrrred.setText("Deferred");
-        rb_cancelled = new RadioButton(Appointment.this);
-        rb_cancelled.setText("Cancelled");
+       /* rb_cancelled = new RadioButton(Appointment.this);
+        rb_cancelled.setText("Cancelled");*/
         rb_reschedulled = new RadioButton(Appointment.this);
         rb_reschedulled.setText("Rescheduled");
 
@@ -733,7 +737,7 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
         RadioGroup rg = new RadioGroup(Appointment.this);
         rg.addView(rb_complete);
         rg.addView(rb_defrrred);
-        rg.addView(rb_cancelled);
+       /* rg.addView(rb_cancelled);*/
         rg.addView(rb_reschedulled);
 
         ll.addView(rg);
@@ -749,9 +753,9 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
             rb_complete.setChecked(true);
         } else if (s.equalsIgnoreCase("Deferred")) {
             rb_defrrred.setChecked(true);
-        } else if (s.equalsIgnoreCase("Cancelled")) {
+        } /*else if (s.equalsIgnoreCase("Cancelled")) {
             rb_cancelled.setChecked(true);
-        } else if (s.equalsIgnoreCase("Rescheduled")) {
+        }*/ else if (s.equalsIgnoreCase("Rescheduled")) {
             rb_reschedulled.setChecked(true);
         }
 
@@ -790,10 +794,10 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
 
             startActivity(new Intent(this, Help.class));
         }
-        else if(id==R.id.main_screen_junctiontech) {
+       /* else if(id==R.id.main_screen_junctiontech) {
             //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, AboutJunctionTech.class));
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -816,6 +820,14 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
             this.rent_sale_status = rent_sale_status;
 
 
+        }
+
+        public void setRent_sale_status(String[] rent_sale_status) {
+            this.rent_sale_status = rent_sale_status;
+        }
+
+        public void setDatetime(String[] datetime) {
+            this.datetime = datetime;
         }
 
         public void updateStatus(String[] status) {
@@ -905,10 +917,10 @@ public class Appointment extends AppCompatActivity implements SwipeRefreshLayout
                 ststus = rb_defrrred.getText().toString();
 
             }
-            if (rb_cancelled.isChecked()) {
+            /*if (rb_cancelled.isChecked()) {
                 ststus = rb_cancelled.getText().toString();
 
-            }
+            }*/
             if (rb_reschedulled.isChecked()) {
                 ststus = rb_reschedulled.getText().toString();
 

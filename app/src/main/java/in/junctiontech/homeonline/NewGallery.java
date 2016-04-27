@@ -386,7 +386,15 @@ public class NewGallery extends AppCompatActivity {
 
               //  options=  shrink(1098,732);
                 options.inSampleSize = 4;
+
                 bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
+                //compressImage("medium", bitmap, 75);
+
+                // this code is for rotation date 6 mar 2016
+               /* Matrix mat = new Matrix();
+                mat.postRotate(90);
+                bitmap= Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),mat,true);
+*/
                 compressImage("medium", bitmap, 75);
 
 

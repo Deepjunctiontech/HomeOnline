@@ -12,6 +12,8 @@
     <string name="title_activity_task">Appointment</string>
 
     <array name="sale_status">
+
+        <item>"None"</item>
         <item>"New"</item>
         <item>"Resale"</item>
     </array>
@@ -28,8 +30,9 @@
     
 
     <array name="frequency">
+        <item>"None"</item>
         <item>"Monthly"</item>
-        <item>"Quaterly"</item>
+        <item>"Quarterly"</item>
         <item>"Half-Yearly"</item>
         <item>"Yearly"</item>
         <item>"One Time"</item>
@@ -42,7 +45,7 @@
         <item>"2"</item>
         <item>"3"</item>
         <item>"4"</item>
-
+        <item>"5"</item>
     </array>
 
     <array name="owner_type">
@@ -64,10 +67,11 @@
     </array>
 
     <array name="lease_type">
+        <item>"No Restriction"</item>
         <item>"Family"</item>
         <item>"Bachelors"</item>
         <item>"Company"</item>
-        <item>"No Restriction"</item>
+
     </array>
 
     <array name="security_deposit">
@@ -81,6 +85,7 @@
 
 
     <array name="brokerage_days">
+        <item>"None"</item>
         <item>"15Days"</item>
         <item>"30Days"</item>
         <item>"45Days"</item>
@@ -90,6 +95,7 @@
 
 
     <array name="balcony">
+        <item>"None"</item>
         <item>"Marble Flooring"</item>
         <item>"Granite Flooring"</item>
         <item>"Laminated Flooring"</item>
@@ -133,6 +139,7 @@
 
 
     <array name="furnishing_status">
+        <item>"None"</item>
         <item>"Unfurnished"</item>
         <item>"Semi furnished"</item>
         <item>"Fully furnished"</item>
@@ -240,6 +247,7 @@
     </array>
 
     <array name="no_of_floors">
+        <item>"None"</item>
         <item>"Lower Basement"</item>
         <item>"Upper Basement"</item>
         <item>"Ground"</item>
@@ -296,6 +304,7 @@
     </array>
 
     <array name="number_of_floors">
+        <item>"None"</item>
         <item>"1"</item>
         <item>"2"</item>
         <item>"3"</item>
@@ -366,6 +375,7 @@
         <item>"Anti Skid Tiles"</item>
     </array>
 <array name="bathroom_flooring">
+    <item>"None"</item>
     <item>"Marble Flooring"</item>
     <item>"Granite Flooring"</item>
     <item>"Stone Flooring"</item>

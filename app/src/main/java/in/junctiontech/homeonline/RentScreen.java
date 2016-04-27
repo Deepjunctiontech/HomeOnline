@@ -32,7 +32,7 @@ public class RentScreen extends AppCompatActivity {
     private Calendar calendar;
     private int year,month,day;
     private String[] brokerage_day_array;
-    private String brokerage_day = "15Days";
+    private String brokerage_day = "None";
     private String[] security_deposit_array;
     private String security_deposit= "No Security Deposit";
     //  private Button rentscreen_et_possesion_date;

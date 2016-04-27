@@ -42,6 +42,12 @@ public class STEP2 extends AppCompatActivity {
         //getSupportActionBar().setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.highlight)));
         getSupportActionBar().setSubtitle(b.getString("description"));
 
+        if(db.getRentSaleStatus())
+            detail_btn_rentScreen.setVisibility(View.VISIBLE);
+        else
+            detail_btn_rentScreen.setVisibility(View.GONE);
+
+
 
         String status_basic_property=db.getButtonStatus("Appointments","status_property_detail");
         if(status_basic_property==null);
@@ -146,10 +152,10 @@ public class STEP2 extends AppCompatActivity {
 
             startActivity(new Intent(this,Help.class));
         }
-        else if(id==R.id.main_screen_junctiontech) {
+        /*else if(id==R.id.main_screen_junctiontech) {
             //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, AboutJunctionTech.class));
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

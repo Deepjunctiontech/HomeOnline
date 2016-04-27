@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.NavigationView;
@@ -25,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -117,10 +115,10 @@ public class MainScreen extends AppCompatActivity implements NavigationView.OnNa
            startActivity(new Intent(this, AboutUs.class));
         }
 
-        else if(id==R.id.main_screen_junctiontech) {
+       /* else if(id==R.id.main_screen_junctiontech) {
             //  Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, AboutJunctionTech.class));
-        }
+        }*/
         else {
             // Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
 
@@ -246,7 +244,7 @@ public class MainScreen extends AppCompatActivity implements NavigationView.OnNa
             lv_for_status.setAdapter(myadp);
         }
         else
-            lv_for_status.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new String[]{"Currently No Apppointment Available"}));
+            lv_for_status.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new String[]{"Currently No Appointment Available"}));
 
 
     }
