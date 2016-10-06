@@ -1,8 +1,7 @@
 <application>
-  <component name="FileTypeManager" version="16">
+  <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="item_border_category.xml" type="PLAIN_TEXT" />
-      <mapping ext="webp" type="PLAIN_TEXT" />
       <mapping pattern="item_border_category" type="XML" />
     </extensionMap>
   </component>
